@@ -66,7 +66,8 @@
                 <div class="d-flex flex-column gap-2">
                     <label style="white-space: nowrap;">Date From</label>
                     <div class="custom-input">
-                        <input type="date" [(ngModel)]="filterDateFrom" style="width: 100%;">
+                        <input type="date" #pickerFrom (click)="pickerFrom.showPicker()" [(ngModel)]="filterDateFrom"
+                            style="width: 100%;">
                     </div>
                 </div>
             </div>
@@ -74,7 +75,8 @@
                 <div class="d-flex flex-column gap-2">
                     <label style="white-space: nowrap;">Date To</label>
                     <div class="custom-input">
-                        <input type="date" [(ngModel)]="filterDateTo" style="width: 100%;">
+                        <input type="date" #pickerTo (click)="pickerTo.showPicker()" [(ngModel)]="filterDateTo"
+                            style="width: 100%;">
                     </div>
                 </div>
             </div>
@@ -145,7 +147,8 @@
         <h4 style="margin-bottom: 10px;">{{ materialName }} — Details Report</h4>
         <div style="margin-bottom: 20px; font-size: 14px;">
             <div style="display: flex; justify-content: space-between;">
-                <p style="margin: 0;"><strong>Total Purchased:</strong> {{ totalQuantity | number }} {{ materialUnit }}</p>
+                <p style="margin: 0;"><strong>Total Purchased:</strong> {{ totalQuantity | number }} {{ materialUnit }}
+                </p>
                 <p style="margin: 0;"><strong>Total Spent:</strong> Rs. {{ totalAmount | number }}</p>
             </div>
             <p style="margin-top: 5px;" *ngIf="filterSite || filterDateFrom || filterDateTo">
