@@ -1,1 +1,66 @@
-<p>materials-table works!</p>
+<div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
+
+    <div
+        class="single-card-dashboard account-info box-dashboard-dashboard d-flex align-items-center justify-content-between">
+        <h3 class="title title-top-primary"><i class="fa-solid fa-boxes-stacked"></i>Materials</h3>
+        <button class="tmp-btn btn-primary hover-icon-reverse btn-sm no-print" (click)="downloadReport()">
+            <span class="icon-reverse-wrapper">
+                <span class="btn-text">Download Report</span>
+                <span class="btn-icon"><i class="fa-solid fa-file-pdf"></i></span>
+                <span class="btn-icon"><i class="fa-solid fa-file-pdf"></i></span>
+            </span>
+        </button>
+    </div>
+
+    <div class="single-card-dashboard account-info box-dashboard-dashboard">
+
+        <!-- Search Bar -->
+        <div class="mb-4 no-print">
+            <div class="d-flex align-items-center gap-2"
+                style="border: 1px solid #dee2e6; border-radius: 8px; padding: 8px 16px; max-width: 400px;">
+                <i class="fa-solid fa-magnifying-glass" style="color: #999;"></i>
+                <input type="text" [(ngModel)]="searchQuery" placeholder="Search materials..."
+                    style="border: none; outline: none; width: 100%; font-size: 14px;">
+            </div>
+        </div>
+
+        <div class="invers-dashboard-table table-responsive mobile-table-750">
+            <table class="invers-table table table-borderless">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Material Name</th>
+                        <th>Unit</th>
+                        <th>Rate</th>
+                        <th>Stock</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let material of filteredMaterials; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <th>{{ material.name }}</th>
+                        <td>{{ material.unit }}</td>
+                        <td>{{ material.rate | number }}</td>
+                        <td>{{ material.stock | number }}</td>
+                        <td>
+                            <div class="d-flex gap-3">
+                                <a [routerLink]="['../view-material-details', material.id]" role="button"
+                                    class="text-success"><i class="fa-regular fa-eye"></i>View Details</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="filteredMaterials.length === 0">
+                        <td colspan="7" class="text-center py-4" style="color: #999;">
+                            <i class="fa-solid fa-search" style="font-size: 24px;"></i>
+                            <p class="mt-2 mb-0">No materials found matching "{{ searchQuery }}"</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>

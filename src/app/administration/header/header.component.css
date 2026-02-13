@@ -10,3 +10,9 @@
     }
     
 }
+header.header-seven .header-mid-one-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+}

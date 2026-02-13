@@ -1,1 +1,138 @@
-<p>view-materials-details works!</p>
+<div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
+
+    <div
+        class="single-card-dashboard account-info box-dashboard-dashboard d-flex align-items-center justify-content-between">
+        <h3 class="title title-top-primary"><i class="fa-solid fa-boxes-stacked"></i>{{ materialName }} — Details</h3>
+        <div class="d-flex gap-2 no-print">
+            <button class="tmp-btn btn-primary hover-icon-reverse btn-sm" (click)="downloadReport()">
+                <span class="icon-reverse-wrapper">
+                    <span class="btn-text">Download Report</span>
+                    <span class="btn-icon"><i class="fa-solid fa-file-pdf"></i></span>
+                    <span class="btn-icon"><i class="fa-solid fa-file-pdf"></i></span>
+                </span>
+            </button>
+           
+        </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="single-card-dashboard account-info box-dashboard-dashboard text-center">
+                <div style="font-size: 14px; color: #999; margin-bottom: 4px;">Total Purchased</div>
+                <div style="font-size: 24px; font-weight: 600; color: #333;">{{ totalQuantity | number }}
+                    <span style="font-size: 14px; font-weight: 400; color: #999;">{{ materialUnit }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="single-card-dashboard account-info box-dashboard-dashboard text-center">
+                <div style="font-size: 14px; color: #999; margin-bottom: 4px;">Total Spent</div>
+                <div style="font-size: 24px; font-weight: 600; color: #333;">Rs. {{ totalAmount | number }}</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="single-card-dashboard account-info box-dashboard-dashboard text-center">
+                <div style="font-size: 14px; color: #999; margin-bottom: 4px;">Average Rate</div>
+                <div style="font-size: 24px; font-weight: 600; color: #333;">Rs. {{ averageRate | number }}
+                    <span style="font-size: 14px; font-weight: 400; color: #999;">/ {{ materialUnit }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="single-card-dashboard account-info box-dashboard-dashboard no-print">
+        <div class="row mb-4">
+            <div class="col-md-4 mb-3">
+            <div class="d-flex flex-column gap-2">
+                <label style="white-space: nowrap;">Filter by Site</label>
+                <div class="invers-modern-select">
+                    <div class="select">
+                        <div class="selectBtn" (click)="isSiteDropdownOpen = !isSiteDropdownOpen">{{ filterSite || 'All
+                            Sites' }}</div>
+                        <div class="selectDropdown" [class.toggle]="isSiteDropdownOpen">
+                            <div class="option" (click)="selectSiteFilter('')">All Sites</div>
+                            <div class="option" *ngFor="let site of sites" (click)="selectSiteFilter(site)">{{ site }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="d-flex flex-column gap-2">
+                    <label style="white-space: nowrap;">Date From</label>
+                    <input type="date" [(ngModel)]="filterDateFrom">
+                </div>
+                </div>
+            <div class="col-md-4 mb-3">
+                <div class="d-flex flex-column gap-2">
+                    <label style="white-space: nowrap;">Date To</label>
+                    <input type="date" [(ngModel)]="filterDateTo">
+                </div>
+                </div>
+            <div class="col-md-12">
+                <div class="d-flex justify-content-end w-100 gap-2">
+                    <button class="tmp-btn btn-primary hover-icon-reverse btn-sm" (click)="applyFilters()">
+                        <span class="icon-reverse-wrapper">
+                            <span class="btn-text">Apply</span>
+                            <span class="btn-icon"><i class="fa-solid fa-filter"></i></span>
+                            <span class="btn-icon"><i class="fa-solid fa-filter"></i></span>
+                        </span>
+                    </button>
+                    <button class="tmp-btn btn-secondary hover-icon-reverse btn-sm" (click)="clearFilters()">
+                        <span class="icon-reverse-wrapper">
+                            <span class="btn-text">Clear</span>
+                            <span class="btn-icon"><i class="fa-solid fa-xmark"></i></span>
+                            <span class="btn-icon"><i class="fa-solid fa-xmark"></i></span>
+                        </span>
+                    </button>
+                </div>
+                </div>
+        </div>
+
+        <!-- Records Table -->
+        <div class="invers-dashboard-table table-responsive mobile-table-750">
+            <table class="invers-table table table-borderless">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Site</th>
+                        <th>Qty ({{ materialUnit }})</th>
+                        <th>Rate</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let record of filteredRecords; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ record.date }}</td>
+                        <td>{{ record.site }}</td>
+                        <td>{{ record.quantity | number }}</td>
+                        <td>{{ record.rate | number }}</td>
+                        <td>{{ record.total | number }}</td>
+                    </tr>
+                    <tr *ngIf="filteredRecords.length === 0">
+                        <td colspan="7" class="text-center py-4" style="color: #999;">
+                            <i class="fa-solid fa-filter-circle-xmark" style="font-size: 24px;"></i>
+                            <p class="mt-2 mb-0">No records match the selected filters</p>
+                        </td>
+                    </tr>
+                    <!-- Total Row -->
+                    <tr *ngIf="filteredRecords.length > 0"
+                        style="font-weight: bold; background: #f8f9fa; border-top: 2px solid #dee2e6;">
+                        <td colspan="3"><strong>Total</strong></td>
+                        <td><strong>{{ totalQuantity | number }}</strong></td>
+                        <td><strong>{{ averageRate | number }} (avg)</strong></td>
+                        <td><strong>{{ totalAmount | number }}</strong></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>

@@ -39,7 +39,7 @@ const routes: Routes = [
       { path: 'faq-list', component: FaqTableComponent },
       { path: 'add-gallery-item', component: AddGalleryItemComponent },
       { path: 'gallery-item-list', component: GalleryTableComponent },
-      { path: 'view-material-detials', component: ViewMaterialsDetailsComponent },
+      { path: 'view-material-details/:id', component: ViewMaterialsDetailsComponent },
       { path: 'materials-list', component: MaterialsTableComponent },
       { path: 'add-site', component: AddSiteComponent },
       { path: 'site-list', component: SitesTableComponent },
