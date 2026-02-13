@@ -1,0 +1,53 @@
+<div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
+
+    <div
+        class="single-card-dashboard account-info box-dashboard-dashboard d-flex align-items-center justify-content-between">
+        <h3 class="title title-top-primary"><i class="fa-solid fa-image"></i> Banner List</h3>
+        <a routerLink="../add-banner" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+            <span class="icon-reverse-wrapper">
+                <span class="btn-text">Add Banner</span>
+                <span class="btn-icon"><i class="fa-solid fa-add"></i></span>
+                <span class="btn-icon"><i class="fa-solid fa-add"></i></span>
+            </span>
+        </a>
+    </div>
+
+    <div class="single-card-dashboard account-info box-dashboard-dashboard">
+
+        <table class="invers-table table table-borderless">
+            <thead>
+                <tr>
+                    <th>Tagline</th>
+                    <th>Main Heading</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let banner of banners">
+                    <th>{{ banner.tagline }}</th>
+                    <td>{{ banner.heading }}</td>
+                    <td>{{ banner.description.length > 80 ? (banner.description | slice:0:80) + '...' :
+                        banner.description }}</td>
+                    <td>
+                        <div class="d-flex gap-3">
+                            <a href="javascript:void(0)"
+                                class="cursor-pointer d-flex gap-1 align-items-center text-primary"
+                                (click)="editBanner(banner.id)">
+                                <i class="fa-regular fa-pen-to-square"></i> Edit
+                            </a>
+                            <a href="javascript:void(0)"
+                                class="cursor-pointer d-flex gap-1 align-items-center text-danger"
+                                (click)="deleteBanner(banner.id)">
+                                <i class="fa-light fa-trash-can"></i> Delete
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

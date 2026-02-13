@@ -1,0 +1,253 @@
+<div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
+
+    <div
+        class="single-card-dashboard account-info box-dashboard-dashboard d-flex align-items-center justify-content-between no-print">
+        <h3 class="title title-top-primary"><i class="fa-regular fa-building"></i>Add Site Information</h3>
+        <a routerLink="../add-site-info" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+            <span class="icon-reverse-wrapper">
+                <span class="btn-text">Save Site Info</span>
+                <span class="btn-icon"><i class="fa-solid fa-save"></i></span>
+                <span class="btn-icon"><i class="fa-solid fa-save"></i></span>
+            </span>
+        </a>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 no-print">
+                <div class="single-input">
+                    <div class="invers-modern-select">
+                        <div class="select">
+                            <div class="selectBtn" (click)="isDropdownOpen = !isDropdownOpen">{{ selectedSite || 'Select
+                                Site' }}</div>
+                            <div class="selectDropdown" [class.toggle]="isDropdownOpen">
+                                <div class="option" *ngFor="let site of sites" (click)="selectSite(site)">{{ site }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 d-flex flex-wrap justify-content-end gap-3 mb-4 no-print">
+                <button class="tmp-btn btn-secondary hover-icon-reverse btn-sm" (click)="downloadPDF()">
+                    <span class="icon-reverse-wrapper">
+                        <span class="btn-text">Download PDF</span>
+                        <span class="btn-icon"><i class="fa-solid fa-file-pdf"></i></span>
+                        <span class="btn-icon"><i class="fa-solid fa-file-pdf"></i></span>
+                    </span>
+                </button>
+                <button class="tmp-btn btn-info hover-icon-reverse btn-sm" (click)="toggleTranslate()">
+                    <span class="icon-reverse-wrapper">
+                        <span class="btn-text">Translate</span>
+                        <span class="btn-icon"><i class="fa-solid fa-language"></i></span>
+                        <span class="btn-icon"><i class="fa-solid fa-language"></i></span>
+                    </span>
+                </button>
+                <label class="tmp-btn btn-warning hover-icon-reverse btn-sm" style="cursor: pointer;">
+                    <span class="icon-reverse-wrapper">
+                        <span class="btn-text">Upload Receipt</span>
+                        <span class="btn-icon"><i class="fa-solid fa-upload"></i></span>
+                        <span class="btn-icon"><i class="fa-solid fa-upload"></i></span>
+                    </span>
+                    <input type="file" accept="image/*" multiple (change)="onReceiptUpload($event)" hidden>
+                </label>
+            </div>
+            <!-- Receipts Gallery -->
+            <div *ngIf="receipts.length" class="col-12 mt-3 p-3 no-print"
+                style="border: 1px solid #dee2e6; border-radius: 8px;">
+                <h5>Uploaded Receipts</h5>
+                <div class="d-flex flex-wrap gap-3 mt-3">
+                    <div *ngFor="let receipt of receipts; let i = index"
+                        style="position: relative; display: inline-block; border: 1px solid #dee2e6; border-radius: 8px; overflow: hidden;">
+                        <img [src]="receipt" alt="Receipt {{ i + 1 }}"
+                            style="width: 200px; height: 150px; object-fit: cover; display: block;">
+                        <div class="d-flex justify-content-center gap-1 p-2" style="background: #f8f9fa;">
+                            <button class="tmp-btn btn-primary hover-icon-reverse btn-sm" (click)="viewReceipt(i)"
+                                title="View">
+                                <span class="icon-reverse-wrapper">
+                                    <span class="btn-icon"><i class="fa-solid fa-eye"></i></span>
+                                    <span class="btn-icon"><i class="fa-solid fa-eye"></i></span>
+                                </span>
+                            </button>
+                            <button class="tmp-btn btn-primary hover-icon-reverse btn-sm" (click)="downloadReceipt(i)"
+                                title="Download">
+                                <span class="icon-reverse-wrapper">
+                                    <span class="btn-icon"><i class="fa-solid fa-download"></i></span>
+                                    <span class="btn-icon"><i class="fa-solid fa-download"></i></span>
+                                </span>
+                            </button>
+                            <button class="tmp-btn btn-primary hover-icon-reverse btn-sm receipt-delete-btn"
+                                (click)="deleteReceipt(i)" title="Delete">
+                                <span class="icon-reverse-wrapper">
+                                    <span class="btn-icon"><i class="fa-solid fa-trash"></i></span>
+                                    <span class="btn-icon"><i class="fa-solid fa-trash"></i></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Receipt View Modal -->
+            <div *ngIf="activeReceiptIndex !== null" class="receipt-modal" (click)="closeReceiptModal()">
+                <div class="receipt-modal-content" (click)="$event.stopPropagation()">
+                    <button class="btn btn-light btn-sm receipt-modal-close" (click)="closeReceiptModal()">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                    <img [src]="receipts[activeReceiptIndex]" alt="Receipt">
+                </div>
+            </div>
+        </div>
+        <div [dir]="isUrdu ? 'rtl' : 'ltr'" [class.urdu-font]="isUrdu">
+            <div class="row">
+                <div class="col-6 mb-4">
+                    <div class="d-flex custom-input align-items-center gap-3">
+                        <label for="">{{ t('Date Started') }}</label>
+                        <input type="date" [(ngModel)]="dateStarted" [ngModelOptions]="{standalone: true}"
+                            [class.has-value]="dateStarted">
+                    </div>
+                </div>
+                <div class="col-6 mb-4">
+                    <div class="d-flex custom-input align-items-center gap-3">
+                        <label for="">{{ t('Date Ended') }}</label>
+                        <input type="date" [(ngModel)]="dateEnded" [ngModelOptions]="{standalone: true}"
+                            [class.has-value]="dateEnded">
+                    </div>
+                </div>
+                <div class="col-4 mb-4">
+                    <div class="d-flex custom-input align-items-center gap-3">
+                        <label for="">{{ t('Block No.') }}</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="col-4 mb-4">
+                    <div class="d-flex custom-input align-items-center gap-3">
+                        <label for="">{{ t('Street No.') }}</label>
+                        <input type="text">
+                    </div>
+                </div>
+                <div class="col-4 mb-4">
+                    <div class="d-flex custom-input align-items-center gap-3">
+                        <label for="" class="text-nowrap">{{ t('House/Plaza No.') }}</label>
+                        <input type="text">
+                    </div>
+                </div>
+
+            </div>
+            <div class="table-responsive mt-4">
+                <table class="table" border="1" style="border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th colspan="2">{{ t('Item') }}</th>
+                            <th>{{ t('Rate') }}</th>
+                            <th>{{ t('Qty') }}</th>
+                            <th>{{ t('Total') }}</th>
+                            <th colspan="2">{{ t('Item') }}</th>
+                            <th>{{ t('Rate') }}</th>
+                            <th>{{ t('Qty') }}</th>
+                            <th>{{ t('Total') }}</th>
+                            <th colspan="2">{{ t('Item') }}</th>
+                            <th>{{ t('Rate') }}</th>
+                            <th>{{ t('Qty') }}</th>
+                            <th>{{ t('Total') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let leftItem of itemsData.left; let i = index">
+                            <!-- Left Column -->
+                            <td colspan="2">{{ t(leftItem.name) }}</td>
+                            <td><input type="number" [(ngModel)]="leftItem.rate"
+                                    (ngModelChange)="calculateTotal(leftItem)">
+                            </td>
+                            <td><input type="number" [(ngModel)]="leftItem.quantity"
+                                    (ngModelChange)="calculateTotal(leftItem)"></td>
+                            <td>{{ leftItem.total }}</td>
+
+                            <!-- Middle Column -->
+                            <td colspan="2">{{ t(itemsData.middle[i]?.name) }}</td>
+                            <td><input type="number" [(ngModel)]="itemsData.middle[i].rate"
+                                    (ngModelChange)="calculateTotal(itemsData.middle[i])"></td>
+                            <td><input type="number" [(ngModel)]="itemsData.middle[i].quantity"
+                                    (ngModelChange)="calculateTotal(itemsData.middle[i])"></td>
+                            <td>{{ itemsData.middle[i]?.total }}</td>
+
+                            <!-- Right Column -->
+                            <td colspan="2">{{ t(itemsData.right[i]?.name) }}</td>
+                            <td><input type="number" [(ngModel)]="itemsData.right[i].rate"
+                                    (ngModelChange)="calculateTotal(itemsData.right[i])"></td>
+                            <td><input type="number" [(ngModel)]="itemsData.right[i].quantity"
+                                    (ngModelChange)="calculateTotal(itemsData.right[i])"></td>
+                            <td>{{ itemsData.right[i]?.total }}</td>
+                        </tr>
+                        <!-- Total Row -->
+                        <tr style="font-weight: bold; background: #f8f9fa;">
+                            <td colspan="2">{{ t('Total') }}</td>
+                            <td></td>
+                            <td></td>
+                            <td>{{ getSectionTotal('left') }}</td>
+                            <td colspan="2">{{ t('Total') }}</td>
+                            <td></td>
+                            <td></td>
+                            <td>{{ getSectionTotal('middle') }}</td>
+                            <td colspan="2">{{ t('Total') }}</td>
+                            <td></td>
+                            <td></td>
+                            <td>{{ getSectionTotal('right') }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="print-page-break"></div>
+
+                <table class="table mt-4" border="1" style="border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th *ngFor="let header of attendanceHeaders">{{ t(header) }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of attendanceRows; let i = index">
+                            <td><input type="date" [(ngModel)]="row.date" [class.has-value]="row.date"></td>
+                            <td><input type="number" [(ngModel)]="row.engineerSalary"></td>
+                            <td><input type="number" [(ngModel)]="row.bajri"></td>
+                            <td><input type="number" [(ngModel)]="row.bajriPayment"></td>
+                            <td><input type="number" [(ngModel)]="row.sand"></td>
+                            <td><input type="number" [(ngModel)]="row.sandPayment"></td>
+                            <td><input type="number" [(ngModel)]="row.bricks"></td>
+                            <td><input type="number" [(ngModel)]="row.bricksPayment"></td>
+                            <td><input type="number" [(ngModel)]="row.cement"></td>
+                            <td><input type="number" [(ngModel)]="row.cementPayment"></td>
+                            <td><input type="number" [(ngModel)]="row.cementMinus"></td>
+                            <td><input type="number" [(ngModel)]="row.cementPlus"></td>
+                            <td><input type="number" [(ngModel)]="row.steel"></td>
+                            <td><input type="number" [(ngModel)]="row.steelPayment"></td>
+                            <td><input type="number" [(ngModel)]="row.steelPlus"></td>
+                            <td><input type="number" [(ngModel)]="row.steelMinus"></td>
+                        </tr>
+                        <!-- Total Row -->
+                        <tr>
+                            <td><strong>{{ t('Total') }}</strong></td>
+                            <td>{{ getColumnTotal('engineerSalary') }}</td>
+                            <td>{{ getColumnTotal('bajri') }}</td>
+                            <td>{{ getColumnTotal('bajriPayment') }}</td>
+                            <td>{{ getColumnTotal('sand') }}</td>
+                            <td>{{ getColumnTotal('sandPayment') }}</td>
+                            <td>{{ getColumnTotal('bricks') }}</td>
+                            <td>{{ getColumnTotal('bricksPayment') }}</td>
+                            <td>{{ getColumnTotal('cement') }}</td>
+                            <td>{{ getColumnTotal('cementPayment') }}</td>
+                            <td>{{ getColumnTotal('cementMinus') }}</td>
+                            <td>{{ getColumnTotal('cementPlus') }}</td>
+                            <td>{{ getColumnTotal('steel') }}</td>
+                            <td>{{ getColumnTotal('steelPayment') }}</td>
+                            <td>{{ getColumnTotal('steelPlus') }}</td>
+                            <td>{{ getColumnTotal('steelMinus') }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>

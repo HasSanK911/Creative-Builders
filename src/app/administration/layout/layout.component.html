@@ -1,0 +1,54 @@
+<app-header></app-header>
+
+<!-- user dashboard area start -->
+<div class="pb-4">
+    <div class="container-fluid">
+        <div class="row g-5">
+            <div class="col-lg-3 col-xl-2">
+                <div class="user-infor-left-sidebar-dashboard">
+                    <div class="author-profile">
+                        <h3 class="name">Mr. Chaudhry Waqas</h3>
+                    </div>
+                    <div class="dashboard-menu-area">
+                        <nav class="dashboard-mainmenu">
+                            <ul>
+                                <li><a routerLink="dashboard" routerLinkActive="active"><i
+                                            class="fa-regular fa-user"></i> Dashboard</a></li>
+                                <li><a routerLink="profile-settings" routerLinkActive="active"><i
+                                            class="fa-regular fa-user"></i> Profile Settings</a></li>
+                                <li><a routerLink="site-list" routerLinkActive="active"><i
+                                            class="fa-regular fa-user-pen"></i> My Sites</a></li>
+                                <li><a routerLink="site-info-table" routerLinkActive="active"><i
+                                            class="fa-regular fa-bag-shopping"></i> Sites Info</a></li>
+                                <li><a routerLink="materials-list" routerLinkActive="active"><i
+                                            class="fa-regular fa-address-card"></i> Materials</a></li>
+                                <li><a routerLink="gallery-item-list" routerLinkActive="active"><i
+                                            class="fa-light fa-treasure-chest"></i> Gallery</a></li>
+                                <li><a routerLink="team-member-list" routerLinkActive="active"><i
+                                            class="fa-regular fa-heart"></i> Our Team</a></li>
+                                <li><a routerLink="service-list" routerLinkActive="active"><i
+                                            class="fa-solid fa-cogs"></i> Services</a></li>
+                                <li><a routerLink="why-choose-us" routerLinkActive="active"><i
+                                            class="fa-solid fa-check-circle"></i> Why Choose Us</a></li>
+                                <li><a routerLink="testimonials-list" routerLinkActive="active"><i
+                                            class="fa-solid fa-quote-left"></i> Testimonials</a></li>
+                                <li><a routerLink="faq-list" routerLinkActive="active"><i
+                                            class="fa-solid fa-question-circle"></i> FAQ</a></li>
+                                <li><a routerLink="banner-list" routerLinkActive="active"><i
+                                            class="fa-solid fa-image"></i> Banner</a></li>
+                                <li><a routerLink="company-details" routerLinkActive="active"><i
+                                            class="fa-solid fa-building"></i> About Company</a></li>
+                                <li><a routerLink="contact-details" routerLinkActive="active"><i
+                                            class="fa-solid fa-envelope"></i> Contact Us</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-xl-10">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- user dashboard area end -->

@@ -1,0 +1,291 @@
+<div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
+
+    <div class="single-card-dashboard account-info box-dashboard-dashboard">
+        <h3 class="title title-top-primary"><i class="fa-solid fa-info-circle"></i> Add Service Details</h3>
+    </div>
+    <div class="single-card-dashboard account-info box-dashboard-dashboard">
+
+        <div class="edit-account-information">
+            <form action="#">
+                <!-- Main Section -->
+                <div class="section-divider mb--30">
+                    <h5 class="mb--10">Main Section</h5>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="mainTitle">Main Title*</label>
+                        <input type="text" id="mainTitle" name="mainTitle"
+                            placeholder="e.g., Comprehensive Construction Solutions" required autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="mainDescription">Main Description*</label>
+                        <textarea id="mainDescription" name="mainDescription" rows="4" class="border"
+                            placeholder="Enter the main service overview description..." required></textarea>
+                    </div>
+                </div>
+
+                <!-- Hero Image Upload -->
+                <div class="edit-profile-picture-area mb--20">
+                    <label class="d-block mb--10">Hero Image*</label>
+                    <div class="upload-wrapper">
+                        <div class="image-preview" id="heroImagePreview"
+                            style="width: 100%; max-width: 400px; height: 250px; border: 2px dashed var(--color-border); border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--color-lightest); margin: 0 auto;">
+                            <img src="" alt="Preview" id="heroPreviewImage"
+                                style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                            <span id="heroPlaceholderText"
+                                style="color: var(--color-body); font-size: 14px; text-align: center; padding: 20px;">
+                                <i class="fa-solid fa-image"
+                                    style="font-size: 40px; display: block; margin-bottom: 10px;"></i>
+                                Upload Hero Image
+                            </span>
+                        </div>
+                        <div class="upload-action d-flex justify-content-center mt--15">
+                            <a href="javascript:void(0)" class="tmp-btn btn-border hover-icon-reverse btn-sm"
+                                id="heroUploadBtn">
+                                <span class="icon-reverse-wrapper">
+                                    <span class="btn-text">Choose Hero Image</span>
+                                    <span class="btn-icon"><i class="fa-light fa-cloud-arrow-up"></i></span>
+                                    <span class="btn-icon"><i class="fa-light fa-cloud-arrow-up"></i></span>
+                                </span>
+                            </a>
+                            <input type="file" id="heroFileInput" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detail Sections -->
+                <div class="section-divider mb--30 mt--40">
+                    <h5 class="mb--10">Detail Sections (3 Cards)</h5>
+                </div>
+
+                <!-- Detail 1 -->
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="detail1Title">Detail 1 Title*</label>
+                        <input type="text" id="detail1Title" name="detail1Title"
+                            placeholder="e.g., Custom Building Plans" required autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="detail1Description">Detail 1 Description*</label>
+                        <textarea id="detail1Description" name="detail1Description" rows="3" class="border"
+                            placeholder="Enter detail 1 description..." required></textarea>
+                    </div>
+                </div>
+
+                <!-- Detail 2 -->
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="detail2Title">Detail 2 Title*</label>
+                        <input type="text" id="detail2Title" name="detail2Title"
+                            placeholder="e.g., Modern Building Solutions" required autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="detail2Description">Detail 2 Description*</label>
+                        <textarea id="detail2Description" name="detail2Description" rows="3" class="border"
+                            placeholder="Enter detail 2 description..." required></textarea>
+                    </div>
+                </div>
+
+                <!-- Detail 3 -->
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="detail3Title">Detail 3 Title*</label>
+                        <input type="text" id="detail3Title" name="detail3Title"
+                            placeholder="e.g., Flexible Budgeting Options" required autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="detail3Description">Detail 3 Description*</label>
+                        <textarea id="detail3Description" name="detail3Description" rows="3" class="border"
+                            placeholder="Enter detail 3 description..." required></textarea>
+                    </div>
+                </div>
+
+                <!-- Secondary Section -->
+                <div class="section-divider mb--30 mt--40">
+                    <h5 class="mb--10">Secondary Section</h5>
+                </div>
+
+                <!-- Secondary Image Upload -->
+                <div class="edit-profile-picture-area mb--20">
+                    <label class="d-block mb--10">Secondary Image*</label>
+                    <div class="upload-wrapper">
+                        <div class="image-preview" id="secondaryImagePreview"
+                            style="width: 100%; max-width: 400px; height: 250px; border: 2px dashed var(--color-border); border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--color-lightest); margin: 0 auto;">
+                            <img src="" alt="Preview" id="secondaryPreviewImage"
+                                style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                            <span id="secondaryPlaceholderText"
+                                style="color: var(--color-body); font-size: 14px; text-align: center; padding: 20px;">
+                                <i class="fa-solid fa-image"
+                                    style="font-size: 40px; display: block; margin-bottom: 10px;"></i>
+                                Upload Secondary Image
+                            </span>
+                        </div>
+                        <div class="upload-action d-flex justify-content-center mt--15">
+                            <a href="javascript:void(0)" class="tmp-btn btn-border hover-icon-reverse btn-sm"
+                                id="secondaryUploadBtn">
+                                <span class="icon-reverse-wrapper">
+                                    <span class="btn-text">Choose Secondary Image</span>
+                                    <span class="btn-icon"><i class="fa-light fa-cloud-arrow-up"></i></span>
+                                    <span class="btn-icon"><i class="fa-light fa-cloud-arrow-up"></i></span>
+                                </span>
+                            </a>
+                            <input type="file" id="secondaryFileInput" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="benefitsTitle">Benefits Section Title*</label>
+                        <input type="text" id="benefitsTitle" name="benefitsTitle"
+                            placeholder="e.g., Long-term Benefits" required autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="benefitsDescription">Benefits Description*</label>
+                        <textarea id="benefitsDescription" name="benefitsDescription" rows="3" class="border"
+                            placeholder="Enter benefits description..." required></textarea>
+                    </div>
+                </div>
+
+                <!-- Services Section -->
+                <div class="section-divider mb--30 mt--40">
+                    <h5 class="mb--10">Services Offered Section</h5>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="servicesHeading">Services Heading*</label>
+                        <input type="text" id="servicesHeading" name="servicesHeading"
+                            placeholder="e.g., Services We Offer" required autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="servicesDescription">Services Description*</label>
+                        <textarea id="servicesDescription" name="servicesDescription" rows="3" class="border"
+                            placeholder="Enter services description..." required></textarea>
+                    </div>
+                </div>
+
+                <!-- Benefits Grid Section -->
+                <div class="section-divider mb--30 mt--40">
+                    <h5 class="mb--10">Benefits Cards (6 Items)</h5>
+                </div>
+
+                <!-- Benefit 1 -->
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="benefit1Title">Benefit 1 Title*</label>
+                        <input type="text" id="benefit1Title" name="benefit1Title"
+                            placeholder="e.g., Reliable Project Delivery" required autocomplete="off">
+                    </div>
+                    <div class="single-input">
+                        <label for="benefit1Description">Benefit 1 Description*</label>
+                        <textarea id="benefit1Description" name="benefit1Description" rows="2" class="border"
+                            placeholder="Enter benefit 1 description..." required></textarea>
+                    </div>
+                </div>
+
+                <!-- Benefit 2 -->
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="benefit2Title">Benefit 2 Title*</label>
+                        <input type="text" id="benefit2Title" name="benefit2Title"
+                            placeholder="e.g., Expert Engineering" required autocomplete="off">
+                    </div>
+                    <div class="single-input">
+                        <label for="benefit2Description">Benefit 2 Description*</label>
+                        <textarea id="benefit2Description" name="benefit2Description" rows="2" class="border"
+                            placeholder="Enter benefit 2 description..." required></textarea>
+                    </div>
+                </div>
+
+                <!-- Benefit 3 -->
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="benefit3Title">Benefit 3 Title*</label>
+                        <input type="text" id="benefit3Title" name="benefit3Title" placeholder="e.g., Skilled Workforce"
+                            required autocomplete="off">
+                    </div>
+                    <div class="single-input">
+                        <label for="benefit3Description">Benefit 3 Description*</label>
+                        <textarea id="benefit3Description" name="benefit3Description" rows="2" class="border"
+                            placeholder="Enter benefit 3 description..." required></textarea>
+                    </div>
+                </div>
+
+                <!-- Benefit 4 -->
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="benefit4Title">Benefit 4 Title*</label>
+                        <input type="text" id="benefit4Title" name="benefit4Title"
+                            placeholder="e.g., Professional Services" required autocomplete="off">
+                    </div>
+                    <div class="single-input">
+                        <label for="benefit4Description">Benefit 4 Description*</label>
+                        <textarea id="benefit4Description" name="benefit4Description" rows="2" class="border"
+                            placeholder="Enter benefit 4 description..." required></textarea>
+                    </div>
+                </div>
+
+                <!-- Benefit 5 -->
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="benefit5Title">Benefit 5 Title*</label>
+                        <input type="text" id="benefit5Title" name="benefit5Title"
+                            placeholder="e.g., Smart Budget Planning" required autocomplete="off">
+                    </div>
+                    <div class="single-input">
+                        <label for="benefit5Description">Benefit 5 Description*</label>
+                        <textarea id="benefit5Description" name="benefit5Description" rows="2" class="border"
+                            placeholder="Enter benefit 5 description..." required></textarea>
+                    </div>
+                </div>
+
+                <!-- Benefit 6 -->
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="benefit6Title">Benefit 6 Title*</label>
+                        <input type="text" id="benefit6Title" name="benefit6Title"
+                            placeholder="e.g., Industry Expertise" required autocomplete="off">
+                    </div>
+                    <div class="single-input">
+                        <label for="benefit6Description">Benefit 6 Description*</label>
+                        <textarea id="benefit6Description" name="benefit6Description" rows="2" class="border"
+                            placeholder="Enter benefit 6 description..." required></textarea>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mt--30">
+                    <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+                        <span class="icon-reverse-wrapper">
+                            <span class="btn-text">Save Service Details</span>
+                            <span class="btn-icon"><i class="fa-solid fa-bookmark"></i></span>
+                            <span class="btn-icon"><i class="fa-solid fa-bookmark"></i></span>
+                        </span>
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

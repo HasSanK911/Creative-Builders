@@ -1,0 +1,69 @@
+<div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
+
+    <div class="single-card-dashboard account-info box-dashboard-dashboard">
+        <h3 class="title title-top-primary"><i class="fa-regular fa-images"></i> Add Gallery Images</h3>
+    </div>
+    <div class="single-card-dashboard account-info box-dashboard-dashboard">
+
+        <div class="edit-account-information">
+            <form action="#">
+                <!-- Multiple Image Upload -->
+                <div class="edit-profile-picture-area mb--20">
+                    <div class="upload-wrapper">
+                        <div class="image-preview-container" id="imagePreviewContainer"
+                            style="width: 100%; min-height: 250px; border: 2px dashed var(--color-border); border-radius: 8px; padding: 15px; background: var(--color-lightest);">
+                            <div id="imagePreviewGrid"
+                                style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px;">
+                                <div id="placeholderText"
+                                    style="color: var(--color-body); font-size: 14px; text-align: center; padding: 40px; grid-column: 1/-1;">
+                                    <i class="fa-solid fa-cloud-arrow-up"
+                                        style="font-size: 40px; display: block; margin-bottom: 10px;"></i>
+                                    Click "Upload Images" to select multiple photos
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="upload-action d-flex justify-content-end mt--15">
+                        <a href="javascript:void(0)" class="tmp-btn btn-border hover-icon-reverse" id="uploadBtn">
+                            <span class="icon-reverse-wrapper">
+                                <span class="btn-text">Upload Images</span>
+                                <span class="btn-icon"><i class="fa-light fa-cloud-arrow-up"></i></span>
+                                <span class="btn-icon"><i class="fa-light fa-cloud-arrow-up"></i></span>
+                            </span>
+                        </a>
+                        <input type="file" id="fileInput" accept="image/*" multiple style="display: none;">
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label>Select Site*</label>
+                        <div class="invers-modern-select">
+                            <div class="select">
+                                <div class="selectBtn" data-type="firstOption">Select Site</div>
+                                <div class="selectDropdown">
+                                    <div class="option" data-type="firstOption">Rizwan Heights</div>
+                                    <div class="option" data-type="secondOption">Ali's Home</div>
+                                    <div class="option" data-type="thirdOption">Lodhi's Arcade</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mt--20">
+                    <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+                        <span class="icon-reverse-wrapper">
+                            <span class="btn-text">Save Gallery Images</span>
+                            <span class="btn-icon"><i class="fa-solid fa-bookmark"></i></span>
+                            <span class="btn-icon"><i class="fa-solid fa-bookmark"></i></span>
+                        </span>
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

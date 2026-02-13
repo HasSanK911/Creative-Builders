@@ -1,0 +1,12 @@
+@media screen and (max-width: 768px) {
+    header.header-seven .header-mid-one-wrapper .header-right .single-component a.tmp-btn, header.header-six .header-top {
+        display: block;
+    }
+}
+
+@media screen and (max-width:1200px) {
+    .main-logo {
+        width: 50px !important;
+    }
+    
+}

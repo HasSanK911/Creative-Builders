@@ -1,0 +1,89 @@
+<div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
+
+    <div class="single-card-dashboard account-info box-dashboard-dashboard">
+        <h3 class="title title-top-primary"><i class="fa-solid fa-address-book"></i> Update Contact Details</h3>
+    </div>
+
+    <div class="single-card-dashboard account-info box-dashboard-dashboard">
+        <div class="edit-account-information">
+            <form>
+                <!-- Contact Information Section -->
+                <h3 class="title with-border-bottom mb--20">Contact Information</h3>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="phone">Contact Mobile Number*</label>
+                        <input type="text" id="phone" name="phone" placeholder="e.g., +92 324 7588007"
+                            [(ngModel)]="contactData.phone" required>
+                    </div>
+                    <div class="single-input">
+                        <label for="email">Email Address*</label>
+                        <input type="email" id="email" name="email" placeholder="e.g., creativebuilders@gmail.com"
+                            [(ngModel)]="contactData.email" required>
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="address">Head Office Location*</label>
+                        <textarea id="address" name="address" rows="3" class="border"
+                            placeholder="e.g., Rizwan Heights, Citi Housing Society, Jhelum"
+                            [(ngModel)]="contactData.address" required></textarea>
+                    </div>
+                </div>
+
+                <!-- Social Media Section -->
+                <h3 class="title with-border-bottom mt--30 mb--20">Social Media Connections</h3>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="facebook"><i class="fa-brands fa-facebook text-primary mr--5"></i> Facebook
+                            URL</label>
+                        <input type="url" id="facebook" name="facebook" placeholder="https://facebook.com/yourpage"
+                            [(ngModel)]="contactData.facebook">
+                    </div>
+                    <div class="single-input">
+                        <label for="twitter"><i class="fa-brands fa-twitter text-info mr--5"></i> Twitter URL</label>
+                        <input type="url" id="twitter" name="twitter" placeholder="https://twitter.com/yourhandle"
+                            [(ngModel)]="contactData.twitter">
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="instagram"><i class="fa-brands fa-instagram text-danger mr--5"></i> Instagram
+                            URL</label>
+                        <input type="url" id="instagram" name="instagram"
+                            placeholder="https://instagram.com/yourprofile" [(ngModel)]="contactData.instagram">
+                    </div>
+                    <div class="single-input">
+                        <label for="linkedin"><i class="fa-brands fa-linkedin text-primary mr--5"></i> LinkedIn
+                            URL</label>
+                        <input type="url" id="linkedin" name="linkedin"
+                            placeholder="https://linkedin.com/in/yourprofile" [(ngModel)]="contactData.linkedin">
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-flex gap-3 justify-content-end mt--40">
+                    <button type="button" class="tmp-btn btn-secondary hover-icon-reverse btn-sm" (click)="resetForm()">
+                        <span class="icon-reverse-wrapper">
+                            <span class="btn-text">Reset Form</span>
+                            <span class="btn-icon"><i class="fa-solid fa-rotate-left"></i></span>
+                            <span class="btn-icon"><i class="fa-solid fa-rotate-left"></i></span>
+                        </span>
+                    </button>
+                    <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm"
+                        (click)="saveContactDetails()">
+                        <span class="icon-reverse-wrapper">
+                            <span class="btn-text">Save Contact Details</span>
+                            <span class="btn-icon"><i class="fa-solid fa-save"></i></span>
+                            <span class="btn-icon"><i class="fa-solid fa-save"></i></span>
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,129 @@
+<div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
+
+    <div class="single-card-dashboard account-info box-dashboard-dashboard">
+        <h3 class="title title-top-primary"><i class="fa-solid fa-building"></i> Add About Company Details</h3>
+    </div>
+
+    <div class="single-card-dashboard account-info box-dashboard-dashboard">
+        <!-- Company Image Upload (Using Profile Picture Area Style) -->
+        <div class="edit-profile-picture-area mb--30">
+            <label class="d-block mb--10">Company Image</label>
+            <div class="upload-wrapper">
+                <div class="image-preview" *ngIf="selectedImage" style="width: 100%; height: auto; border-radius: 8px;">
+                    <img [src]="selectedImage" alt="Company Preview" class="img-fluid"
+                        style="width: 100%; max-height: 400px; object-fit: cover;">
+                </div>
+                <!-- Placeholder if no image -->
+                <div class="image-preview" *ngIf="!selectedImage"
+                    style="width: 100%; height: 250px; border-radius: 8px; display: flex; align-items: center; justify-content: center; background: #f9f9f9; border: 2px dashed #e5e5e5;">
+                    <div class="text-center">
+                        <i class="fa-solid fa-image fa-3x text-muted mb-2" style="color: #ccc;"></i>
+                        <p class="text-muted">Upload company image</p>
+                    </div>
+                </div>
+
+                <div class="upload-action mt--15">
+                    <a href="javascript:void(0)" class="tmp-btn btn-border hover-icon-reverse invers-uploadBtnActive"
+                        (click)="companyImageInput.click()">
+                        <span class="icon-reverse-wrapper">
+                            <span class="btn-text">Upload Image</span>
+                            <span class="btn-icon"><i class="fa-light fa-cloud-arrow-up"></i></span>
+                            <span class="btn-icon"><i class="fa-light fa-cloud-arrow-up"></i></span>
+                        </span>
+                    </a>
+                    <input type="file" #companyImageInput id="companyImage" accept="image/*" style="display: none;"
+                        (change)="onImageSelected($event)">
+                </div>
+            </div>
+        </div>
+
+        <div class="edit-account-information">
+            <form>
+                <!-- Section Label & Main Heading -->
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="sectionLabel">Section Label</label>
+                        <input type="text" id="sectionLabel" name="sectionLabel" placeholder="e.g., ABOUT COMPANY"
+                            [(ngModel)]="companyData.sectionLabel">
+                    </div>
+                    <div class="single-input">
+                        <label for="mainHeading">Main Heading*</label>
+                        <input type="text" id="mainHeading" name="mainHeading"
+                            placeholder="e.g., Powering The Business In Smart Way" [(ngModel)]="companyData.mainHeading"
+                            required>
+                    </div>
+                </div>
+
+                <!-- Main Description -->
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="mainDescription">Main Description*</label>
+                        <textarea id="mainDescription" name="mainDescription" rows="5" class="border"
+                            placeholder="Enter main description about your company..."
+                            [(ngModel)]="companyData.mainDescription" required></textarea>
+                    </div>
+                </div>
+
+                <!-- Feature Items Section -->
+                <h3 class="title with-border-bottom mt--30 mb--20">Feature Items</h3>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="feature1">Feature 1</label>
+                        <input type="text" id="feature1" name="feature1"
+                            placeholder="e.g., Expert in Sustainable & Renewable Building Practices"
+                            [(ngModel)]="companyData.feature1">
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="feature2">Feature 2</label>
+                        <input type="text" id="feature2" name="feature2"
+                            placeholder="e.g., Professional Construction & Site Management"
+                            [(ngModel)]="companyData.feature2">
+                    </div>
+                </div>
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="feature3">Feature 3</label>
+                        <input type="text" id="feature3" name="feature3"
+                            placeholder="e.g., Coordinator of Residential Construction Projects"
+                            [(ngModel)]="companyData.feature3">
+                    </div>
+                </div>
+
+                <!-- Strong Foundation Section -->
+                <h3 class="title with-border-bottom mt--30 mb--20">Strong Foundation</h3>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="foundationDescription">Foundation Description</label>
+                        <textarea id="foundationDescription" name="foundationDescription" rows="5" class="border"
+                            placeholder="Enter description about strong foundation..."
+                            [(ngModel)]="companyData.foundationDescription"></textarea>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-flex gap-3 justify-content-end mt--40">
+                    <button type="button" class="tmp-btn btn-secondary hover-icon-reverse btn-sm" (click)="resetForm()">
+                        <span class="icon-reverse-wrapper">
+                            <span class="btn-text">Reset Form</span>
+                            <span class="btn-icon"><i class="fa-solid fa-rotate-left"></i></span>
+                            <span class="btn-icon"><i class="fa-solid fa-rotate-left"></i></span>
+                        </span>
+                    </button>
+                    <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm"
+                        (click)="saveCompanyDetails()">
+                        <span class="icon-reverse-wrapper">
+                            <span class="btn-text">Save Company Details</span>
+                            <span class="btn-icon"><i class="fa-solid fa-save"></i></span>
+                            <span class="btn-icon"><i class="fa-solid fa-save"></i></span>
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

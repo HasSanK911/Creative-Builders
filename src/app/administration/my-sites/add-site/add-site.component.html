@@ -1,0 +1,125 @@
+<div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
+    <div
+        class="single-card-dashboard account-info box-dashboard-dashboard d-flex align-items-center justify-content-between">
+        <h3 class="title title-top-primary"><i class="fa-regular fa-building me-3"></i>Add New Site</h3>
+        <a routerLink="../add-site-info" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+            <span class="icon-reverse-wrapper">
+                <span class="btn-text">Save Changes</span>
+                <span class="btn-icon"><i class="fa-solid fa-save"></i></span>
+                <span class="btn-icon"><i class="fa-solid fa-save"></i></span>
+            </span>
+        </a>
+    </div>
+    <div class="edit-account-information">
+        <form action="#">
+            <div class="input-wrapper">
+                <div class="single-input">
+                    <label for="name">Site Name*</label>
+                    <input type="text" id="name" name="name" placeholder="Enter Your Site Name" required=""
+                        autocomplete="off">
+                </div>
+                <div class="single-input">
+                    <label for="mobile">Location*</label>
+                    <input type="text" id="mobile" name="mobile" placeholder="Enter Your Location" required="">
+                </div>
+            </div>
+
+            <div class="input-wrapper">
+                <div class="single-input">
+                    <label>Site Type</label>
+
+                    <div class="invers-modern-select">
+                        <div class="select">
+                            <div class="selectBtn" data-type="firstOption">Select</div>
+                            <div class="selectDropdown">
+                                <div class="option" data-type="firstOption">Home</div>
+                                <div class="option" data-type="secondOption">Office</div>
+                                <div class="option" data-type="thirdOption">Building</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="single-input">
+                    <label>Status</label>
+                    <div class="invers-modern-select">
+                        <div class="select">
+                            <div class="selectBtn" data-type="firstOption">Select</div>
+                            <div class="selectDropdown">
+                                <div class="option" data-type="firstOption">Pending</div>
+                                <div class="option" data-type="secondOption">Completed</div>
+                                <div class="option" data-type="thirdOption">Dispute</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Payments Section -->
+            <h4 class="title mt-4">Payment Details</h4>
+            <div class="input-wrapper">
+                <div class="single-input">
+                    <label for="totalBudget">Total Budget*</label>
+                    <input type="number" id="totalBudget" name="totalBudget" placeholder="Enter Total Budget"
+                        [(ngModel)]="totalBudget" (ngModelChange)="calculateRemaining()">
+                </div>
+                <div class="single-input">
+                    <label for="advanceReceived">Advance Received*</label>
+                    <input type="number" id="advanceReceived" name="advanceReceived" placeholder="Enter Advance Amount"
+                        [(ngModel)]="advanceReceived" (ngModelChange)="calculateRemaining()">
+                </div>
+            </div>
+            <div class="input-wrapper">
+                <div class="single-input">
+                    <label>Remaining Balance</label>
+                    <input type="text" [value]="remainingBalance" readonly
+                        style="background: #f8f9fa; font-weight: semibold;">
+                </div>
+            </div>
+
+            <!-- Payments Table -->
+            <div class="invers-dashboard-table table-responsive mobile-table-750 mt-3">
+                <table class="invers-table table table-borderless">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let payment of payments; let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td><input type="date" [(ngModel)]="payment.date" [ngModelOptions]="{standalone: true}"
+                                    style="border: 0; outline: none;"></td>
+                            <td><input type="number" placeholder="Amount" [(ngModel)]="payment.amount"
+                                    [ngModelOptions]="{standalone: true}" (ngModelChange)="calculateRemaining()"
+                                    style="border: 1px solid #dee2e6; border-radius: 4px; padding: 4px 8px;"></td>
+                            <td>
+                                <a role="button" class="text-danger" (click)="removePayment(i)"><i
+                                        class="fa-regular fa-trash-can"></i></a>
+                            </td>
+                        </tr>
+                        <tr style="font-weight: bold; background: #f8f9fa;">
+                            <td colspan="2">Total Payments</td>
+                            <td>{{ getPaymentsTotal() }}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-end mb-3">
+                    <button type="button" class="tmp-btn btn-info hover-icon-reverse btn-sm" (click)="addPayment()">
+                        <span class="icon-reverse-wrapper">
+                            <span class="btn-text">Add Payment</span>
+                            <span class="btn-icon"><i class="fa-solid fa-plus"></i></span>
+                            <span class="btn-icon"><i class="fa-solid fa-plus"></i></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>

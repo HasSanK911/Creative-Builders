@@ -1,0 +1,325 @@
+<header class="header-one header-seven inner header--sticky header-sticky-smooth">
+    <!-- header top -->
+    <div class="header-top overflow-visible">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="header-top-wrapper">
+                    <!-- left area header top -->
+                    <div class="left">
+                        <!-- single map area -->
+                        <div class="single-component info-con">
+                            <div class="icon">
+                                <i class="fal fa-clock"></i>
+                            </div>
+                            <div class="info">
+                                <span>Mon - Fri (9:00AM - 6:00PM)</span>
+                            </div>
+                        </div>
+                        <!-- single map area -->
+                        <!-- single map area -->
+                        <div class="single-component info-con">
+                            <div class="icon">
+                                <i class="fal fa-phone"></i>
+                            </div>
+                            <div class="info">
+                                <span><a href="tel:+92324588007">+92 324 588007</a></span>
+                            </div>
+                        </div>
+                        <!-- single map area -->
+                        <!-- single map area -->
+                        <div class="single-component info-con">
+                            <div class="icon">
+                                <i class="fal fa-map-marker-alt"></i>
+                            </div>
+                            <div class="info">
+                                <span>Rizwan Heights , Citi Housing Society , Jhelum</span>
+                            </div>
+                        </div>
+                        <!-- single map area -->
+                    </div>
+                    <!-- right area strat -->
+                    <div class="right">
+                        <ul class="social-wrapper-1 hover-bg-white">
+                            <li class="single"><a target="_blank" href="https://www.facebook.com/"><i
+                                        class="fab fa-facebook-f"></i></a></li>
+                            <li class="single"><a target="_blank" href="https://x.com/"><i
+                                        class="fab fa-twitter"></i></a></li>
+                            <li class="single"><a target="_blank" href="https://www.instagram.com/"><i
+                                        class="fab fa-instagram"></i></a></li>
+                            <li class="single"><a target="_blank" href="https://dribbble.com/"><i
+                                        class="fal fa-globe"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- header bottom -->
+    <!-- header style hear -->
+    <div class="header-main header-main-2">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="header-mid-one-wrapper wrapper-two">
+                    <div class="left d-flex align-items-center">
+                        <div class="logo-area shape-none">
+                            <a (click)="gotoHome()">
+                                <img src="assets/logo.png" alt="logo" width="40%" class="main-logo">
+                            </a>
+                        </div>
+                        <div class="nav-area">
+                            <ul class="mainmenu">
+                                <li class="main-nav">
+                                    <a (click)="gotoHome()">Home</a>
+                                </li>
+
+                                <li class="main-nav">
+                                    <a (click)="gotoAboutUs()">AboutUs</a>
+                                </li>
+
+
+                                <li class="main-nav">
+                                    <a (click)="gotoServices()">Services</a>
+                                </li>
+                                <li class="main-nav">
+                                    <a (click)="gotoGallery()">Gallery</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <!-- single map area -->
+                        <div class="cart-search-area">
+                            <a href="#canvasSearch" data-bs-toggle="offcanvas" class="search-btn hover-bg-light">
+                                <img src="assets/images/shop/search.svg" alt="">
+                            </a>
+                        </div>
+                        <div class="single-component">
+                            <a (click)="gotoContactUs()" class="tmp-btn btn-primary button-flip btn-sm">
+                                <span data-text="Contact Us">Contact Us</span>
+                            </a>
+                            <div class="menu-area d-xl-none d-block" id="menu-btn">
+                                <div class="icon radius-small">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="16" viewBox="0 0 18 16"
+                                        fill="none">
+                                        <rect width="18" height="2" fill="#0C0A0A"></rect>
+                                        <rect y="7" width="18" height="2" fill="#0C0A0A"></rect>
+                                        <rect y="14" width="18" height="2" fill="#0C0A0A"></rect>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- single map area -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- header style hearm end -->
+</header>
+
+<div class="offcanvas offcanvas-top offcanvas-search" id="canvasSearch">
+    <button aria-label="action" class="btn-close-search" type="button" data-bs-dismiss="offcanvas" aria-label="Close">
+        <i class="fa-solid fa-xmark-large"></i>
+    </button>
+    <div class="offcanvas-body">
+        <div class="tmp-container w-xl">
+            <div class="wrap-form">
+                <h4 class="title">
+                    What are you looking for?
+                </h4>
+                <form action="#" class="form-search">
+                    <fieldset class="input-search">
+                        <input type="text" name="search" id="search" placeholder="Searching....">
+                    </fieldset>
+                    <div class="btn-submit1">
+                        <button aria-label="action" type="submit" class="tmp-btn btn-primary btn-sm">
+                            <span>
+                                <span class="btn-double-text" data-text="Search">Search</span>
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="popular-searches">
+                <h5 class="title">
+                    Popular Searches:
+                </h5>
+                <ul class="list d-flex align-items-center flex-wrap ">
+                    <li><a href="#">Construction</a></li>
+                    <li><a href="#">Building Repair</a></li>
+                    <li><a href="#">Interior Work</a></li>
+                    <li><a href="#">Home Renovation</a></li>
+                    <li><a href="#">Architecture</a></li>
+                </ul>
+            </div>
+            <div class="tmp-line "></div>
+            <div class="trending">
+                <h5 class="title">Popular Services</h5>
+                <div class="tmp-grid-layout lg-col-3 md-col-2">
+                    <div class="feature-post-item style-small d-flex align-items-center hover-image-rotate item-grid ">
+                        <a href="service-details.html" class="img-style">
+                            <img src="assets/images/blog/feature-item-small-1.webp" decoding="async" loading="lazy"
+                                width="123" height="92" alt="feature">
+                        </a>
+                        <div class="content">
+                            <ul
+                                class="meta-feature text-caption-2 fw-7 text_secodary-color d-flex align-items-center mb_8 text-uppercase">
+                                <li>Service</li>
+                                <li><a href="#" class="text-uppercase">Construction</a></li>
+                            </ul>
+                            <h6 class="title">
+                                <a href="service-details.html" class="link">Residential Building Construction & Site
+                                    Setup</a>
+                            </h6>
+                        </div>
+                    </div>
+
+                    <div class="feature-post-item style-small d-flex align-items-center hover-image-rotate item-grid ">
+                        <a href="service-details.html" class="img-style">
+                            <img src="assets/images/blog/feature-item-small-2.webp" decoding="async" loading="lazy"
+                                width="123" height="92" alt="feature">
+                        </a>
+                        <div class="content">
+                            <ul
+                                class="meta-feature text-caption-2 fw-7 text_secodary-color d-flex align-items-center mb_8 text-uppercase">
+                                <li>Service</li>
+                                <li><a href="#" class="text-uppercase">Renovation</a></li>
+                            </ul>
+                            <h6 class="title">
+                                <a href="service-details.html" class="link">Home Renovation, Remodeling & Repair
+                                    Work</a>
+                            </h6>
+                        </div>
+                    </div>
+
+                    <div class="feature-post-item style-small d-flex align-items-center hover-image-rotate item-grid ">
+                        <a href="service-details.html" class="img-style">
+                            <img src="assets/images/blog/feature-item-small-3.webp" decoding="async" loading="lazy"
+                                width="123" height="92" alt="feature">
+                        </a>
+                        <div class="content">
+                            <ul
+                                class="meta-feature text-caption-2 fw-7 text_secodary-color d-flex align-items-center mb_8 text-uppercase">
+                                <li>Service</li>
+                                <li><a href="#" class="text-uppercase">Interior</a></li>
+                            </ul>
+                            <h6 class="title">
+                                <a href="service-details.html" class="link">Interior Decoration, False Ceiling & Design
+                                    Work</a>
+                            </h6>
+                        </div>
+                    </div>
+
+                    <div class="feature-post-item style-small d-flex align-items-center hover-image-rotate item-grid ">
+                        <a href="service-details.html" class="img-style">
+                            <img src="assets/images/blog/feature-item-small-4.webp" decoding="async" loading="lazy"
+                                width="123" height="92" alt="feature">
+                        </a>
+                        <div class="content">
+                            <ul
+                                class="meta-feature text-caption-2 fw-7 text_secodary-color d-flex align-items-center mb_8 text-uppercase">
+                                <li>Service</li>
+                                <li><a href="#" class="text-uppercase">Architecture</a></li>
+                            </ul>
+                            <h6 class="title">
+                                <a href="service-details.html" class="link">Architectural Planning & 3D Building
+                                    Modeling</a>
+                            </h6>
+                        </div>
+                    </div>
+
+                    <div class="feature-post-item style-small d-flex align-items-center hover-image-rotate item-grid ">
+                        <a href="service-details.html" class="img-style">
+                            <img src="assets/images/blog/feature-item-small-5.webp" decoding="async" loading="lazy"
+                                width="123" height="92" alt="feature">
+                        </a>
+                        <div class="content">
+                            <ul
+                                class="meta-feature text-caption-2 fw-7 text_secodary-color d-flex align-items-center mb_8 text-uppercase">
+                                <li>Service</li>
+                                <li><a href="#" class="text-uppercase">Project</a></li>
+                            </ul>
+                            <h6 class="title">
+                                <a href="service-details.html" class="link">Full Construction Project Management
+                                    Service</a>
+                            </h6>
+                        </div>
+                    </div>
+
+                    <div class="feature-post-item style-small d-flex align-items-center hover-image-rotate item-grid ">
+                        <a href="service-details.html" class="img-style">
+                            <img src="assets/images/blog/feature-item-small-6.webp" decoding="async" loading="lazy"
+                                width="123" height="92" alt="feature">
+                        </a>
+                        <div class="content">
+                            <ul
+                                class="meta-feature text-caption-2 fw-7 text_secodary-color d-flex align-items-center mb_8 text-uppercase">
+                                <li>Service</li>
+                                <li><a href="#" class="text-uppercase">Repair</a></li>
+                            </ul>
+                            <h6 class="title">
+                                <a href="service-details.html" class="link">Structural Repair & Building Maintenance
+                                    Service</a>
+                            </h6>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="side-bar" class="side-bar">
+ <button class="close-icon-menu" aria-label="close"><i class="far fa-times"></i></button>
+        <!-- inner menu area desktop start -->
+        <div class="inner-main-wrapper-desk d-none d-xl-block">
+            <div class="thumbnail">
+                <img src="assets/images/banner/04.webp" alt="elevate">
+            </div>
+            <div class="inner-content">
+                <h4 class="title">We Build Building and Great Constructive Homes.</h4>
+                <p class="disc">
+                    We successfully cope with tasks of varying complexity, provide long-term guarantees and regularly master new technologies.
+                </p>
+                <div class="footer">
+                    <h4 class="title">Got a project in mind?</h4>
+                    <a href="contact.html" class="tmp-btn btn-seconday">Let's talk</a>
+                </div>
+            </div>
+        </div>
+        <div class="mobile-menu d-block d-xl-none">
+            <nav class="nav-main mainmenu-nav mt--30">
+                <ul class="mainmenu" id="mobile-menu-active">
+                    <li>
+                        <a (click)="gotoHome()" class="main">Home</a>
+                    </li>
+                    <li>
+                        <a (click)="gotoAboutUs()" class="main">AboutUs</a>
+                    </li>
+                    <li>
+                        <a (click)="gotoServices()" class="main">Services</a>
+                    </li>
+                    <li>
+                        <a (click)="gotoGallery()" class="main">Gallery</a>
+                    </li>
+                    <li>
+                        <a (click)="gotoContactUs()" class="main">Contact Us</a>
+                    </li>
+                </ul>
+            </nav>
+        
+            <div class="social-share-wrapper-1 mt--40">
+                <span class="short-title">Find With Us</span>
+                <ul class="social-stylle-one justify-content-start mt--10">
+                    <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-tiktok"></i></a></li>
+                </ul>
+            </div>
+        
+        
+        </div>
+</div>

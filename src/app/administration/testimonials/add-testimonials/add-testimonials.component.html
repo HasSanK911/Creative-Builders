@@ -1,0 +1,92 @@
+<div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
+
+    <div class="single-card-dashboard account-info box-dashboard-dashboard">
+        <h3 class="title title-top-primary"><i class="fa-solid fa-quote-left"></i> Add Testimonial</h3>
+    </div>
+    <div class="single-card-dashboard account-info box-dashboard-dashboard">
+
+        <div class="edit-account-information">
+            <form action="#">
+                <!-- Client Image Upload -->
+                <div class="edit-profile-picture-area mb--20">
+                    <label class="d-block mb--10">Client Image*</label>
+                    <div class="upload-wrapper">
+                        <div class="image-preview" id="clientImagePreview"
+                            style="width: 200px; height: 200px; border: 2px dashed var(--color-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--color-lightest); margin: 0 auto;">
+                            <img src="" alt="Preview" id="clientPreviewImage"
+                                style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                            <span id="clientPlaceholderText"
+                                style="color: var(--color-body); font-size: 14px; text-align: center; padding: 20px;">
+                                <i class="fa-solid fa-user"
+                                    style="font-size: 40px; display: block; margin-bottom: 10px;"></i>
+                                Upload Client Photo
+                            </span>
+                        </div>
+                        <div class="upload-action d-flex justify-content-center mt--15">
+                            <a href="javascript:void(0)" class="tmp-btn btn-border hover-icon-reverse btn-sm"
+                                id="clientUploadBtn">
+                                <span class="icon-reverse-wrapper">
+                                    <span class="btn-text">Choose Client Image</span>
+                                    <span class="btn-icon"><i class="fa-light fa-cloud-arrow-up"></i></span>
+                                    <span class="btn-icon"><i class="fa-light fa-cloud-arrow-up"></i></span>
+                                </span>
+                            </a>
+                            <input type="file" id="clientFileInput" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="clientName">Client Name*</label>
+                        <input type="text" id="clientName" name="clientName" placeholder="e.g., John Anderson" required
+                            autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="designation">Designation*</label>
+                        <input type="text" id="designation" name="designation"
+                            placeholder="e.g., Homeowner, Business Owner, Designer" required autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="feedback">Feedback/Testimonial*</label>
+                        <textarea id="feedback" name="feedback" rows="5" class="border"
+                            placeholder="Enter the client's feedback or testimonial..." required></textarea>
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="rating">Rating (1-5)*</label>
+                        <select id="rating" name="rating" class="border" required>
+                            <option value="">Select Rating</option>
+                            <option value="5">⭐⭐⭐⭐⭐ (5 Stars)</option>
+                            <option value="4">⭐⭐⭐⭐ (4 Stars)</option>
+                            <option value="3">⭐⭐⭐ (3 Stars)</option>
+                            <option value="2">⭐⭐ (2 Stars)</option>
+                            <option value="1">⭐ (1 Star)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mt--20">
+                    <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+                        <span class="icon-reverse-wrapper">
+                            <span class="btn-text">Save Testimonial</span>
+                            <span class="btn-icon"><i class="fa-solid fa-bookmark"></i></span>
+                            <span class="btn-icon"><i class="fa-solid fa-bookmark"></i></span>
+                        </span>
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
