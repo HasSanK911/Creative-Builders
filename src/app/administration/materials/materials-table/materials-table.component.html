@@ -1,7 +1,7 @@
 <div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
 
     <div
-        class="single-card-dashboard account-info box-dashboard-dashboard d-flex align-items-center justify-content-between">
+        class="single-card-dashboard account-info box-dashboard-dashboard d-flex align-items-center justify-content-between no-print">
         <h3 class="title title-top-primary"><i class="fa-solid fa-boxes-stacked"></i>Materials</h3>
         <button class="tmp-btn btn-primary hover-icon-reverse btn-sm no-print" (click)="downloadReport()">
             <span class="icon-reverse-wrapper">
@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <div class="invers-dashboard-table table-responsive mobile-table-750">
+        <div class="invers-dashboard-table table-responsive mobile-table-750 no-print">
             <table class="invers-table table table-borderless">
                 <thead>
                     <tr>
@@ -56,6 +56,31 @@
                             <i class="fa-solid fa-search" style="font-size: 24px;"></i>
                             <p class="mt-2 mb-0">No materials found matching "{{ searchQuery }}"</p>
                         </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Print Only Table -->
+        <div class="print-only">
+            <h4 style="margin-bottom: 20px; text-align: center;">Materials Report</h4>
+            <table class="print-table">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">#</th>
+                        <th>Material Name</th>
+                        <th>Unit</th>
+                        <th>Rate</th>
+                        <th>Stock</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let material of filteredMaterials; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ material.name }}</td>
+                        <td>{{ material.unit }}</td>
+                        <td>{{ material.rate | number }}</td>
+                        <td>{{ material.stock | number }}</td>
                     </tr>
                 </tbody>
             </table>

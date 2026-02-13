@@ -1,7 +1,7 @@
 <div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
 
     <div
-        class="single-card-dashboard account-info box-dashboard-dashboard d-flex align-items-center justify-content-between">
+        class="single-card-dashboard account-info box-dashboard-dashboard d-flex align-items-center justify-content-between no-print">
         <h3 class="title title-top-primary"><i class="fa-solid fa-boxes-stacked"></i>{{ materialName }} — Details</h3>
         <div class="d-flex gap-2 no-print">
             <button class="tmp-btn btn-primary hover-icon-reverse btn-sm" (click)="downloadReport()">
@@ -11,12 +11,12 @@
                     <span class="btn-icon"><i class="fa-solid fa-file-pdf"></i></span>
                 </span>
             </button>
-           
+
         </div>
     </div>
 
     <!-- Summary Cards -->
-    <div class="row g-4 mb-4">
+    <div class="row g-4 mb-4 no-print">
         <div class="col-md-4">
             <div class="single-card-dashboard account-info box-dashboard-dashboard text-center">
                 <div style="font-size: 14px; color: #999; margin-bottom: 4px;">Total Purchased</div>
@@ -45,33 +45,39 @@
     <div class="single-card-dashboard account-info box-dashboard-dashboard no-print">
         <div class="row mb-4">
             <div class="col-md-4 mb-3">
-            <div class="d-flex flex-column gap-2">
-                <label style="white-space: nowrap;">Filter by Site</label>
-                <div class="invers-modern-select">
-                    <div class="select">
-                        <div class="selectBtn" (click)="isSiteDropdownOpen = !isSiteDropdownOpen">{{ filterSite || 'All
-                            Sites' }}</div>
-                        <div class="selectDropdown" [class.toggle]="isSiteDropdownOpen">
-                            <div class="option" (click)="selectSiteFilter('')">All Sites</div>
-                            <div class="option" *ngFor="let site of sites" (click)="selectSiteFilter(site)">{{ site }}
+                <div class="d-flex flex-column gap-2">
+                    <label style="white-space: nowrap;">Filter by Site</label>
+                    <div class="invers-modern-select">
+                        <div class="select">
+                            <div class="selectBtn" (click)="isSiteDropdownOpen = !isSiteDropdownOpen">{{ filterSite ||
+                                'All
+                                Sites' }}</div>
+                            <div class="selectDropdown" [class.toggle]="isSiteDropdownOpen">
+                                <div class="option" (click)="selectSiteFilter('')">All Sites</div>
+                                <div class="option" *ngFor="let site of sites" (click)="selectSiteFilter(site)">{{ site
+                                    }}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
             <div class="col-md-4 mb-3">
                 <div class="d-flex flex-column gap-2">
                     <label style="white-space: nowrap;">Date From</label>
-                    <input type="date" [(ngModel)]="filterDateFrom">
+                    <div class="custom-input">
+                        <input type="date" [(ngModel)]="filterDateFrom" style="width: 100%;">
+                    </div>
                 </div>
-                </div>
+            </div>
             <div class="col-md-4 mb-3">
                 <div class="d-flex flex-column gap-2">
                     <label style="white-space: nowrap;">Date To</label>
-                    <input type="date" [(ngModel)]="filterDateTo">
+                    <div class="custom-input">
+                        <input type="date" [(ngModel)]="filterDateTo" style="width: 100%;">
+                    </div>
                 </div>
-                </div>
+            </div>
             <div class="col-md-12">
                 <div class="d-flex justify-content-end w-100 gap-2">
                     <button class="tmp-btn btn-primary hover-icon-reverse btn-sm" (click)="applyFilters()">
@@ -89,7 +95,7 @@
                         </span>
                     </button>
                 </div>
-                </div>
+            </div>
         </div>
 
         <!-- Records Table -->
@@ -115,7 +121,7 @@
                         <td>{{ record.total | number }}</td>
                     </tr>
                     <tr *ngIf="filteredRecords.length === 0">
-                        <td colspan="7" class="text-center py-4" style="color: #999;">
+                        <td colspan="8" class="text-center py-4" style="color: #999;">
                             <i class="fa-solid fa-filter-circle-xmark" style="font-size: 24px;"></i>
                             <p class="mt-2 mb-0">No records match the selected filters</p>
                         </td>
@@ -123,8 +129,7 @@
                     <!-- Total Row -->
                     <tr *ngIf="filteredRecords.length > 0"
                         style="font-weight: bold; background: #f8f9fa; border-top: 2px solid #dee2e6;">
-                        <td colspan="3"><strong>Total</strong></td>
-                        <td><strong>{{ totalQuantity | number }}</strong></td>
+                        <td colspan="4"><strong>Total</strong></td>
                         <td><strong>{{ averageRate | number }} (avg)</strong></td>
                         <td><strong>{{ totalAmount | number }}</strong></td>
                         <td></td>
@@ -133,6 +138,46 @@
             </table>
         </div>
 
+    </div>
+
+    <!-- Print Only Section -->
+    <div class="print-only">
+        <h4 style="margin-bottom: 10px;">{{ materialName }} — Details Report</h4>
+        <div style="margin-bottom: 20px; font-size: 14px;">
+            <div style="display: flex; justify-content: space-between;">
+                <p style="margin: 0;"><strong>Total Purchased:</strong> {{ totalQuantity | number }} {{ materialUnit }}</p>
+                <p style="margin: 0;"><strong>Total Spent:</strong> Rs. {{ totalAmount | number }}</p>
+            </div>
+            <p style="margin-top: 5px;" *ngIf="filterSite || filterDateFrom || filterDateTo">
+                <strong>Filters applied:</strong>
+                <span *ngIf="filterSite">Site: {{ filterSite }}; </span>
+                <span *ngIf="filterDateFrom">From: {{ filterDateFrom }}; </span>
+                <span *ngIf="filterDateTo">To: {{ filterDateTo }}</span>
+            </p>
+        </div>
+
+        <table class="print-table">
+            <thead>
+                <tr>
+                    <th style="width: 50px;">#</th>
+                    <th>Date</th>
+                    <th>Site</th>
+                    <th>Qty ({{ materialUnit }})</th>
+                    <th>Rate</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let record of filteredRecords; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ record.date }}</td>
+                    <td>{{ record.site }}</td>
+                    <td>{{ record.quantity | number }}</td>
+                    <td>{{ record.rate | number }}</td>
+                    <td>{{ record.total | number }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
 </div>

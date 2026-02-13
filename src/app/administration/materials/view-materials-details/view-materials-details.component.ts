@@ -45,7 +45,7 @@ export class ViewMaterialsDetailsComponent implements OnInit {
     20: { name: 'Cameras', unit: 'Pieces' },
   };
 
-  allRecords: { date: string; site: string; quantity: number; rate: number; total: number; supplier: string }[] = [];
+  allRecords: { date: string; site: string; quantity: number; rate: number; total: number }[] = [];
 
   constructor(private route: ActivatedRoute) { }
 
@@ -76,7 +76,6 @@ export class ViewMaterialsDetailsComponent implements OnInit {
         quantity: qty,
         rate,
         total: qty * rate,
-        supplier: suppliers[(this.materialId - 1) % suppliers.length]
       });
     }
     this.allRecords.sort((a, b) => a.date.localeCompare(b.date));

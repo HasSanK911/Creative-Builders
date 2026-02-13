@@ -35,4 +35,36 @@
     .no-print {
         display: none !important;
     }
+
+    .print-only {
+        display: block !important;
+    }
+
+    /* Print Specific Table Styles */
+    .print-table {
+        width: 100% !important;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .print-table th,
+    .print-table td {
+        border: 1px solid #000 !important;
+        padding: 8px !important;
+        text-align: left;
+        font-size: 10px !important;
+        color: #000 !important;
+    }
+
+    .print-table th {
+        background-color: #f0f0f0 !important;
+        font-weight: bold !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+/* Hide print-only elements by default */
+.print-only {
+    display: none;
 }
