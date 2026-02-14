@@ -10,5 +10,11 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from "@angular/router";
   styleUrl: './layout.component.css'
 })
 export class LayoutComponent {
+ngAfterViewInit() {
+    setTimeout(() => {
+      document.body.classList.add('loaded');
+    }, 1000);
+
+  }
 
 }
