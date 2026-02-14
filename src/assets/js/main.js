@@ -37,7 +37,7 @@
     methods: function (e) {
       invJs.beforeAfter();
       invJs.cartDelete();
-      invJs.ursorAnimate();
+      // invJs.ursorAnimate();
       invJs.odoMeter();
       invJs.stickyHeader();
       invJs.wowActive();
