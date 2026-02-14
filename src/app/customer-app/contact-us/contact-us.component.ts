@@ -1,4 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
+import { environment } from '../../../environments/environment';
 declare var window: any;
 
 @Component({
@@ -9,6 +10,8 @@ declare var window: any;
   styleUrl: './contact-us.component.css'
 })
 export class ContactUsComponent implements AfterViewInit {
+
+  companyName = environment.CompanyName;
 
   ngAfterViewInit(): void {
     setTimeout(() => {
