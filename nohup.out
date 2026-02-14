@@ -1352,3 +1352,210 @@ chunk-G74BBNNE.js   | administration-module | 313.85 kB |
 Application bundle generation complete. [0.952 seconds]
 
 Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-ETXX6BQE.js   | administration-module | 314.03 kB | 
+
+Application bundle generation complete. [1.280 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Application bundle generation failed. [0.494 seconds]
+
+✘ [ERROR] TS2339: Property 'renderer' does not exist on type 'LayoutComponent'. [plugin angular-compiler]
+
+    src/app/administration/layout/layout.component.ts:27:11:
+      27 │       this.renderer.listen('window', 'mousemove', (e: MouseEvent) ...
+         ╵            ~~~~~~~~
+
+
+✘ [ERROR] TS2339: Property 'renderer' does not exist on type 'LayoutComponent'. [plugin angular-compiler]
+
+    src/app/administration/layout/layout.component.ts:35:11:
+      35 │       this.renderer.listen('document', 'mouseenter', (e: Event) => {
+         ╵            ~~~~~~~~
+
+
+✘ [ERROR] TS2339: Property 'renderer' does not exist on type 'LayoutComponent'. [plugin angular-compiler]
+
+    src/app/administration/layout/layout.component.ts:45:11:
+      45 │       this.renderer.listen('document', 'mouseover', (event) => {
+         ╵            ~~~~~~~~
+
+
+✘ [ERROR] TS7006: Parameter 'event' implicitly has an 'any' type. [plugin angular-compiler]
+
+    src/app/administration/layout/layout.component.ts:45:53:
+      45 │       this.renderer.listen('document', 'mouseover', (event) => {
+         ╵                                                      ~~~~~
+
+
+✘ [ERROR] TS2339: Property 'renderer' does not exist on type 'LayoutComponent'. [plugin angular-compiler]
+
+    src/app/administration/layout/layout.component.ts:53:11:
+      53 │       this.renderer.listen('document', 'mouseout', (event) => {
+         ╵            ~~~~~~~~
+
+
+✘ [ERROR] TS7006: Parameter 'event' implicitly has an 'any' type. [plugin angular-compiler]
+
+    src/app/administration/layout/layout.component.ts:53:52:
+      53 │       this.renderer.listen('document', 'mouseout', (event) => {
+         ╵                                                     ~~~~~
+
+
+- Changes detected. Rebuilding...
+
+Application bundle generation failed. [0.341 seconds]
+
+✘ [ERROR] TS2304: Cannot find name 'HostListener'. [plugin angular-compiler]
+
+    src/app/administration/layout/layout.component.ts:16:5:
+      16 │     @HostListener('window:scroll', [])
+         ╵      ~~~~~~~~~~~~
+
+
+✘ [ERROR] TS-992003: No suitable injection token for parameter 'renderer' of class 'LayoutComponent'.
+  Consider using the @Inject decorator to specify an injection token. [plugin angular-compiler]
+
+    src/app/administration/layout/layout.component.ts:29:24:
+      29 │     constructor(private renderer: Renderer2) { }
+         ╵                         ~~~~~~~~
+
+  This type does not have a value, so it cannot be used as injection token.
+
+    src/app/administration/layout/layout.component.ts:29:34:
+      29 │     constructor(private renderer: Renderer2) { }
+         ╵                                   ~~~~~~~~~
+
+
+✘ [ERROR] TS2304: Cannot find name 'Renderer2'. [plugin angular-compiler]
+
+    src/app/administration/layout/layout.component.ts:29:34:
+      29 │     constructor(private renderer: Renderer2) { }
+         ╵                                   ~~~~~~~~~
+
+
+✘ [ERROR] TS7006: Parameter 'event' implicitly has an 'any' type. [plugin angular-compiler]
+
+    src/app/administration/layout/layout.component.ts:63:53:
+      63 │       this.renderer.listen('document', 'mouseover', (event) => {
+         ╵                                                      ~~~~~
+
+
+✘ [ERROR] TS7006: Parameter 'event' implicitly has an 'any' type. [plugin angular-compiler]
+
+    src/app/administration/layout/layout.component.ts:71:52:
+      71 │       this.renderer.listen('document', 'mouseout', (event) => {
+         ╵                                                     ~~~~~
+
+
+- Changes detected. Rebuilding...
+
+Application bundle generation failed. [0.398 seconds]
+
+✘ [ERROR] TS2304: Cannot find name 'HostListener'. [plugin angular-compiler]
+
+    src/app/administration/layout/layout.component.ts:16:5:
+      16 │     @HostListener('window:scroll', [])
+         ╵      ~~~~~~~~~~~~
+
+
+- Changes detected. Rebuilding...
+
+Application bundle generation failed. [0.513 seconds]
+
+✘ [ERROR] TS2304: Cannot find name 'HostListener'. [plugin angular-compiler]
+
+    src/app/administration/layout/layout.component.ts:15:5:
+      15 │     @HostListener('window:scroll', [])
+         ╵      ~~~~~~~~~~~~
+
+
+✘ [ERROR] TS2339: Property 'showScrollButton' does not exist on type 'LayoutComponent'. [plugin angular-compiler]
+
+    src/app/administration/layout/layout.component.ts:18:13:
+      18 │         this.showScrollButton = true;
+         ╵              ~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] TS2339: Property 'showScrollButton' does not exist on type 'LayoutComponent'. [plugin angular-compiler]
+
+    src/app/administration/layout/layout.component.ts:20:13:
+      20 │         this.showScrollButton = false;
+         ╵              ~~~~~~~~~~~~~~~~
+
+
+- Changes detected. Rebuilding...
+
+Application bundle generation failed. [0.262 seconds]
+
+✘ [ERROR] TS2339: Property 'showScrollButton' does not exist on type 'LayoutComponent'. [plugin angular-compiler]
+
+    src/app/administration/layout/layout.component.ts:18:13:
+      18 │         this.showScrollButton = true;
+         ╵              ~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] TS2339: Property 'showScrollButton' does not exist on type 'LayoutComponent'. [plugin angular-compiler]
+
+    src/app/administration/layout/layout.component.ts:20:13:
+      20 │         this.showScrollButton = false;
+         ╵              ~~~~~~~~~~~~~~~~
+
+
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+polyfills.js        | polyfills             |  88.09 kB | 
+main.js             | main                  |   6.17 kB | 
+styles.css          | styles                |   1.27 kB | 
+chunk-HN5UAHUH.js   | -                     | 257 bytes | 
+
+                    | Initial total         |  95.78 kB
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-PG72AQT5.js   | administration-module | 315.60 kB | 
+chunk-3YZQ6QO7.js   | customer-app-module   | 191.60 kB | 
+
+Application bundle generation complete. [0.526 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-K3KANFUI.js   | administration-module | 315.53 kB | 
+
+Application bundle generation complete. [0.973 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-O2OGQNMV.js   | administration-module | 315.53 kB | 
+
+Application bundle generation complete. [1.229 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-JHOGCVFA.js   | administration-module | 315.56 kB | 
+
+Application bundle generation complete. [0.410 seconds]
+
+Page reload sent to client(s).
