@@ -13,6 +13,6 @@ export class HeaderComponent {
     this.router.navigate(['/']);
   }
   Logout() {
-    
+    this.router.navigate(['/login']);
   }
 }

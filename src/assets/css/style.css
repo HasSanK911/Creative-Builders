@@ -11503,7 +11503,7 @@ body {
     padding-right: 0 !important
 }
 
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
     width: 0;
     height: 0;
 }
@@ -12192,7 +12192,7 @@ ul {
 }
 
 .slider-img-02 {
-    background: url(../images/bg/02.webp)
+    background: url(../images/banner/02.webp)
 }
 
 .slider-img-28 {
