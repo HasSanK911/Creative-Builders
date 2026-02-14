@@ -14,6 +14,33 @@
     <div class="single-card-dashboard account-info box-dashboard-dashboard">
 
         <div class="invers-dashboard-table table-responsive mobile-table-750">
+            <div class="row mb--10">
+                <div class="col-lg-4 edit-account-information mt-0">
+                    <div class="input-wrapper">
+                        <div class="single-input">
+                            <input type="text" [(ngModel)]="searchText" placeholder="Search by Name or Location...">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="single-input">
+                        <div class="invers-modern-select">
+                            <div class="select">
+                                <div class="selectBtn" (click)="toggleDropdown()" [class.toggle]="isDropdownOpen">{{
+                                    filterStatusVal }}</div>
+                                <div class="selectDropdown" [class.toggle]="isDropdownOpen" style="display: block;"
+                                    *ngIf="isDropdownOpen">
+                                    <div class="option" (click)="selectStatus('All')">All Status</div>
+                                    <div class="option" (click)="selectStatus('Completed')">Completed</div>
+                                    <div class="option" (click)="selectStatus('Pending')">Pending</div>
+                                    <div class="option" (click)="selectStatus('Dispute')">Dispute</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <table class="invers-table table table-borderless">
                 <thead>
                     <tr>
@@ -29,58 +56,27 @@
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <th>Rizwan Heights</th>
-                        <th>Building</th>
-                        <th>B Block , Citi Housing</th>
-                        <td>5,000,000</td>
-                        <td>1,500,000</td>
-                        <td>3,500,000</td>
-                        <td><span class="invers-badge-minimal success">Completed</span></td>
+                    <tr *ngFor="let site of filteredSites">
+                        <th>{{ site.name }}</th>
+                        <th>{{ site.type }}</th>
+                        <th>{{ site.location }}</th>
+                        <td>{{ site.budget | number }}</td>
+                        <td>{{ site.advance | number }}</td>
+                        <td>{{ site.remaining | number }}</td>
+                        <td><span class="invers-badge-minimal" [ngClass]="getStatusClass(site.status)">{{ site.status
+                                }}</span></td>
                         <td>
                             <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
+                                <a href="javascript:void(0)" role="button" class="text-primary"><i
                                         class="fa-regular fa-pen-to-square"></i>Edit</a>
-                                <a href="#" role="button" class="text-danger"><i
+                                <a href="javascript:void(0)" role="button" class="text-danger"><i
                                         class="fa-regular fa-trash-can"></i>Delete</a>
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <th>Ali's Home</th>
-                        <th>Home</th>
-                        <th>D Block , Citi Housing</th>
-                        <td>3,200,000</td>
-                        <td>800,000</td>
-                        <td>2,400,000</td>
-                        <td><span class="invers-badge-minimal color-warning">Pending</span></td>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i>Edit</a>
-                                <a href="#" role="button" class="text-danger"><i
-                                        class="fa-regular fa-trash-can"></i>Delete</a>
-                            </div>
-                        </td>
+                    <tr *ngIf="filteredSites.length === 0">
+                        <td colspan="8" class="text-center">No sites found matching criteria.</td>
                     </tr>
-                    <tr>
-                        <th>Lodhi's Arcade</th>
-                        <th>Building</th>
-                        <th>E Block , Citi Housing</th>
-                        <td>8,500,000</td>
-                        <td>2,000,000</td>
-                        <td>6,500,000</td>
-                        <td><span class="invers-badge-minimal color-danger">Dispute</span></td>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i>Edit</a>
-                                <a href="#" role="button" class="text-danger"><i
-                                        class="fa-regular fa-trash-can"></i>Delete</a>
-                            </div>
-                        </td>
-                    </tr>
-
                 </tbody>
             </table>
         </div>

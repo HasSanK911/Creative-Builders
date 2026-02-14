@@ -1,0 +1,1354 @@
+
+> creative-builders-theme-one@0.0.0 start
+> ng serve
+
+- Building...
+
+Initial chunk files | Names                 |  Raw size
+polyfills.js        | polyfills             |  88.09 kB | 
+main.js             | main                  |   6.17 kB | 
+styles.css          | styles                |   1.27 kB | 
+chunk-HN5UAHUH.js   | -                     | 257 bytes | 
+
+                    | Initial total         |  95.78 kB
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-NWJ5SJVA.js   | administration-module | 303.44 kB | 
+chunk-3YZQ6QO7.js   | customer-app-module   | 191.60 kB | 
+
+Application bundle generation complete. [5.499 seconds]
+
+Watch mode enabled. Watching for file changes...
+  ➜  Local:   http://localhost:4200/
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-3TKQSJY3.js   | administration-module | 303.74 kB | 
+
+Application bundle generation complete. [0.953 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-3C7XHGC5.js   | administration-module | 305.35 kB | 
+
+Application bundle generation complete. [0.308 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-7HXZLJI5.js   | administration-module | 305.37 kB | 
+
+Application bundle generation complete. [0.329 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-KXYGTUB6.js   | administration-module | 306.17 kB | 
+
+Application bundle generation complete. [0.286 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Application bundle generation failed. [0.171 seconds]
+
+✘ [ERROR] NG5002: Opening tag "input" not terminated. [plugin angular-compiler]
+
+    src/app/administration/my-sites/sites-table/sites-table.component.html:20:24:
+      20 │ ...          <input type="text" placeholder="Search by Name or Loc...
+         ╵              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SitesTableComponent.
+
+    src/app/administration/my-sites/sites-table/sites-table.component.ts:20:15:
+      20 │   templateUrl: './sites-table.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+polyfills.js        | polyfills             |  88.09 kB | 
+main.js             | main                  |   6.17 kB | 
+styles.css          | styles                |   1.27 kB | 
+chunk-HN5UAHUH.js   | -                     | 257 bytes | 
+
+                    | Initial total         |  95.78 kB
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-KXYGTUB6.js   | administration-module | 306.17 kB | 
+chunk-3YZQ6QO7.js   | customer-app-module   | 191.60 kB | 
+
+Application bundle generation complete. [0.265 seconds]
+
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-ETAEEI5E.js   | administration-module | 305.71 kB | 
+
+Application bundle generation complete. [0.251 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-NU3IBOEY.js   | administration-module | 306.23 kB | 
+
+Application bundle generation complete. [0.271 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-IGK4O3JW.js   | administration-module | 306.19 kB | 
+
+Application bundle generation complete. [0.337 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-YV4ZMXP5.js   | administration-module | 306.11 kB | 
+
+Application bundle generation complete. [0.264 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Application bundle generation failed. [0.267 seconds]
+
+✘ [ERROR] NG5002: Opening tag "input" not terminated. [plugin angular-compiler]
+
+    src/app/administration/my-sites/sites-table/sites-table.component.html:25:28:
+      25 │                             <input type="text" [(ngModel)]="searchTe>
+         ╵                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SitesTableComponent.
+
+    src/app/administration/my-sites/sites-table/sites-table.component.ts:20:15:
+      20 │   templateUrl: './sites-table.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+polyfills.js        | polyfills             |  88.09 kB | 
+main.js             | main                  |   6.17 kB | 
+styles.css          | styles                |   1.27 kB | 
+chunk-HN5UAHUH.js   | -                     | 257 bytes | 
+
+                    | Initial total         |  95.78 kB
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-YV4ZMXP5.js   | administration-module | 306.11 kB | 
+chunk-3YZQ6QO7.js   | customer-app-module   | 191.60 kB | 
+
+Application bundle generation complete. [0.231 seconds]
+
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-NKSYMI2U.js   | administration-module | 306.11 kB | 
+
+Application bundle generation complete. [0.300 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-DADZYDZQ.js   | administration-module | 306.16 kB | 
+
+Application bundle generation complete. [0.267 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-IGG3Z5FF.js   | administration-module | 305.95 kB | 
+
+Application bundle generation complete. [0.258 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-B47MEC6X.js   | administration-module | 305.80 kB | 
+
+Application bundle generation complete. [0.466 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-DM54BT4M.js   | administration-module | 305.41 kB | 
+
+Application bundle generation complete. [0.213 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-UA2SWRP4.js   | administration-module | 305.41 kB | 
+
+Application bundle generation complete. [0.281 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-MQR37GGI.js   | administration-module | 305.41 kB | 
+
+Application bundle generation complete. [0.216 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-OWR5CQWR.js   | administration-module | 305.42 kB | 
+
+Application bundle generation complete. [0.190 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-LMW63FYD.js   | administration-module | 305.42 kB | 
+
+Application bundle generation complete. [0.247 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Application bundle generation failed. [0.177 seconds]
+
+▲ [WARNING] NG8103: The `*ngIf` directive was used in the template, but neither the `NgIf` directive nor the `CommonModule` was imported. Use Angular's built-in control flow @if or make sure that either the `NgIf` directive or the `CommonModule` is included in the `@Component.imports` array of this component. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:32:37:
+      32 │                                     *ngIf="isDropdownOpen">
+         ╵                                      ~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG8002: Can't bind to 'ngModel' since it isn't a known property of 'input'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:21:47:
+      21 │ ... <input type="text" [(ngModel)]="searchText" placeholder="Searc...
+         ╵                        ~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'searchText' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:21:60:
+      21 │ ...t type="text" [(ngModel)]="searchText" placeholder="Search by N...
+         ╵                               ~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'searchText' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:21:60:
+      21 │ ...t type="text" [(ngModel)]="searchText" placeholder="Search by N...
+         ╵                               ~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'toggleDropdown' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:29:64:
+      29 │ ...ass="selectBtn" (click)="toggleDropdown()" [class.toggle]="isDr...
+         ╵                             ~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'isDropdownOpen' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:29:98:
+      29 │ ...Btn" (click)="toggleDropdown()" [class.toggle]="isDropdownOpen">{{
+         ╵                                                    ~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'filterStatusVal' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:30:36:
+      30 │                                     filterStatusVal }}</div>
+         ╵                                     ~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'isDropdownOpen' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:31:76:
+      31 │ ...tDropdown" [class.toggle]="isDropdownOpen" style="display: block;"
+         ╵                               ~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'selectStatus' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:33:65:
+      33 │ ...<div class="option" (click)="selectStatus('All')">All Status</div>
+         ╵                                 ~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'selectStatus' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:34:65:
+      34 │ ...v class="option" (click)="selectStatus('Completed')">Completed<...
+         ╵                              ~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'selectStatus' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:35:65:
+      35 │ ...div class="option" (click)="selectStatus('Pending')">Pending</div>
+         ╵                                ~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'selectStatus' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:36:65:
+      36 │ ...div class="option" (click)="selectStatus('Dispute')">Dispute</div>
+         ╵                                ~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+- Changes detected. Rebuilding...
+
+Application bundle generation failed. [0.165 seconds]
+
+▲ [WARNING] NG8103: The `*ngIf` directive was used in the template, but neither the `NgIf` directive nor the `CommonModule` was imported. Use Angular's built-in control flow @if or make sure that either the `NgIf` directive or the `CommonModule` is included in the `@Component.imports` array of this component. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:32:37:
+      32 │                                     *ngIf="isDropdownOpen">
+         ╵                                      ~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'toggleDropdown' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:29:64:
+      29 │ ...ass="selectBtn" (click)="toggleDropdown()" [class.toggle]="isDr...
+         ╵                             ~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'isDropdownOpen' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:29:98:
+      29 │ ...Btn" (click)="toggleDropdown()" [class.toggle]="isDropdownOpen">{{
+         ╵                                                    ~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'filterStatusVal' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:30:36:
+      30 │                                     filterStatusVal }}</div>
+         ╵                                     ~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'isDropdownOpen' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:31:76:
+      31 │ ...tDropdown" [class.toggle]="isDropdownOpen" style="display: block;"
+         ╵                               ~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'selectStatus' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:33:65:
+      33 │ ...<div class="option" (click)="selectStatus('All')">All Status</div>
+         ╵                                 ~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'selectStatus' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:34:65:
+      34 │ ...v class="option" (click)="selectStatus('Completed')">Completed<...
+         ╵                              ~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'selectStatus' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:35:65:
+      35 │ ...div class="option" (click)="selectStatus('Pending')">Pending</div>
+         ╵                                ~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'selectStatus' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:36:65:
+      36 │ ...div class="option" (click)="selectStatus('Dispute')">Dispute</div>
+         ╵                                ~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+- Changes detected. Rebuilding...
+
+Application bundle generation failed. [0.407 seconds]
+
+▲ [WARNING] NG8103: The `*ngIf` directive was used in the template, but neither the `NgIf` directive nor the `CommonModule` was imported. Use Angular's built-in control flow @if or make sure that either the `NgIf` directive or the `CommonModule` is included in the `@Component.imports` array of this component. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:32:37:
+      32 │                                     *ngIf="isDropdownOpen">
+         ╵                                      ~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'toggleDropdown' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:29:64:
+      29 │ ...ass="selectBtn" (click)="toggleDropdown()" [class.toggle]="isDr...
+         ╵                             ~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'isDropdownOpen' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:29:98:
+      29 │ ...Btn" (click)="toggleDropdown()" [class.toggle]="isDropdownOpen">{{
+         ╵                                                    ~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'filterStatusVal' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:30:36:
+      30 │                                     filterStatusVal }}</div>
+         ╵                                     ~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'isDropdownOpen' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:31:76:
+      31 │ ...tDropdown" [class.toggle]="isDropdownOpen" style="display: block;"
+         ╵                               ~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'selectStatus' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:33:65:
+      33 │ ...<div class="option" (click)="selectStatus('All')">All Status</div>
+         ╵                                 ~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'selectStatus' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:34:65:
+      34 │ ...v class="option" (click)="selectStatus('Completed')">Completed<...
+         ╵                              ~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'selectStatus' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:35:65:
+      35 │ ...div class="option" (click)="selectStatus('Pending')">Pending</div>
+         ╵                                ~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'selectStatus' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:36:65:
+      36 │ ...div class="option" (click)="selectStatus('Dispute')">Dispute</div>
+         ╵                                ~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+- Changes detected. Rebuilding...
+
+Application bundle generation failed. [0.193 seconds]
+
+▲ [WARNING] NG8103: The `*ngIf` directive was used in the template, but neither the `NgIf` directive nor the `CommonModule` was imported. Use Angular's built-in control flow @if or make sure that either the `NgIf` directive or the `CommonModule` is included in the `@Component.imports` array of this component. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:32:37:
+      32 │                                     *ngIf="isDropdownOpen">
+         ╵                                      ~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'toggleDropdown' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:29:64:
+      29 │ ...ass="selectBtn" (click)="toggleDropdown()" [class.toggle]="isDr...
+         ╵                             ~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG1: Property 'filterStatusVal' does not exist on type 'SiteInfoTableComponent'. Did you mean 'filterStatus'? [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:30:36:
+      30 │                                     filterStatusVal }}</div>
+         ╵                                     ~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'selectStatus' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:33:65:
+      33 │ ...<div class="option" (click)="selectStatus('All')">All Status</div>
+         ╵                                 ~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'selectStatus' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:34:65:
+      34 │ ...v class="option" (click)="selectStatus('Completed')">Completed<...
+         ╵                              ~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'selectStatus' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:35:65:
+      35 │ ...div class="option" (click)="selectStatus('Pending')">Pending</div>
+         ╵                                ~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'selectStatus' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:36:65:
+      36 │ ...div class="option" (click)="selectStatus('Dispute')">Dispute</div>
+         ╵                                ~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+- Changes detected. Rebuilding...
+
+Application bundle generation failed. [0.169 seconds]
+
+▲ [WARNING] NG8103: The `*ngIf` directive was used in the template, but neither the `NgIf` directive nor the `CommonModule` was imported. Use Angular's built-in control flow @if or make sure that either the `NgIf` directive or the `CommonModule` is included in the `@Component.imports` array of this component. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:32:37:
+      32 │                                     *ngIf="isDropdownOpen">
+         ╵                                      ~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG1: Property 'filterStatusVal' does not exist on type 'SiteInfoTableComponent'. Did you mean 'filterStatus'? [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:30:36:
+      30 │                                     filterStatusVal }}</div>
+         ╵                                     ~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+- Changes detected. Rebuilding...
+
+Application bundle generation failed. [0.228 seconds]
+
+▲ [WARNING] NG8103: The `*ngIf` directive was used in the template, but neither the `NgIf` directive nor the `CommonModule` was imported. Use Angular's built-in control flow @if or make sure that either the `NgIf` directive or the `CommonModule` is included in the `@Component.imports` array of this component. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:32:37:
+      32 │                                     *ngIf="isDropdownOpen">
+         ╵                                      ~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] TS2304: Cannot find name 'Site'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:16:23:
+      16 │   get filteredSites(): Site[] {
+         ╵                        ~~~~
+
+
+✘ [ERROR] TS2339: Property 'sites' does not exist on type 'SiteInfoTableComponent'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:17:16:
+      17 │     return this.sites.filter(site => {
+         ╵                 ~~~~~
+
+
+✘ [ERROR] TS7006: Parameter 'site' implicitly has an 'any' type. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:17:29:
+      17 │     return this.sites.filter(site => {
+         ╵                              ~~~~
+
+
+- Changes detected. Rebuilding...
+
+Application bundle generation failed. [0.138 seconds]
+
+▲ [WARNING] NG8103: The `*ngIf` directive was used in the template, but neither the `NgIf` directive nor the `CommonModule` was imported. Use Angular's built-in control flow @if or make sure that either the `NgIf` directive or the `CommonModule` is included in the `@Component.imports` array of this component. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:32:37:
+      32 │                                     *ngIf="isDropdownOpen">
+         ╵                                      ~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG1: Property 'filterStatusVal' does not exist on type 'SiteInfoTableComponent'. Did you mean 'filterStatus'? [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:30:36:
+      30 │                                     filterStatusVal }}</div>
+         ╵                                     ~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+- Changes detected. Rebuilding...
+
+Application bundle generation failed. [0.163 seconds]
+
+▲ [WARNING] NG8103: The `*ngIf` directive was used in the template, but neither the `NgIf` directive nor the `CommonModule` was imported. Use Angular's built-in control flow @if or make sure that either the `NgIf` directive or the `CommonModule` is included in the `@Component.imports` array of this component. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:32:37:
+      32 │                                     *ngIf="isDropdownOpen">
+         ╵                                      ~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG8002: Can't bind to 'ngModel' since it isn't a known property of 'input'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:21:47:
+      21 │ ... <input type="text" [(ngModel)]="searchText" placeholder="Searc...
+         ╵                        ~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG1: Property 'filterStatusVal' does not exist on type 'SiteInfoTableComponent'. Did you mean 'filterStatus'? [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:30:36:
+      30 │                                     filterStatusVal }}</div>
+         ╵                                     ~~~~~~~~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:8:15:
+      8 │   templateUrl: './site-info-table.component.html',
+        ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+polyfills.js        | polyfills             |  88.09 kB | 
+main.js             | main                  |   6.17 kB | 
+styles.css          | styles                |   1.27 kB | 
+chunk-HN5UAHUH.js   | -                     | 257 bytes | 
+
+                    | Initial total         |  95.78 kB
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-ZWPMRKEZ.js   | administration-module | 310.50 kB | 
+chunk-3YZQ6QO7.js   | customer-app-module   | 191.60 kB | 
+
+Application bundle generation complete. [0.489 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-X6AKM5QX.js   | administration-module | 310.21 kB | 
+
+Application bundle generation complete. [0.454 seconds]
+
+Page reload sent to client(s).
+
+> creative-builders-theme-one@0.0.0 start
+> ng serve
+
+? Port 4200 is already in use.
+Would you like to use a different port? (Y/n) [46D[46C- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-VOVXWYF2.js   | administration-module | 310.21 kB | 
+
+Application bundle generation complete. [0.255 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-3A637YRK.js   | administration-module | 310.26 kB | 
+
+Application bundle generation complete. [0.241 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-NPUG6K53.js   | administration-module | 310.34 kB | 
+
+Application bundle generation complete. [0.359 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-LDOTVICD.js   | administration-module | 310.34 kB | 
+
+Application bundle generation complete. [0.359 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-R6PSLWDR.js   | administration-module | 310.35 kB | 
+
+Application bundle generation complete. [0.221 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-5EZVWODM.js   | administration-module | 310.35 kB | 
+
+Application bundle generation complete. [0.297 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-BM7Z5VYS.js   | administration-module | 310.39 kB | 
+
+Application bundle generation complete. [0.373 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-SQ3ELL4K.js   | administration-module | 310.48 kB | 
+
+Application bundle generation complete. [0.307 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-HCC44QB5.js   | administration-module | 310.52 kB | 
+
+Application bundle generation complete. [0.378 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-ACRGO657.js   | administration-module | 310.62 kB | 
+
+Application bundle generation complete. [0.240 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-SVH67GJR.js   | administration-module | 310.62 kB | 
+
+Application bundle generation complete. [0.238 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-Y4MLHQQ7.js   | administration-module | 310.66 kB | 
+
+Application bundle generation complete. [0.213 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Application bundle generation failed. [0.196 seconds]
+
+✘ [ERROR] NG9: Property 'blockNo' does not exist on type 'SiteInfo'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:60:36:
+      60 │                         <td>{{ site.blockNo }}</td>
+         ╵                                     ~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:15:15:
+      15 │   templateUrl: './site-info-table.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'streetNo' does not exist on type 'SiteInfo'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:61:36:
+      61 │                         <td>{{ site.streetNo }}</td>
+         ╵                                     ~~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:15:15:
+      15 │   templateUrl: './site-info-table.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] NG9: Property 'houseNo' does not exist on type 'SiteInfo'. [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.html:62:36:
+      62 │                         <td>{{ site.houseNo }}</td>
+         ╵                                     ~~~~~~~
+
+  Error occurs in the template of component SiteInfoTableComponent.
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:15:15:
+      15 │   templateUrl: './site-info-table.component.html',
+         ╵                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+- Changes detected. Rebuilding...
+
+Application bundle generation failed. [0.383 seconds]
+
+✘ [ERROR] TS2739: Type '{ name: string; status: "Completed"; }' is missing the following properties from type 'SiteInfo': blockNo, streetNo, houseNo [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:27:4:
+      27 │     { name: 'Rizwan Heights', status: 'Completed' },
+         ╵     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] TS2739: Type '{ name: string; status: "Pending"; }' is missing the following properties from type 'SiteInfo': blockNo, streetNo, houseNo [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:28:4:
+      28 │     { name: "Ali's Home", status: 'Pending' },
+         ╵     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+✘ [ERROR] TS2739: Type '{ name: string; status: "Dispute"; }' is missing the following properties from type 'SiteInfo': blockNo, streetNo, houseNo [plugin angular-compiler]
+
+    src/app/administration/site-info/site-info-table/site-info-table.component.ts:29:4:
+      29 │     { name: "Lodhi's Arcade", status: 'Dispute' }
+         ╵     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+polyfills.js        | polyfills             |  88.09 kB | 
+main.js             | main                  |   6.17 kB | 
+styles.css          | styles                |   1.27 kB | 
+chunk-HN5UAHUH.js   | -                     | 257 bytes | 
+
+                    | Initial total         |  95.78 kB
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-XKES5M7W.js   | administration-module | 311.33 kB | 
+chunk-3YZQ6QO7.js   | customer-app-module   | 191.60 kB | 
+
+Application bundle generation complete. [0.354 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-VOGHTRIA.js   | administration-module | 311.33 kB | 
+
+Application bundle generation complete. [0.177 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-LVPZCSZX.js   | administration-module | 311.41 kB | 
+
+Application bundle generation complete. [0.994 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-YUP375ED.js   | administration-module | 313.66 kB | 
+
+Application bundle generation complete. [0.943 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-BELTMEVX.js   | administration-module | 313.66 kB | 
+
+Application bundle generation complete. [3.751 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Application bundle generation failed. [5.239 seconds]
+
+✘ [ERROR] TS1005: ':' expected. [plugin angular-compiler]
+
+    src/app/administration/site-info/add-site-info/add-site-info.component.ts:29:4:
+      29 │     'Item': 'آئٹم',
+         ╵     ~~~~~~
+
+
+✘ [ERROR] TS1005: ',' expected. [plugin angular-compiler]
+
+    src/app/administration/site-info/add-site-info/add-site-info.component.ts:29:10:
+      29 │     'Item': 'آئٹم',
+         ╵           ^
+
+
+✘ [ERROR] TS1005: ':' expected. [plugin angular-compiler]
+
+    src/app/administration/site-info/add-site-info/add-site-info.component.ts:29:18:
+      29 │     'Item': 'آئٹم',
+         ╵                 ^
+
+
+✘ [ERROR] Unexpected ","
+
+    src/app/administration/site-info/add-site-info/add-site-info.component.ts:461:36:
+      461 │             '': 'Item', 'آئٹم': ,
+          ╵                                 ^
+
+
+- Changes detected. Rebuilding...
+
+Application bundle generation failed. [3.026 seconds]
+
+✘ [ERROR] TS1005: ':' expected. [plugin angular-compiler]
+
+    src/app/administration/site-info/add-site-info/add-site-info.component.ts:29:4:
+      29 │     'Item': 'آئٹم',
+         ╵     ~~~~~~
+
+
+✘ [ERROR] TS1005: ',' expected. [plugin angular-compiler]
+
+    src/app/administration/site-info/add-site-info/add-site-info.component.ts:29:10:
+      29 │     'Item': 'آئٹم',
+         ╵           ^
+
+
+✘ [ERROR] TS1005: ':' expected. [plugin angular-compiler]
+
+    src/app/administration/site-info/add-site-info/add-site-info.component.ts:29:18:
+      29 │     'Item': 'آئٹم',
+         ╵                 ^
+
+
+✘ [ERROR] Unexpected ","
+
+    src/app/administration/site-info/add-site-info/add-site-info.component.ts:461:36:
+      461 │             '': 'Item', 'آئٹم': ,
+          ╵                                 ^
+
+
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+polyfills.js        | polyfills             |  88.09 kB | 
+main.js             | main                  |   6.17 kB | 
+styles.css          | styles                |   1.27 kB | 
+chunk-HN5UAHUH.js   | -                     | 257 bytes | 
+
+                    | Initial total         |  95.78 kB
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-ZDM4YLT5.js   | administration-module | 313.81 kB | 
+chunk-3YZQ6QO7.js   | customer-app-module   | 191.60 kB | 
+
+Application bundle generation complete. [2.749 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-AKIIEJOE.js   | administration-module | 313.81 kB | 
+
+Application bundle generation complete. [0.430 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-7HRNRVKD.js   | administration-module | 313.81 kB | 
+
+Application bundle generation complete. [0.585 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-PLATWQH7.js   | administration-module | 313.82 kB | 
+
+Application bundle generation complete. [0.741 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-QCKKBVCR.js   | administration-module | 313.83 kB | 
+
+Application bundle generation complete. [0.600 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-XGNT7E3T.js   | administration-module | 313.83 kB | 
+
+Application bundle generation complete. [0.879 seconds]
+
+Page reload sent to client(s).
+- Changes detected. Rebuilding...
+
+Initial chunk files | Names                 |  Raw size
+main.js             | main                  |   6.17 kB | 
+
+Lazy chunk files    | Names                 |  Raw size
+chunk-G74BBNNE.js   | administration-module | 313.85 kB | 
+
+Application bundle generation complete. [0.952 seconds]
+
+Page reload sent to client(s).

@@ -14,47 +14,64 @@
     <div class="single-card-dashboard account-info box-dashboard-dashboard">
 
         <div class="invers-dashboard-table table-responsive mobile-table-750">
+            <div class="row mb--20">
+                <div class="col-lg-4 edit-account-information mt-0">
+                    <div class="input-wrapper">
+                        <div class="single-input">
+                            <input type="text" [(ngModel)]="searchText" placeholder="Search by Name or Location...">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="single-input">
+                        <div class="invers-modern-select">
+                            <div class="select">
+                                <div class="selectBtn" (click)="toggleDropdown()" [class.toggle]="isDropdownOpen">{{
+                                    filterStatusVal }}</div>
+                                <div class="selectDropdown" [class.toggle]="isDropdownOpen" style="display: block;"
+                                    *ngIf="isDropdownOpen">
+                                    <div class="option" (click)="selectStatus('All')">All Status</div>
+                                    <div class="option" (click)="selectStatus('Completed')">Completed</div>
+                                    <div class="option" (click)="selectStatus('Pending')">Pending</div>
+                                    <div class="option" (click)="selectStatus('Dispute')">Dispute</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <table class="invers-table table table-borderless">
                 <thead>
                     <tr>
                         <th>Site Name</th>
+                        <th>Block No</th>
+                        <th>Street No</th>
+                        <th>House/Plaza No.</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <th>Rizwan Heights</th>
-                        <td><span class="invers-badge-minimal success">Completed</span></td>
+                    <tr *ngFor="let site of filteredSiteInfos">
+                        <th>{{ site.name }}</th>
+                        <td>{{ site.blockNo }}</td>
+                        <td>{{ site.streetNo }}</td>
+                        <td>{{ site.houseNo }}</td>
+                        <td><span class="invers-badge-minimal" [ngClass]="getStatusClass(site.status)">{{ site.status
+                                }}</span></td>
                         <td>
                             <div class="d-flex gap-3">
-                                <a href="../view-site-info" role="button" class="text-success"><i class="fa-regular fa-eye"></i>View</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>Delete</a>
+                                <a href="../view-site-info" role="button" class="text-success"><i
+                                        class="fa-regular fa-eye"></i>View</a>
+                                <a href="javascript:void(0)" role="button" class="text-danger"><i
+                                        class="fa-regular fa-trash-can"></i>Delete</a>
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <th>Ali's Home</th>
-                        <td><span class="invers-badge-minimal color-warning">Pending</span></td>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="../view-site-info" role="button" class="text-success"><i class="fa-regular fa-eye"></i>View</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>Delete</a>
-                            </div>
-                        </td>
+                    <tr *ngIf="filteredSiteInfos.length === 0">
+                        <td colspan="3" class="text-center">No sites found matching criteria.</td>
                     </tr>
-                    <tr>
-                        <th>Lodhi's Arcade</th>
-                        <td><span class="invers-badge-minimal color-danger">Dispute</span></td>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="../view-site-info" role="button" class="text-success"><i class="fa-regular fa-eye"></i>View</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>Delete</a>
-                            </div>
-                        </td>
-                    </tr>
-
                 </tbody>
             </table>
         </div>

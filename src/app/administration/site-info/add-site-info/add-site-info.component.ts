@@ -17,9 +17,16 @@ export class AddSiteInfoComponent {
   isUrdu: boolean = false;
   dateStarted: string = '';
   dateEnded: string = '';
+  activeTab: string = 'item-sheet';
+
+  setActiveTab(tab: string) {
+    this.activeTab = tab;
+  }
 
   // --- Translation ---
   translations: { [key: string]: string } = {
+    'Item Sheet': 'آئٹم شیٹ',
+    'Attendance Sheet': 'اٹینڈنس شیٹ',
     'Item': 'آئٹم',
     'Rate': 'ریٹ',
     'Qty': 'مقدار',

@@ -134,8 +134,27 @@
                 </div>
 
             </div>
+            <!-- Tab Navigation -->
+            <ul class="nav nav-tabs mb-4 border-0 no-print" style="gap: 10px; ">
+                <li class="nav-item">
+                    <button class="tmp-btn btn-sm"
+                        [ngClass]="{'btn-primary': activeTab === 'item-sheet', 'btn-secondary': activeTab !== 'item-sheet'}"
+                        (click)="setActiveTab('item-sheet')">
+                        {{ t('Item Sheet') }}
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="tmp-btn btn-sm"
+                        [ngClass]="{'btn-primary': activeTab === 'attendance-sheet', 'btn-secondary': activeTab !== 'attendance-sheet'}"
+                        (click)="setActiveTab('attendance-sheet')">
+                        {{ t('Attendance Sheet') }}
+                    </button>
+                </li>
+            </ul>
+
             <div class="table-responsive mt-4">
-                <table class="table" border="1" style="border-collapse: collapse;">
+                <!-- Item Sheet Table -->
+                <table class="table" border="1" style="border-collapse: collapse;" *ngIf="activeTab === 'item-sheet'">
                     <thead>
                         <tr>
                             <th colspan="2">{{ t('Item') }}</th>
@@ -197,9 +216,12 @@
                     </tbody>
                 </table>
 
-                <div class="print-page-break"></div>
+                <div class="print-page-break no-print" *ngIf="activeTab === 'item-sheet' || activeTab === 'attendance-sheet'">
+                </div>
 
-                <table class="table mt-4" border="1" style="border-collapse: collapse;">
+                <!-- Attendance Sheet Table -->
+                <table class="table mt-4" border="1" style="border-collapse: collapse;"
+                    *ngIf="activeTab === 'attendance-sheet'">
                     <thead>
                         <tr>
                             <th *ngFor="let header of attendanceHeaders">{{ t(header) }}</th>
