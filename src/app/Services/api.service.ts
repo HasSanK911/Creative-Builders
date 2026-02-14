@@ -23,7 +23,6 @@ export class ApiService<T> {
     if (token) {
       headers = headers.set('Authorization', `Bearer ${token}`);
     }
-
     return headers;
   }
 
