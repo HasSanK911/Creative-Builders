@@ -11,60 +11,58 @@
             </span>
         </a>
     </div>
+
     <div class="single-card-dashboard account-info box-dashboard-dashboard">
+        <!-- Search Bar -->
+        <div class="mb-4">
+            <div class="d-flex align-items-center gap-2"
+                style="border: 1px solid #dee2e6; border-radius: 8px; padding: 8px 16px; max-width: 400px;">
+                <i class="fa-solid fa-magnifying-glass" style="color: #999;"></i>
+                <input type="text" [(ngModel)]="searchQuery" (ngModelChange)="filterSiteInfos()"
+                    placeholder="Search by Site Name, Block, Street..."
+                    style="border: none; outline: none; width: 100%; font-size: 14px;">
+            </div>
+        </div>
 
         <div class="invers-dashboard-table table-responsive mobile-table-750">
             <table class="invers-table table table-borderless">
                 <thead>
                     <tr>
                         <th>Site Name</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+                        <th>Block</th>
+                        <th>Street</th>
+                        <th>House/Plaza</th>
+                        <th>Date Started</th>
+                        <th style="min-width: 180px;">Actions</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <th>Rizwan Heights</th>
-                        <td><span class="invers-badge-minimal success">Completed</span></td>
+                    <tr *ngFor="let info of filteredSiteInfos">
+                        <th>{{ info.site_name }}</th>
+                        <td>{{ info.block_no || '-' }}</td>
+                        <td>{{ info.street_no || '-' }}</td>
+                        <td>{{ info.house_no || '-' }}</td>
+                        <td>{{ info.date_started | date:'mediumDate' }}</td>
                         <td>
                             <div class="d-flex gap-3">
-                                <a href="../view-site-info" role="button" class="text-success"><i
+                                <a [routerLink]="['../view-site-info', info.id]" role="button" class="text-info"><i
                                         class="fa-regular fa-eye"></i>View</a>
-                                <a href="#" role="button" class="text-danger"><i
+                                <a [routerLink]="['../edit-site-info', info.id]" role="button" class="text-primary"><i
+                                        class="fa-regular fa-pen-to-square"></i>Edit</a>
+                                <a role="button" class="text-danger" (click)="info.id && deleteSiteInfo(info.id)"><i
                                         class="fa-regular fa-trash-can"></i>Delete</a>
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <th>Ali's Home</th>
-                        <td><span class="invers-badge-minimal color-warning">Pending</span></td>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="../view-site-info" role="button" class="text-success"><i
-                                        class="fa-regular fa-eye"></i>View</a>
-                                <a href="#" role="button" class="text-danger"><i
-                                        class="fa-regular fa-trash-can"></i>Delete</a>
-                            </div>
+                    <tr *ngIf="filteredSiteInfos.length === 0">
+                        <td colspan="6" class="text-center py-4" style="color: #999;">
+                            <i class="fa-solid fa-search" style="font-size: 24px;"></i>
+                            <p class="mt-2 mb-0">No site information found matching "{{ searchQuery }}"</p>
                         </td>
                     </tr>
-                    <tr>
-                        <th>Lodhi's Arcade</th>
-                        <td><span class="invers-badge-minimal color-danger">Dispute</span></td>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="../view-site-info" role="button" class="text-success"><i
-                                        class="fa-regular fa-eye"></i>View</a>
-                                <a href="#" role="button" class="text-danger"><i
-                                        class="fa-regular fa-trash-can"></i>Delete</a>
-                            </div>
-                        </td>
-                    </tr>
-
                 </tbody>
             </table>
         </div>
 
     </div>
-
-</div>

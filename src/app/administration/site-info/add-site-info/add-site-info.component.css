@@ -173,3 +173,76 @@ table {
         padding: 0 !important;
     }
 }
+
+/* Segmented Control */
+.segmented-control {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #f1f1f1;
+    border-radius: 50px;
+    padding: 5px;
+    width: fit-content;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.segmented-control input[type="radio"] {
+    display: none;
+}
+
+.segmented-control label {
+    position: relative;
+    z-index: 2;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    user-select: none;
+}
+
+.segmented-control input[type="radio"]:checked+label {
+    color: #fff;
+}
+
+.segmented-control .marker {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    left: 5px;
+    width: 50%;
+    /* Adjust based on number of tabs */
+    background-color: #007bff;
+    /* Primary Color */
+    border-radius: 50px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    z-index: 1;
+}
+
+/* Move marker based on selected tab */
+#tabItems:checked~.marker {
+    transform: translateX(0);
+    width: 125px;
+    /* Approximate width of label */
+}
+
+#tabAttendance:checked~.marker {
+    transform: translateX(125px);
+    width: 160px;
+    /* Approximate width of label */
+}
+
+/* Urdu Alignment */
+.urdu-font .segmented-control {
+    direction: rtl;
+}
+
+.urdu-font #tabItems:checked~.marker {
+    transform: translateX(160px);
+}
+
+.urdu-font #tabAttendance:checked~.marker {
+    transform: translateX(0);
+}

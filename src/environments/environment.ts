@@ -1,6 +1,7 @@
 export const environment = {
   production: false,
   environmentName: 'development',
-  apiUrl: 'http://localhost:5555/api'
+  apiUrl: 'http://localhost:5555/api',
+  CompanyName: 'Creative Builders',
 };
 

@@ -3,13 +3,14 @@
     <div
         class="single-card-dashboard account-info box-dashboard-dashboard d-flex align-items-center justify-content-between no-print">
         <h3 class="title title-top-primary"><i class="fa-regular fa-building"></i>Add Site Information</h3>
-        <a routerLink="../add-site-info" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+        <button class="tmp-btn btn-primary hover-icon-reverse btn-sm" (click)="saveSiteInfo()"
+            [disabled]="isSubmitting">
             <span class="icon-reverse-wrapper">
                 <span class="btn-text">Save Site Info</span>
                 <span class="btn-icon"><i class="fa-solid fa-save"></i></span>
                 <span class="btn-icon"><i class="fa-solid fa-save"></i></span>
             </span>
-        </a>
+        </button>
     </div>
 
     <div class="container-fluid">
@@ -18,10 +19,12 @@
                 <div class="single-input">
                     <div class="invers-modern-select">
                         <div class="select">
-                            <div class="selectBtn" (click)="isDropdownOpen = !isDropdownOpen">{{ selectedSite || 'Select
+                            <div class="selectBtn" (click)="isDropdownOpen = !isDropdownOpen">{{ selectedSiteName ||
+                                'Select
                                 Site' }}</div>
                             <div class="selectDropdown" [class.toggle]="isDropdownOpen">
-                                <div class="option" *ngFor="let site of sites" (click)="selectSite(site)">{{ site }}
+                                <div class="option" *ngFor="let site of sites" (click)="selectSite(site)">{{ site.name
+                                    }}
                                 </div>
                             </div>
                         </div>
@@ -117,137 +120,174 @@
                 <div class="col-4 mb-4">
                     <div class="d-flex custom-input align-items-center gap-3">
                         <label for="">{{ t('Block No.') }}</label>
-                        <input type="text">
+                        <input type="text" [(ngModel)]="blockNo" [ngModelOptions]="{standalone: true}">
                     </div>
                 </div>
                 <div class="col-4 mb-4">
                     <div class="d-flex custom-input align-items-center gap-3">
                         <label for="">{{ t('Street No.') }}</label>
-                        <input type="text">
+                        <input type="text" [(ngModel)]="streetNo" [ngModelOptions]="{standalone: true}">
                     </div>
                 </div>
                 <div class="col-4 mb-4">
                     <div class="d-flex custom-input align-items-center gap-3">
                         <label for="" class="text-nowrap">{{ t('House/Plaza No.') }}</label>
-                        <input type="text">
+                        <input type="text" [(ngModel)]="houseNo" [ngModelOptions]="{standalone: true}">
                     </div>
                 </div>
 
-            </div>
-            <div class="table-responsive mt-4">
-                <table class="table" border="1" style="border-collapse: collapse;">
-                    <thead>
-                        <tr>
-                            <th colspan="2">{{ t('Item') }}</th>
-                            <th>{{ t('Rate') }}</th>
-                            <th>{{ t('Qty') }}</th>
-                            <th>{{ t('Total') }}</th>
-                            <th colspan="2">{{ t('Item') }}</th>
-                            <th>{{ t('Rate') }}</th>
-                            <th>{{ t('Qty') }}</th>
-                            <th>{{ t('Total') }}</th>
-                            <th colspan="2">{{ t('Item') }}</th>
-                            <th>{{ t('Rate') }}</th>
-                            <th>{{ t('Qty') }}</th>
-                            <th>{{ t('Total') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let leftItem of itemsData.left; let i = index">
-                            <!-- Left Column -->
-                            <td colspan="2">{{ t(leftItem.name) }}</td>
-                            <td><input type="number" [(ngModel)]="leftItem.rate"
-                                    (ngModelChange)="calculateTotal(leftItem)">
-                            </td>
-                            <td><input type="number" [(ngModel)]="leftItem.quantity"
-                                    (ngModelChange)="calculateTotal(leftItem)"></td>
-                            <td>{{ leftItem.total }}</td>
-
-                            <!-- Middle Column -->
-                            <td colspan="2">{{ t(itemsData.middle[i]?.name) }}</td>
-                            <td><input type="number" [(ngModel)]="itemsData.middle[i].rate"
-                                    (ngModelChange)="calculateTotal(itemsData.middle[i])"></td>
-                            <td><input type="number" [(ngModel)]="itemsData.middle[i].quantity"
-                                    (ngModelChange)="calculateTotal(itemsData.middle[i])"></td>
-                            <td>{{ itemsData.middle[i]?.total }}</td>
-
-                            <!-- Right Column -->
-                            <td colspan="2">{{ t(itemsData.right[i]?.name) }}</td>
-                            <td><input type="number" [(ngModel)]="itemsData.right[i].rate"
-                                    (ngModelChange)="calculateTotal(itemsData.right[i])"></td>
-                            <td><input type="number" [(ngModel)]="itemsData.right[i].quantity"
-                                    (ngModelChange)="calculateTotal(itemsData.right[i])"></td>
-                            <td>{{ itemsData.right[i]?.total }}</td>
-                        </tr>
-                        <!-- Total Row -->
-                        <tr style="font-weight: bold; background: #f8f9fa;">
-                            <td colspan="2">{{ t('Total') }}</td>
-                            <td></td>
-                            <td></td>
-                            <td>{{ getSectionTotal('left') }}</td>
-                            <td colspan="2">{{ t('Total') }}</td>
-                            <td></td>
-                            <td></td>
-                            <td>{{ getSectionTotal('middle') }}</td>
-                            <td colspan="2">{{ t('Total') }}</td>
-                            <td></td>
-                            <td></td>
-                            <td>{{ getSectionTotal('right') }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="print-page-break"></div>
-
-                <table class="table mt-4" border="1" style="border-collapse: collapse;">
-                    <thead>
-                        <tr>
-                            <th *ngFor="let header of attendanceHeaders">{{ t(header) }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let row of attendanceRows; let i = index">
-                            <td><input type="date" [(ngModel)]="row.date" [class.has-value]="row.date"></td>
-                            <td><input type="number" [(ngModel)]="row.engineerSalary"></td>
-                            <td><input type="number" [(ngModel)]="row.bajri"></td>
-                            <td><input type="number" [(ngModel)]="row.bajriPayment"></td>
-                            <td><input type="number" [(ngModel)]="row.sand"></td>
-                            <td><input type="number" [(ngModel)]="row.sandPayment"></td>
-                            <td><input type="number" [(ngModel)]="row.bricks"></td>
-                            <td><input type="number" [(ngModel)]="row.bricksPayment"></td>
-                            <td><input type="number" [(ngModel)]="row.cement"></td>
-                            <td><input type="number" [(ngModel)]="row.cementPayment"></td>
-                            <td><input type="number" [(ngModel)]="row.cementMinus"></td>
-                            <td><input type="number" [(ngModel)]="row.cementPlus"></td>
-                            <td><input type="number" [(ngModel)]="row.steel"></td>
-                            <td><input type="number" [(ngModel)]="row.steelPayment"></td>
-                            <td><input type="number" [(ngModel)]="row.steelPlus"></td>
-                            <td><input type="number" [(ngModel)]="row.steelMinus"></td>
-                        </tr>
-                        <!-- Total Row -->
-                        <tr>
-                            <td><strong>{{ t('Total') }}</strong></td>
-                            <td>{{ getColumnTotal('engineerSalary') }}</td>
-                            <td>{{ getColumnTotal('bajri') }}</td>
-                            <td>{{ getColumnTotal('bajriPayment') }}</td>
-                            <td>{{ getColumnTotal('sand') }}</td>
-                            <td>{{ getColumnTotal('sandPayment') }}</td>
-                            <td>{{ getColumnTotal('bricks') }}</td>
-                            <td>{{ getColumnTotal('bricksPayment') }}</td>
-                            <td>{{ getColumnTotal('cement') }}</td>
-                            <td>{{ getColumnTotal('cementPayment') }}</td>
-                            <td>{{ getColumnTotal('cementMinus') }}</td>
-                            <td>{{ getColumnTotal('cementPlus') }}</td>
-                            <td>{{ getColumnTotal('steel') }}</td>
-                            <td>{{ getColumnTotal('steelPayment') }}</td>
-                            <td>{{ getColumnTotal('steelPlus') }}</td>
-                            <td>{{ getColumnTotal('steelMinus') }}</td>
-                        </tr>
-                    </tbody>
-                </table>
 
 
+
+                <!-- Tabs (Segmented Control) -->
+                <div class="d-flex justify-content-center mb-4 no-print">
+                    <div class="segmented-control">
+                        <input type="radio" name="sheetTab" id="tabItems" [checked]="activeTab === 'items'"
+                            (change)="setActiveTab('items')">
+                        <label for="tabItems">{{ t('Items Sheet') }}</label>
+
+                        <input type="radio" name="sheetTab" id="tabAttendance" [checked]="activeTab === 'attendance'"
+                            (change)="setActiveTab('attendance')">
+                        <label for="tabAttendance">{{ t('Attendance Sheet') }}</label>
+
+                        <div class="marker"></div>
+                    </div>
+                </div>
+
+
+
+                <div class="table-responsive mt-4" *ngIf="activeTab === 'items'">
+                    <table class="table" border="1" style="border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <th colspan="2">{{ t('Item') }}</th>
+                                <th>{{ t('Rate') }}</th>
+                                <th>{{ t('Qty') }}</th>
+                                <th>{{ t('Total') }}</th>
+                                <th colspan="2">{{ t('Item') }}</th>
+                                <th>{{ t('Rate') }}</th>
+                                <th>{{ t('Qty') }}</th>
+                                <th>{{ t('Total') }}</th>
+                                <th colspan="2">{{ t('Item') }}</th>
+                                <th>{{ t('Rate') }}</th>
+                                <th>{{ t('Qty') }}</th>
+                                <th>{{ t('Total') }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let leftItem of itemsData.left; let i = index">
+                                <!-- Left Column -->
+                                <td colspan="2">{{ t(leftItem.name) }}</td>
+                                <td><input type="number" [(ngModel)]="leftItem.rate"
+                                        (ngModelChange)="calculateTotal(leftItem)">
+                                </td>
+                                <td><input type="number" [(ngModel)]="leftItem.quantity"
+                                        (ngModelChange)="calculateTotal(leftItem)"></td>
+                                <td>{{ leftItem.total }}</td>
+
+                                <!-- Middle Column -->
+                                <td colspan="2">{{ t(itemsData.middle[i]?.name) }}</td>
+                                <td><input type="number" [(ngModel)]="itemsData.middle[i].rate"
+                                        (ngModelChange)="calculateTotal(itemsData.middle[i])"></td>
+                                <td><input type="number" [(ngModel)]="itemsData.middle[i].quantity"
+                                        (ngModelChange)="calculateTotal(itemsData.middle[i])"></td>
+                                <td>{{ itemsData.middle[i]?.total }}</td>
+
+                                <!-- Right Column -->
+                                <td colspan="2">{{ t(itemsData.right[i]?.name) }}</td>
+                                <td><input type="number" [(ngModel)]="itemsData.right[i].rate"
+                                        (ngModelChange)="calculateTotal(itemsData.right[i])"></td>
+                                <td><input type="number" [(ngModel)]="itemsData.right[i].quantity"
+                                        (ngModelChange)="calculateTotal(itemsData.right[i])"></td>
+                                <td>{{ itemsData.right[i]?.total }}</td>
+                            </tr>
+
+                        </tbody>
+                        <tfoot>
+                            <tr style="font-weight: bold; background: #f8f9fa;">
+                                <td colspan="2">{{ t('Total') }}</td>
+                                <td></td>
+                                <td></td>
+                                <td>{{ getSectionTotal('left') }}</td>
+                                <td colspan="2">{{ t('Total') }}</td>
+                                <td></td>
+                                <td></td>
+                                <td>{{ getSectionTotal('middle') }}</td>
+                                <td colspan="2">{{ t('Total') }}</td>
+                                <td></td>
+                                <td></td>
+                                <td>{{ getSectionTotal('right') }}</td>
+                            </tr>
+                            <tr style="font-weight: bold; background: #e9ecef; border-top: 2px solid #dee2e6;">
+                                <td colspan="15" class="text-end" style="text-align: right; padding-right: 20px;">
+                                    <span style="font-size: 1.1em;">{{ t('Grand Total') }}: {{ getItemsGrandTotal() |
+                                        number }}</span>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="table-responsive mt-4" *ngIf="activeTab === 'attendance'">
+                    <div class="d-flex justify-content-end mb-2 no-print">
+                        <button class="btn btn-sm btn-success" (click)="addAttendanceRow()">
+                            <i class="fa-solid fa-plus"></i> Add Row
+                        </button>
+                    </div>
+                    <table class="table" border="1" style="border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <th *ngFor="let header of attendanceHeaders">{{ t(header) }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of attendanceRows; let i = index">
+                                <td><input type="date" [(ngModel)]="row.date" [class.has-value]="row.date"></td>
+                                <td><input type="number" [(ngModel)]="row.engineerSalary"></td>
+                                <td><input type="number" [(ngModel)]="row.bajri"></td>
+                                <td><input type="number" [(ngModel)]="row.bajriPayment"></td>
+                                <td><input type="number" [(ngModel)]="row.sand"></td>
+                                <td><input type="number" [(ngModel)]="row.sandPayment"></td>
+                                <td><input type="number" [(ngModel)]="row.bricks"></td>
+                                <td><input type="number" [(ngModel)]="row.bricksPayment"></td>
+                                <td><input type="number" [(ngModel)]="row.cement"></td>
+                                <td><input type="number" [(ngModel)]="row.cementPayment"></td>
+                                <td><input type="number" [(ngModel)]="row.cementMinus"></td>
+                                <td><input type="number" [(ngModel)]="row.cementPlus"></td>
+                                <td><input type="number" [(ngModel)]="row.steel"></td>
+                                <td><input type="number" [(ngModel)]="row.steelPayment"></td>
+                                <td><input type="number" [(ngModel)]="row.steelPlus"></td>
+                                <td><input type="number" [(ngModel)]="row.steelMinus"></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="font-weight: bold; background: #eaeaea;">
+                                <td><strong>{{ t('Total') }}</strong></td>
+                                <td>{{ getColumnTotal('engineerSalary') }}</td>
+                                <td>{{ getColumnTotal('bajri') }}</td>
+                                <td>{{ getColumnTotal('bajriPayment') }}</td>
+                                <td>{{ getColumnTotal('sand') }}</td>
+                                <td>{{ getColumnTotal('sandPayment') }}</td>
+                                <td>{{ getColumnTotal('bricks') }}</td>
+                                <td>{{ getColumnTotal('bricksPayment') }}</td>
+                                <td>{{ getColumnTotal('cement') }}</td>
+                                <td>{{ getColumnTotal('cementPayment') }}</td>
+                                <td>{{ getColumnTotal('cementMinus') }}</td>
+                                <td>{{ getColumnTotal('cementPlus') }}</td>
+                                <td>{{ getColumnTotal('steel') }}</td>
+                                <td>{{ getColumnTotal('steelPayment') }}</td>
+                                <td>{{ getColumnTotal('steelPlus') }}</td>
+                                <td>{{ getColumnTotal('steelMinus') }}</td>
+                            </tr>
+                            <tr style="font-weight: bold; background: #d1e7dd; border-top: 2px solid #aecbbf;">
+                                <td colspan="16" class="text-end" style="text-align: right; padding-right: 20px;">
+                                    <span style="font-size: 1.1em;">{{ t('Grand Total Expense') }}: {{
+                                        getAttendanceGrandTotal() | number }}</span>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>

@@ -1,5 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 declare var window: any;
 
 @Component({
@@ -10,6 +11,8 @@ declare var window: any;
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements AfterViewInit {
+
+  companyName = environment.CompanyName;
 
   constructor(private router: Router) { }
   gotoContactUs() {

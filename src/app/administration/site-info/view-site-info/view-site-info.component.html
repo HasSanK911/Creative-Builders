@@ -1,1 +1,252 @@
-<p>view-site-info works!</p>
+<div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
+
+    <div
+        class="single-card-dashboard account-info box-dashboard-dashboard d-flex align-items-center justify-content-between no-print">
+        <h3 class="title title-top-primary"><i class="fa-regular fa-building"></i>{{ t('Site Information') }}</h3>
+        <a routerLink="/admin/site-info-table" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+            <span class="icon-reverse-wrapper">
+                <span class="btn-text">{{ t('Back') }}</span>
+                <span class="btn-icon"><i class="fa-solid fa-arrow-left"></i></span>
+                <span class="btn-icon"><i class="fa-solid fa-arrow-left"></i></span>
+            </span>
+        </a>
+    </div>
+
+    <div class="container-fluid" *ngIf="siteInfo">
+        <div class="row">
+            <div class="col-md-4 no-print">
+                <div class="single-input">
+                    <label>Site Name</label>
+                    <div class="form-control" style="background-color: #e9ecef;">{{ siteInfo.site_name }}</div>
+                </div>
+            </div>
+            <div class="col-md-8 d-flex flex-wrap justify-content-end gap-3 mb-4 no-print">
+                <button class="tmp-btn btn-secondary hover-icon-reverse btn-sm" (click)="downloadPDF()">
+                    <span class="icon-reverse-wrapper">
+                        <span class="btn-text">{{ t('Download PDF') }}</span>
+                        <span class="btn-icon"><i class="fa-solid fa-file-pdf"></i></span>
+                        <span class="btn-icon"><i class="fa-solid fa-file-pdf"></i></span>
+                    </span>
+                </button>
+                <button class="tmp-btn btn-info hover-icon-reverse btn-sm" (click)="toggleTranslate()">
+                    <span class="icon-reverse-wrapper">
+                        <span class="btn-text">{{ t('Translate') }}</span>
+                        <span class="btn-icon"><i class="fa-solid fa-language"></i></span>
+                        <span class="btn-icon"><i class="fa-solid fa-language"></i></span>
+                    </span>
+                </button>
+            </div>
+
+            <!-- Receipts Gallery -->
+            <div *ngIf="receipts.length" class="col-12 mt-3 p-3 no-print"
+                style="border: 1px solid #dee2e6; border-radius: 8px;">
+                <h5>{{ t('Uploaded Receipts') }}</h5>
+                <div class="d-flex flex-wrap gap-3 mt-3">
+                    <div *ngFor="let receipt of receipts; let i = index"
+                        style="position: relative; display: inline-block; border: 1px solid #dee2e6; border-radius: 8px; overflow: hidden;">
+                        <img [src]="receipt" alt="Receipt {{ i + 1 }}"
+                            style="width: 200px; height: 150px; object-fit: cover; display: block;">
+                        <div class="d-flex justify-content-center gap-1 p-2" style="background: #f8f9fa;">
+                            <button class="tmp-btn btn-primary hover-icon-reverse btn-sm" (click)="viewReceipt(i)"
+                                title="View">
+                                <span class="icon-reverse-wrapper">
+                                    <span class="btn-icon"><i class="fa-solid fa-eye"></i></span>
+                                    <span class="btn-icon"><i class="fa-solid fa-eye"></i></span>
+                                </span>
+                            </button>
+                            <button class="tmp-btn btn-primary hover-icon-reverse btn-sm" (click)="downloadReceipt(i)"
+                                title="Download">
+                                <span class="icon-reverse-wrapper">
+                                    <span class="btn-icon"><i class="fa-solid fa-download"></i></span>
+                                    <span class="btn-icon"><i class="fa-solid fa-download"></i></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Receipt View Modal -->
+            <div *ngIf="activeReceiptIndex !== null" class="receipt-modal" (click)="closeReceiptModal()">
+                <div class="receipt-modal-content" (click)="$event.stopPropagation()">
+                    <button class="btn btn-light btn-sm receipt-modal-close" (click)="closeReceiptModal()">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                    <img [src]="receipts[activeReceiptIndex]" alt="Receipt">
+                </div>
+            </div>
+        </div>
+
+        <div [dir]="isUrdu ? 'rtl' : 'ltr'" [class.urdu-font]="isUrdu">
+            <div class="row mt-3">
+                <div class="col-6 mb-4">
+                    <div class="d-flex custom-input align-items-center gap-3">
+                        <label>{{ t('Date Started') }}</label>
+                        <div class="form-control-plaintext border-bottom">{{ siteInfo.date_started | date:'mediumDate'
+                            }}</div>
+                    </div>
+                </div>
+                <div class="col-6 mb-4">
+                    <div class="d-flex custom-input align-items-center gap-3">
+                        <label>{{ t('Date Ended') }}</label>
+                        <div class="form-control-plaintext border-bottom">{{ siteInfo.date_ended | date:'mediumDate' }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 mb-4">
+                    <div class="d-flex custom-input align-items-center gap-3">
+                        <label>{{ t('Block No.') }}</label>
+                        <div class="form-control-plaintext border-bottom">{{ siteInfo.block_no }}</div>
+                    </div>
+                </div>
+                <div class="col-4 mb-4">
+                    <div class="d-flex custom-input align-items-center gap-3">
+                        <label>{{ t('Street No.') }}</label>
+                        <div class="form-control-plaintext border-bottom">{{ siteInfo.street_no }}</div>
+                    </div>
+                </div>
+                <div class="col-4 mb-4">
+                    <div class="d-flex custom-input align-items-center gap-3">
+                        <label class="text-nowrap">{{ t('House/Plaza No.') }}</label>
+                        <div class="form-control-plaintext border-bottom">{{ siteInfo.house_no }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs (Segmented Control) -->
+            <div class="d-flex justify-content-center mb-4 no-print">
+                <div class="segmented-control">
+                    <input type="radio" name="sheetTab" id="viewTabItems" [checked]="activeTab === 'items'"
+                        (change)="setActiveTab('items')">
+                    <label for="viewTabItems">{{ t('Items Sheet') }}</label>
+
+                    <input type="radio" name="sheetTab" id="viewTabAttendance" [checked]="activeTab === 'attendance'"
+                        (change)="setActiveTab('attendance')">
+                    <label for="viewTabAttendance">{{ t('Attendance Sheet') }}</label>
+
+                    <div class="marker"></div>
+                </div>
+            </div>
+
+            <div class="table-responsive mt-4" *ngIf="activeTab === 'items'">
+                <table class="table" border="1" style="border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th colspan="2">{{ t('Item') }}</th>
+                            <th>{{ t('Rate') }}</th>
+                            <th>{{ t('Qty') }}</th>
+                            <th>{{ t('Total') }}</th>
+                            <th colspan="2">{{ t('Item') }}</th>
+                            <th>{{ t('Rate') }}</th>
+                            <th>{{ t('Qty') }}</th>
+                            <th>{{ t('Total') }}</th>
+                            <th colspan="2">{{ t('Item') }}</th>
+                            <th>{{ t('Rate') }}</th>
+                            <th>{{ t('Qty') }}</th>
+                            <th>{{ t('Total') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let leftItem of itemsData.left; let i = index">
+                            <!-- Left Column -->
+                            <td colspan="2">{{ t(leftItem.name) }}</td>
+                            <td>{{ leftItem.rate }}</td>
+                            <td>{{ leftItem.quantity }}</td>
+                            <td>{{ leftItem.total }}</td>
+
+                            <!-- Middle Column -->
+                            <td colspan="2">{{ t(itemsData.middle[i]?.name) }}</td>
+                            <td>{{ itemsData.middle[i]?.rate }}</td>
+                            <td>{{ itemsData.middle[i]?.quantity }}</td>
+                            <td>{{ itemsData.middle[i]?.total }}</td>
+
+                            <!-- Right Column -->
+                            <td colspan="2">{{ t(itemsData.right[i]?.name) }}</td>
+                            <td>{{ itemsData.right[i]?.rate }}</td>
+                            <td>{{ itemsData.right[i]?.quantity }}</td>
+                            <td>{{ itemsData.right[i]?.total }}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr style="font-weight: bold; background: #f8f9fa;">
+                            <td colspan="2">{{ t('Total') }}</td>
+                            <td></td>
+                            <td></td>
+                            <td>{{ getSectionTotal('left') }}</td>
+                            <td colspan="2">{{ t('Total') }}</td>
+                            <td></td>
+                            <td></td>
+                            <td>{{ getSectionTotal('middle') }}</td>
+                            <td colspan="2">{{ t('Total') }}</td>
+                            <td></td>
+                            <td></td>
+                            <td>{{ getSectionTotal('right') }}</td>
+                        </tr>
+                        <tr style="font-weight: bold; background: #e9ecef; border-top: 2px solid #dee2e6;">
+                            <td colspan="15" class="text-end" style="text-align: right; padding-right: 20px;">
+                                <span style="font-size: 1.1em;">{{ t('Grand Total') }}: {{ getItemsGrandTotal() | number
+                                    }}</span>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="table-responsive mt-4" *ngIf="activeTab === 'attendance'">
+                <table class="table" border="1" style="border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th *ngFor="let header of attendanceHeaders">{{ t(header) }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of attendanceRows">
+                            <td>{{ row.date | date:'mediumDate' }}</td>
+                            <td>{{ row.engineerSalary }}</td>
+                            <td>{{ row.bajri }}</td>
+                            <td>{{ row.bajriPayment }}</td>
+                            <td>{{ row.sand }}</td>
+                            <td>{{ row.sandPayment }}</td>
+                            <td>{{ row.bricks }}</td>
+                            <td>{{ row.bricksPayment }}</td>
+                            <td>{{ row.cement }}</td>
+                            <td>{{ row.cementPayment }}</td>
+                            <td>{{ row.cementMinus }}</td>
+                            <td>{{ row.cementPlus }}</td>
+                            <td>{{ row.steel }}</td>
+                            <td>{{ row.steelPayment }}</td>
+                            <td>{{ row.steelPlus }}</td>
+                            <td>{{ row.steelMinus }}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr style="font-weight: bold; background: #eaeaea;">
+                            <td><strong>{{ t('Total') }}</strong></td>
+                            <td>{{ getColumnTotal('engineerSalary') }}</td>
+                            <td>{{ getColumnTotal('bajri') }}</td>
+                            <td>{{ getColumnTotal('bajriPayment') }}</td>
+                            <td>{{ getColumnTotal('sand') }}</td>
+                            <td>{{ getColumnTotal('sandPayment') }}</td>
+                            <td>{{ getColumnTotal('bricks') }}</td>
+                            <td>{{ getColumnTotal('bricksPayment') }}</td>
+                            <td>{{ getColumnTotal('cement') }}</td>
+                            <td>{{ getColumnTotal('cementPayment') }}</td>
+                            <td>{{ getColumnTotal('cementMinus') }}</td>
+                            <td>{{ getColumnTotal('cementPlus') }}</td>
+                            <td>{{ getColumnTotal('steel') }}</td>
+                            <td>{{ getColumnTotal('steelPayment') }}</td>
+                            <td>{{ getColumnTotal('steelPlus') }}</td>
+                            <td>{{ getColumnTotal('steelMinus') }}</td>
+                        </tr>
+                        <tr style="font-weight: bold; background: #d1e7dd; border-top: 2px solid #aecbbf;">
+                            <td colspan="16" class="text-end" style="text-align: right; padding-right: 20px;">
+                                <span style="font-size: 1.1em;">{{ t('Grand Total Expense') }}: {{
+                                    getAttendanceGrandTotal() | number }}</span>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
