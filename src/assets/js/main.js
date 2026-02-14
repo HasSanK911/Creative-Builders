@@ -1644,10 +1644,10 @@
         };
 
         // DOM ready = hide
-        hide();
+        // hide();
 
         // Safety fallback (1.5s)
-        setTimeout(hide, 1500);
+        // setTimeout(hide, 1500);
       });
     },
 
