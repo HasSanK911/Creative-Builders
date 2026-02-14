@@ -10,7 +10,16 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   constructor(private router: Router) { }
+  ngAfterViewInit() {
+    setTimeout(() => {
+      document.body.classList.add('loaded');
+    }, 1000);
+
+  }
   gotoAdmin() {
     this.router.navigate(['/admin']);
+  }
+  gotoHome() {
+    this.router.navigate(['/']);
   }
 }

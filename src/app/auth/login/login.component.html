@@ -1,16 +1,39 @@
-<div class="tmp-login-area tmp-section-gap">
+  <div class="tmp-bread-crumb-area bg-breadcrumb gradient-breadcrumb-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- bread crumb inner wrapper -->
+                    <div class="breadcrumb-inner ptb--100 ptb_sm--100 text-center">
+                        <h1 class="title">Login</h1>
+                        <div class="meta">
+                            <a (click)="gotoHome()" class="prev">Home</a>
+                            <span><i class="fa-regular fa-chevron-right"></i></span>
+                            <a href="#" class="next">Login</a>
+                        </div>
+                    </div>
+                    <!-- bread crumb inner wrapper end -->
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="tmp-login-area py-5">
     <div class="container-3">
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="login-registration-area-wrapper">
-                    <h2 class="title text-center">Login</h2>
+                    <div class="d-flex flex-column align-items-center">
+                        <p class="h4 text-dark text-center mb-0">Login into your account</p>
+                        <span class="mb-4 text-center w-100">Please enter your email and password to login into your account</span>
+                    </div>
                     <form action="#">
                         <div class="single-input">
-                            <input type="text" id="name" placeholder="User Name Or Email" required=""
+                            <label for="name">Email</label>
+                            <input type="text" id="name" placeholder="Email" required=""
                                 autocomplete="off">
                         </div>
                         <div class="single-input">
-                            <input type="password" placeholder="Password*" required="" autocomplete="off">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" placeholder="Password*" required="" autocomplete="off">
                         </div>
                         <button type="button" (click)="gotoAdmin()"
                             class="tmp-btn btn-primary hover-icon-reverse mw-100">
