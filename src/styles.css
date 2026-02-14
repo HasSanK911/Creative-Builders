@@ -1,4 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'ngx-toastr/toastr';
+
+/* Custom Toaster Styles */
+.toast-container .ngx-toastr {
+    width: 500px !important;
+    /* Make it wider */
+    padding: 20px 20px 20px 50px !important;
+    /* Increase padding */
+    font-size: 16px !important;
+    /* Increase font size */
+    opacity: 1 !important;
+    /* Ensure it's fully visible */
+    white-space: nowrap !important;
+    /* Keep on one line */
+    background-image: none !important;
+    /* Remove default icon if needed, or adjust padding */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Adjust Message and Title */
+.toast-message {
+    font-size: 16px !important;
+}
+
+.toast-title {
+    font-size: 18px !important;
+    font-weight: bold !important;
+    margin-bottom: 5px !important;
+}
+
+/* Specific Style for Bottom Center Position */
+.toast-bottom-center {
+    bottom: 10% !important;
+    /* Move it up a bit */
+}
+
+/* Ensure success/error colors are vibrant */
+.toast-success {
+    background-color: #28a745 !important;
+}
+
+.toast-error {
+    background-color: #dc3545 !important;
+}
 
 /* Global Print Styles */
 @page {

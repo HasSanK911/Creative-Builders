@@ -13,6 +13,16 @@
     </div>
     <div class="single-card-dashboard account-info box-dashboard-dashboard">
 
+        <!-- Search Bar -->
+        <div class="mb-4">
+            <div class="d-flex align-items-center gap-2"
+                style="border: 1px solid #dee2e6; border-radius: 8px; padding: 8px 16px; max-width: 400px;">
+                <i class="fa-solid fa-magnifying-glass" style="color: #999;"></i>
+                <input type="text" [(ngModel)]="searchQuery" placeholder="Search sites..."
+                    style="border: none; outline: none; width: 100%; font-size: 14px;">
+            </div>
+        </div>
+
         <div class="invers-dashboard-table table-responsive mobile-table-750">
             <table class="invers-table table table-borderless">
                 <thead>
@@ -29,58 +39,41 @@
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <th>Rizwan Heights</th>
-                        <th>Building</th>
-                        <th>B Block , Citi Housing</th>
-                        <td>5,000,000</td>
-                        <td>1,500,000</td>
-                        <td>3,500,000</td>
-                        <td><span class="invers-badge-minimal success">Completed</span></td>
+                    <tr *ngFor="let site of filteredSites; let i = index">
+                        <th>{{ site.name }}</th>
+                        <th>{{ site.type }}</th>
+                        <th>{{ site.location }}</th>
+                        <td>{{ site.total_budget | number }}</td>
+                        <td>{{ site.advance_received | number }}</td>
+                        <td>{{ site.remaining_balance | number }}</td>
+                        <td>
+                            <span class="invers-badge-minimal" [ngClass]="{
+                                    'success': site.status === 'Completed',
+                                    'color-warning': site.status === 'Pending' || site.status === 'On Hold',
+                                    'color-danger': site.status === 'Dispute',
+                                    'primary': site.status === 'Ongoing'
+                                }">
+                                {{ site.status }}
+                            </span>
+                        </td>
                         <td>
                             <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
+                                <a role="button" class="text-primary" [routerLink]="['../edit-site', site.id]"><i
                                         class="fa-regular fa-pen-to-square"></i>Edit</a>
-                                <a href="#" role="button" class="text-danger"><i
+                                <a role="button" class="text-danger" (click)="deleteSite(site.id)"><i
                                         class="fa-regular fa-trash-can"></i>Delete</a>
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <th>Ali's Home</th>
-                        <th>Home</th>
-                        <th>D Block , Citi Housing</th>
-                        <td>3,200,000</td>
-                        <td>800,000</td>
-                        <td>2,400,000</td>
-                        <td><span class="invers-badge-minimal color-warning">Pending</span></td>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i>Edit</a>
-                                <a href="#" role="button" class="text-danger"><i
-                                        class="fa-regular fa-trash-can"></i>Delete</a>
-                            </div>
+                    <tr *ngIf="filteredSites.length === 0 && !loading">
+                        <td colspan="8" class="text-center py-4" style="color: #999;">
+                            <i class="fa-solid fa-search" style="font-size: 24px;"></i>
+                            <p class="mt-2 mb-0">No sites found matching "{{ searchQuery }}"</p>
                         </td>
                     </tr>
-                    <tr>
-                        <th>Lodhi's Arcade</th>
-                        <th>Building</th>
-                        <th>E Block , Citi Housing</th>
-                        <td>8,500,000</td>
-                        <td>2,000,000</td>
-                        <td>6,500,000</td>
-                        <td><span class="invers-badge-minimal color-danger">Dispute</span></td>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i>Edit</a>
-                                <a href="#" role="button" class="text-danger"><i
-                                        class="fa-regular fa-trash-can"></i>Delete</a>
-                            </div>
-                        </td>
+                    <tr *ngIf="loading">
+                        <td colspan="8" class="text-center">Loading...</td>
                     </tr>
-
                 </tbody>
             </table>
         </div>

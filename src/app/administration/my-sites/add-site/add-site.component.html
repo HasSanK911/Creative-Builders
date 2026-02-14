@@ -2,13 +2,13 @@
     <div
         class="single-card-dashboard account-info box-dashboard-dashboard d-flex align-items-center justify-content-between">
         <h3 class="title title-top-primary"><i class="fa-regular fa-building me-3"></i>Add New Site</h3>
-        <a routerLink="../add-site-info" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+        <button (click)="saveSite()" class="tmp-btn btn-primary hover-icon-reverse btn-sm" [disabled]="isSubmitting">
             <span class="icon-reverse-wrapper">
-                <span class="btn-text">Save Changes</span>
+                <span class="btn-text">{{ isSubmitting ? 'Saving...' : 'Save Changes' }}</span>
                 <span class="btn-icon"><i class="fa-solid fa-save"></i></span>
                 <span class="btn-icon"><i class="fa-solid fa-save"></i></span>
             </span>
-        </a>
+        </button>
     </div>
     <div class="edit-account-information">
         <form action="#">
@@ -16,11 +16,12 @@
                 <div class="single-input">
                     <label for="name">Site Name*</label>
                     <input type="text" id="name" name="name" placeholder="Enter Your Site Name" required=""
-                        autocomplete="off">
+                        [(ngModel)]="siteName" autocomplete="off">
                 </div>
                 <div class="single-input">
-                    <label for="mobile">Location*</label>
-                    <input type="text" id="mobile" name="mobile" placeholder="Enter Your Location" required="">
+                    <label for="location">Location*</label>
+                    <input type="text" id="location" name="location" placeholder="Enter Your Location" required=""
+                        [(ngModel)]="location">
                 </div>
             </div>
 
@@ -30,11 +31,11 @@
 
                     <div class="invers-modern-select">
                         <div class="select">
-                            <div class="selectBtn" data-type="firstOption">Select</div>
+                            <div class="selectBtn" data-type="Residential">Residential</div>
                             <div class="selectDropdown">
-                                <div class="option" data-type="firstOption">Home</div>
-                                <div class="option" data-type="secondOption">Office</div>
-                                <div class="option" data-type="thirdOption">Building</div>
+                                <div class="option" data-type="Residential">Residential</div>
+                                <div class="option" data-type="Commercial">Commercial</div>
+                                <div class="option" data-type="Industrial">Industrial</div>
                             </div>
                         </div>
                     </div>
@@ -43,11 +44,11 @@
                     <label>Status</label>
                     <div class="invers-modern-select">
                         <div class="select">
-                            <div class="selectBtn" data-type="firstOption">Select</div>
+                            <div class="selectBtn" data-type="Ongoing">Ongoing</div>
                             <div class="selectDropdown">
-                                <div class="option" data-type="firstOption">Pending</div>
-                                <div class="option" data-type="secondOption">Completed</div>
-                                <div class="option" data-type="thirdOption">Dispute</div>
+                                <div class="option" data-type="Ongoing">Ongoing</div>
+                                <div class="option" data-type="Completed">Completed</div>
+                                <div class="option" data-type="On Hold">On Hold</div>
                             </div>
                         </div>
                     </div>
