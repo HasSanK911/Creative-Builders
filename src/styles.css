@@ -112,6 +112,7 @@
 .print-only {
     display: none;
 }
+
 .tmp-btn.btn-primary {
     background: var(--color-primary);
     color: #fff;
@@ -121,3 +122,16 @@
     border: none !important;
 }
 
+/* Global Fix for Sticky Sidebar Support */
+html,
+body {
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+    height: auto !important;
+}
+
+/* Ensure the main root doesn't break sticky either */
+app-root {
+    display: block;
+    overflow: visible !important;
+}

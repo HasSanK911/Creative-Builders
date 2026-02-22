@@ -1,3 +1,15 @@
+/* Remove spinner arrows from all number inputs */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
 .custom-input input,
 .form-control-plaintext {
     border-bottom: 1px dashed #000;
@@ -186,4 +198,149 @@
 
 .urdu-font #viewTabAttendance:checked~.marker {
     transform: translateX(0);
+}
+
+/* ── Project Duration Timer Card ─────────────────────────── */
+.duration-timer-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 24px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #e3f2fd 0%, #f0f8ff 100%);
+    border: 1.5px solid #90caf9;
+    box-shadow: 0 2px 12px rgba(21, 101, 192, 0.08);
+    transition: background 0.3s;
+}
+
+.duration-timer-card.completed {
+    background: linear-gradient(135deg, #e8f5e9 0%, #f9fbe7 100%);
+    border-color: #a5d6a7;
+}
+
+.duration-icon {
+    font-size: 2rem;
+    color: #1565c0;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.duration-timer-card.completed .duration-icon {
+    color: #2e7d32;
+}
+
+.duration-body {
+    flex: 1;
+}
+
+.duration-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #5c7a9f;
+    margin-bottom: 4px;
+}
+
+.duration-values {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.duration-chip {
+    font-size: 1rem;
+    color: #1a237e;
+}
+
+.duration-chip strong {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-right: 3px;
+}
+
+.duration-sep {
+    color: #90a4ae;
+    font-size: 1.2rem;
+}
+
+.days-left {
+    color: #e65100;
+    font-weight: 600;
+}
+
+.duration-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 6px 16px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.duration-status.ongoing {
+    background: #fff3e0;
+    color: #e65100;
+}
+
+.duration-status.done {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+@media print {
+    .duration-timer-card {
+        display: none !important;
+    }
+}
+
+/* --- Grand Total Styling --- */
+tfoot tr td span {
+    color: #1a237e;
+    /* Deep indigo - elegant and professional */
+    font-weight: 800;
+    font-size: 1.2rem !important;
+    letter-spacing: 0.5px;
+}
+
+/* --- PKR currency styling --- */
+.pkr-badge {
+    display: inline-block;
+    background: transparent !important;
+    color: #FF5E14 !important;
+    /* Brand orange color */
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0;
+    margin-right: 4px;
+    vertical-align: baseline;
+}
+
+/* --- Table scroll containers --- */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #FF5E14 #f1f1f1;
+}
+
+.table-responsive::-webkit-scrollbar {
+    height: 6px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background-color: #FF5E14;
+    border-radius: 3px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background-color: #d94e0e;
 }

@@ -137,7 +137,36 @@
                 </div>
 
 
-
+                <!-- Project Duration Timer Card -->
+                <div *ngIf="dateStarted" class="col-12 mb-4">
+                    <ng-container *ngIf="getProjectDuration() as dur">
+                        <div class="duration-timer-card" [class.completed]="dur.status === 'Completed'">
+                            <div class="duration-icon">
+                                <i class="fa-regular fa-clock"></i>
+                            </div>
+                            <div class="duration-body">
+                                <div class="duration-label">{{ t('Project Duration') }}</div>
+                                <div class="duration-values">
+                                    <span class="duration-chip"><strong>{{ dur.days }}</strong> {{ t('Days') }}</span>
+                                    <span class="duration-sep">·</span>
+                                    <span class="duration-chip"><strong>{{ dur.months }}</strong> {{ t('Months')
+                                        }}</span>
+                                    <ng-container *ngIf="dur.daysLeft !== null && dur.daysLeft > 0">
+                                        <span class="duration-sep">·</span>
+                                        <span class="duration-chip days-left"><strong>{{ dur.daysLeft }}</strong> {{
+                                            t('Days Left') }}</span>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="duration-status" [class.ongoing]="dur.status !== 'Completed'"
+                                [class.done]="dur.status === 'Completed'">
+                                <i class="fa-solid" [class.fa-circle-dot]="dur.status !== 'Completed'"
+                                    [class.fa-circle-check]="dur.status === 'Completed'"></i>
+                                {{ t(dur.status) }}
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
 
                 <!-- Tabs (Segmented Control) -->
                 <div class="d-flex justify-content-center mb-4 no-print">
@@ -178,26 +207,26 @@
                             <tr *ngFor="let leftItem of itemsData.left; let i = index">
                                 <!-- Left Column -->
                                 <td colspan="2">{{ t(leftItem.name) }}</td>
-                                <td><input type="number" [(ngModel)]="leftItem.rate"
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="leftItem.rate"
                                         (ngModelChange)="calculateTotal(leftItem)">
                                 </td>
-                                <td><input type="number" [(ngModel)]="leftItem.quantity"
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="leftItem.quantity"
                                         (ngModelChange)="calculateTotal(leftItem)"></td>
                                 <td>{{ leftItem.total }}</td>
 
                                 <!-- Middle Column -->
                                 <td colspan="2">{{ t(itemsData.middle[i]?.name) }}</td>
-                                <td><input type="number" [(ngModel)]="itemsData.middle[i].rate"
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="itemsData.middle[i].rate"
                                         (ngModelChange)="calculateTotal(itemsData.middle[i])"></td>
-                                <td><input type="number" [(ngModel)]="itemsData.middle[i].quantity"
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="itemsData.middle[i].quantity"
                                         (ngModelChange)="calculateTotal(itemsData.middle[i])"></td>
                                 <td>{{ itemsData.middle[i]?.total }}</td>
 
                                 <!-- Right Column -->
                                 <td colspan="2">{{ t(itemsData.right[i]?.name) }}</td>
-                                <td><input type="number" [(ngModel)]="itemsData.right[i].rate"
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="itemsData.right[i].rate"
                                         (ngModelChange)="calculateTotal(itemsData.right[i])"></td>
-                                <td><input type="number" [(ngModel)]="itemsData.right[i].quantity"
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="itemsData.right[i].quantity"
                                         (ngModelChange)="calculateTotal(itemsData.right[i])"></td>
                                 <td>{{ itemsData.right[i]?.total }}</td>
                             </tr>
@@ -220,8 +249,8 @@
                             </tr>
                             <tr style="font-weight: bold; background: #e9ecef; border-top: 2px solid #dee2e6;">
                                 <td colspan="15" class="text-end" style="text-align: right; padding-right: 20px;">
-                                    <span style="font-size: 1.1em;">{{ t('Grand Total') }}: {{ getItemsGrandTotal() |
-                                        number }}</span>
+                                    <span style="font-size: 1.1em;">{{ t('Grand Total') }}: <span
+                                            class="pkr-badge">PKR</span> {{ getItemsGrandTotal() | number }}</span>
                                 </td>
                             </tr>
                         </tfoot>
@@ -234,55 +263,106 @@
                             <i class="fa-solid fa-plus"></i> Add Row
                         </button>
                     </div>
-                    <table class="table" border="1" style="border-collapse: collapse;">
+                    <table class="table attendance-table" border="1" style="border-collapse: collapse;">
                         <thead>
                             <tr>
-                                <th *ngFor="let header of attendanceHeaders">{{ t(header) }}</th>
+                                <th rowspan="2">{{ t('Date') }}</th>
+                                <th rowspan="2">{{ t("Engineer's Salary") }}</th>
+                                <!-- Bajri group -->
+                                <th colspan="3" style="text-align:center; background:#fff8e1;">{{ t('Bajri') }}</th>
+                                <!-- Rait group -->
+                                <th colspan="3" style="text-align:center; background:#e8f5e9;">{{ t('Rait') }}</th>
+                                <!-- Bricks -->
+                                <th colspan="2" style="text-align:center; background:#fce4ec;">{{ t('Bricks') }}</th>
+                                <!-- Cement -->
+                                <th colspan="4" style="text-align:center; background:#e3f2fd;">{{ t('Cement') }}</th>
+                                <!-- Steel -->
+                                <th colspan="5" style="text-align:center; background:#f3e5f5;">{{ t('Steel') }}</th>
+                            </tr>
+                            <tr>
+                                <!-- Bajri sub -->
+                                <th style="background:#fffde7;">{{ t('Sainkray') }}</th>
+                                <th style="background:#fffde7;">{{ t('Trolley') }}</th>
+                                <th style="background:#fffde7;">{{ t('Payment') }}</th>
+                                <!-- Rait sub -->
+                                <th style="background:#f1f8e9;">{{ t('Sainkray') }}</th>
+                                <th style="background:#f1f8e9;">{{ t('Trolley') }}</th>
+                                <th style="background:#f1f8e9;">{{ t('Payment') }}</th>
+                                <!-- Bricks sub -->
+                                <th style="background:#fce4ec;">{{ t('Pieces') }}</th>
+                                <th style="background:#fce4ec;">{{ t('Payment') }}</th>
+                                <!-- Cement sub -->
+                                <th style="background:#e3f2fd;">{{ t('Bags') }}</th>
+                                <th style="background:#e3f2fd;">{{ t('Payment') }}</th>
+                                <th style="background:#e3f2fd;">{{ t('Cement -') }}</th>
+                                <th style="background:#e3f2fd;">{{ t('Cement +') }}</th>
+                                <!-- Steel sub -->
+                                <th style="background:#f3e5f5;">{{ t('Steel Size') }}</th>
+                                <th style="background:#f3e5f5;">{{ t('Tons') }}</th>
+                                <th style="background:#f3e5f5;">{{ t('Payment') }}</th>
+                                <th style="background:#f3e5f5;">{{ t('Steel +') }}</th>
+                                <th style="background:#f3e5f5;">{{ t('Steel -') }}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let row of attendanceRows; let i = index">
                                 <td><input type="date" [(ngModel)]="row.date" [class.has-value]="row.date"></td>
-                                <td><input type="number" [(ngModel)]="row.engineerSalary"></td>
-                                <td><input type="number" [(ngModel)]="row.bajri"></td>
-                                <td><input type="number" [(ngModel)]="row.bajriPayment"></td>
-                                <td><input type="number" [(ngModel)]="row.sand"></td>
-                                <td><input type="number" [(ngModel)]="row.sandPayment"></td>
-                                <td><input type="number" [(ngModel)]="row.bricks"></td>
-                                <td><input type="number" [(ngModel)]="row.bricksPayment"></td>
-                                <td><input type="number" [(ngModel)]="row.cement"></td>
-                                <td><input type="number" [(ngModel)]="row.cementPayment"></td>
-                                <td><input type="number" [(ngModel)]="row.cementMinus"></td>
-                                <td><input type="number" [(ngModel)]="row.cementPlus"></td>
-                                <td><input type="number" [(ngModel)]="row.steel"></td>
-                                <td><input type="number" [(ngModel)]="row.steelPayment"></td>
-                                <td><input type="number" [(ngModel)]="row.steelPlus"></td>
-                                <td><input type="number" [(ngModel)]="row.steelMinus"></td>
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="row.engineerSalary"></td>
+                                <!-- Bajri -->
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="row.bajriSainkray"></td>
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="row.bajriTrolley"></td>
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="row.bajriPayment"></td>
+                                <!-- Rait -->
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="row.raitSainkray"></td>
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="row.raitTrolley"></td>
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="row.sandPayment"></td>
+                                <!-- Bricks -->
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="row.bricks"></td>
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="row.bricksPayment"></td>
+                                <!-- Cement -->
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="row.cement"></td>
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="row.cementPayment"></td>
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="row.cementMinus"></td>
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="row.cementPlus"></td>
+                                <!-- Steel -->
+                                <td><input type="text" [(ngModel)]="row.steelSize" placeholder="e.g. 10mm"></td>
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="row.steel"></td>
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="row.steelPayment"></td>
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="row.steelPlus"></td>
+                                <td><input type="text" inputmode="numeric" [(ngModel)]="row.steelMinus"></td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr style="font-weight: bold; background: #eaeaea;">
                                 <td><strong>{{ t('Total') }}</strong></td>
                                 <td>{{ getColumnTotal('engineerSalary') }}</td>
-                                <td>{{ getColumnTotal('bajri') }}</td>
+                                <!-- Bajri -->
+                                <td>{{ getColumnTotal('bajriSainkray') }}</td>
+                                <td>{{ getColumnTotal('bajriTrolley') }}</td>
                                 <td>{{ getColumnTotal('bajriPayment') }}</td>
-                                <td>{{ getColumnTotal('sand') }}</td>
+                                <!-- Rait -->
+                                <td>{{ getColumnTotal('raitSainkray') }}</td>
+                                <td>{{ getColumnTotal('raitTrolley') }}</td>
                                 <td>{{ getColumnTotal('sandPayment') }}</td>
+                                <!-- Bricks -->
                                 <td>{{ getColumnTotal('bricks') }}</td>
                                 <td>{{ getColumnTotal('bricksPayment') }}</td>
+                                <!-- Cement -->
                                 <td>{{ getColumnTotal('cement') }}</td>
                                 <td>{{ getColumnTotal('cementPayment') }}</td>
                                 <td>{{ getColumnTotal('cementMinus') }}</td>
                                 <td>{{ getColumnTotal('cementPlus') }}</td>
+                                <!-- Steel -->
+                                <td>—</td>
                                 <td>{{ getColumnTotal('steel') }}</td>
                                 <td>{{ getColumnTotal('steelPayment') }}</td>
                                 <td>{{ getColumnTotal('steelPlus') }}</td>
                                 <td>{{ getColumnTotal('steelMinus') }}</td>
                             </tr>
                             <tr style="font-weight: bold; background: #d1e7dd; border-top: 2px solid #aecbbf;">
-                                <td colspan="16" class="text-end" style="text-align: right; padding-right: 20px;">
-                                    <span style="font-size: 1.1em;">{{ t('Grand Total Expense') }}: {{
-                                        getAttendanceGrandTotal() | number }}</span>
+                                <td colspan="20" class="text-end" style="text-align: right; padding-right: 20px;">
+                                    <span style="font-size: 1.1em;">{{ t('Grand Total Expense') }}: <span
+                                            class="pkr-badge">PKR</span> {{ getAttendanceGrandTotal() | number }}</span>
                                 </td>
                             </tr>
                         </tfoot>
@@ -291,3 +371,5 @@
             </div>
         </div>
     </div>
+
+</div>

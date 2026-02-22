@@ -38,24 +38,32 @@ export class AddSiteInfoComponent implements OnInit {
 
   // Constants
   attendanceHeaders: string[] = [
-    'Date', "Engineer's Salary", 'Bajri', 'Payment', 'Sand', 'Payment',
-    'Bricks', 'Payment', 'Cement', 'Payment', 'Cement -', 'Cement +',
-    'Steel', 'Payment', 'Steel +', 'Steel -'
+    'Date', "Engineer's Salary",
+    'Bajri', 'Sainkray', 'Trolley', 'Payment',
+    'Rait', 'Sainkray', 'Trolley', 'Payment',
+    'Bricks', 'Payment',
+    'Cement', 'Payment', 'Cement -', 'Cement +',
+    'Steel Size', 'Steel', 'Payment', 'Steel +', 'Steel -'
   ];
 
   attendanceColumns = [
-    'engineerSalary', 'bajri', 'bajriPayment', 'sand', 'sandPayment',
-    'bricks', 'bricksPayment', 'cement', 'cementPayment',
-    'cementMinus', 'cementPlus', 'steel', 'steelPayment',
-    'steelPlus', 'steelMinus'
+    'engineerSalary',
+    'bajriSainkray', 'bajriTrolley', 'bajriPayment',
+    'raitSainkray', 'raitTrolley', 'sandPayment',
+    'bricks', 'bricksPayment',
+    'cement', 'cementPayment', 'cementMinus', 'cementPlus',
+    'steelSize', 'steel', 'steelPayment', 'steelPlus', 'steelMinus'
   ];
 
   translations: { [key: string]: string } = {
     'Item': 'آئٹم', 'Rate': 'ریٹ', 'Qty': 'مقدار', 'Total': 'کل',
     'Date': 'تاریخ', 'Payment': 'ادائیگی', "Engineer's Salary": 'انجینئر کی تنخواہ',
-    'Bajri': 'بجری', 'Sand': 'ریت', 'Bricks': 'اینٹیں', 'Cement': 'سیمنٹ',
+    'Bajri': 'بجری', 'Rait': 'ریت', 'Sand': 'ریت', 'Bricks': 'اینٹیں', 'Cement': 'سیمنٹ',
     'Cement -': 'سیمنٹ -', 'Cement +': 'سیمنٹ +', 'Steel': 'سٹیل',
-    'Steel +': 'سٹیل +', 'Steel -': 'سٹیل -', 'A': 'ا', 'Bore Work': 'بور ورک',
+    'Steel +': 'سٹیل +', 'Steel -': 'سٹیل -', 'Sainkray': 'سینکرے', 'Trolley': 'ٹرالی',
+    'Steel Size': 'سٹیل سائز', 'Project Duration': 'منصوبے کا دورانیہ',
+    'Bags': 'بیگ', 'Pieces': 'پیسے', 'Tons': 'ٹن',
+    'Days': 'دن', 'Months': 'مہینے', 'Ongoing': 'جاری', 'Completed': 'مکمل', 'Days Left': 'دن باقی', 'A': 'ا', 'Bore Work': 'بور ورک',
     'Excavation Work': 'کھدائی کا کام', 'Backfilling Work': 'بیک فلنگ کا کام',
     'Gera': 'گیرا', 'Steel Wire': 'سٹیل تار', 'Basement Rooftop': 'بیسمنٹ چھت',
     'Shuttering Flat Film': 'شٹرنگ فلیٹ فلم', 'Shuttering (Ground Floor)': 'شٹرنگ (گراؤنڈ فلور)',
@@ -263,7 +271,10 @@ export class AddSiteInfoComponent implements OnInit {
   }
 
   getSectionTotal(section: string): number {
-    return this.itemsData[section].reduce((sum: number, item: any) => sum + (Number(item.total) || 0), 0);
+    return this.itemsData[section].reduce((sum: number, item: any) => {
+      if (item.name === 'A') return sum; // 'A' is a reference amount, excluded from totals
+      return sum + (Number(item.total) || 0);
+    }, 0);
   }
 
   // Attendance Logic
@@ -304,6 +315,29 @@ export class AddSiteInfoComponent implements OnInit {
       total += this.getColumnTotal(col);
     }
     return total;
+  }
+
+  getProjectDuration(): { days: number; months: number; status: string; daysLeft: number | null } {
+    if (!this.dateStarted) return { days: 0, months: 0, status: 'Not Started', daysLeft: null };
+    const start = new Date(this.dateStarted);
+    const today = new Date();
+    const elapsed = Math.max(0, Math.floor((today.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)));
+
+    if (this.dateEnded) {
+      const end = new Date(this.dateEnded);
+      if (today >= end) {
+        // Project is past its end date — truly Completed
+        const totalDays = Math.max(0, Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)));
+        return { days: totalDays, months: Math.floor(totalDays / 30), status: 'Completed', daysLeft: 0 };
+      } else {
+        // End date set but still in the future — Ongoing, show days left
+        const daysLeft = Math.ceil((end.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+        return { days: elapsed, months: Math.floor(elapsed / 30), status: 'Ongoing', daysLeft };
+      }
+    } else {
+      // No end date set — Ongoing
+      return { days: elapsed, months: Math.floor(elapsed / 30), status: 'Ongoing', daysLeft: null };
+    }
   }
 
   // Receipt Logic — uploads each file to Cloudinary and stores the returned URL

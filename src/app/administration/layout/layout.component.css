@@ -14,17 +14,27 @@
 
 /* Sidebar Wrapper - Sticky Implementation */
 .user-infor-left-sidebar-dashboard {
-    position: sticky;
-    top: 110px;
-    /* Adjust based on your header height */
-    height: calc(100vh - 120px);
-    /* Fill viewport height minus header/padding */
+    position: sticky !important;
+    top: 130px !important;
+    height: auto;
+    max-height: calc(100vh - 160px);
     overflow-y: auto;
-    /* Allow internal scrolling if menu is tall */
+    z-index: 100;
 
     /* Scrollbar styling for sidebar */
     scrollbar-width: thin;
     scrollbar-color: var(--color-primary-200, #ffcfb9) transparent;
+}
+
+/* Force parents to have visible overflow to avoid breaking sticky */
+.col-sticky {
+    position: relative;
+    overflow: visible !important;
+}
+
+.row-sticky {
+    align-items: flex-start !important;
+    overflow: visible !important;
 }
 
 .user-infor-left-sidebar-dashboard::-webkit-scrollbar {

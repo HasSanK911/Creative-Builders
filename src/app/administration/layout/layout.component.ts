@@ -39,7 +39,7 @@ export class LayoutComponent {
       items: [
         { label: 'My Sites', link: 'my-sites', icon: 'fa-regular fa-user-pen' },
         { label: 'Sites Info', link: 'site-info-table', icon: 'fa-regular fa-bag-shopping' },
-        { label: 'Materials', link: 'materials-list', icon: 'fa-regular fa-address-card' }
+        // { label: 'Materials', link: 'materials-list', icon: 'fa-regular fa-address-card' }
       ]
     },
     {
@@ -72,6 +72,10 @@ export class LayoutComponent {
   }
 
   toggleSection(section: MenuSection) {
-    section.expanded = !section.expanded;
+    const wasExpanded = section.expanded;
+    // Close all sections
+    this.menuSections.forEach(s => s.expanded = false);
+    // Toggle the clicked section based on its previous state
+    section.expanded = !wasExpanded;
   }
 }

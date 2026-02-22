@@ -111,6 +111,38 @@
                         <div class="form-control-plaintext border-bottom">{{ siteInfo.house_no }}</div>
                     </div>
                 </div>
+
+                <!-- Project Duration Timer Card -->
+                <div *ngIf="siteInfo.date_started" class="col-12 mb-4">
+                    <ng-container *ngIf="getProjectDuration() as dur">
+                        <div class="duration-timer-card" [class.completed]="dur.status === 'Completed'">
+                            <div class="duration-icon">
+                                <i class="fa-regular fa-clock"></i>
+                            </div>
+                            <div class="duration-body">
+                                <div class="duration-label">{{ t('Project Duration') }}</div>
+                                <div class="duration-values">
+                                    <span class="duration-chip"><strong>{{ dur.days }}</strong> {{ t('Days') }}</span>
+                                    <span class="duration-sep">·</span>
+                                    <span class="duration-chip"><strong>{{ dur.months }}</strong> {{ t('Months')
+                                        }}</span>
+                                    <ng-container *ngIf="dur.daysLeft !== null && dur.daysLeft > 0">
+                                        <span class="duration-sep">·</span>
+                                        <span class="duration-chip days-left"><strong>{{ dur.daysLeft }}</strong> {{
+                                            t('Days Left') }}</span>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="duration-status" [class.ongoing]="dur.status !== 'Completed'"
+                                [class.done]="dur.status === 'Completed'">
+                                <i class="fa-solid" [class.fa-circle-dot]="dur.status !== 'Completed'"
+                                    [class.fa-circle-check]="dur.status === 'Completed'"></i>
+                                {{ t(dur.status) }}
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+
             </div>
 
             <!-- Tabs (Segmented Control) -->
@@ -184,8 +216,8 @@
                         </tr>
                         <tr style="font-weight: bold; background: #e9ecef; border-top: 2px solid #dee2e6;">
                             <td colspan="15" class="text-end" style="text-align: right; padding-right: 20px;">
-                                <span style="font-size: 1.1em;">{{ t('Grand Total') }}: {{ getItemsGrandTotal() | number
-                                    }}</span>
+                                <span style="font-size: 1.1em;">{{ t('Grand Total') }}: <span
+                                        class="pkr-badge">PKR</span> {{ getItemsGrandTotal() | number }}</span>
                             </td>
                         </tr>
                     </tfoot>
@@ -193,26 +225,69 @@
             </div>
 
             <div class="table-responsive mt-4" *ngIf="activeTab === 'attendance'">
-                <table class="table" border="1" style="border-collapse: collapse;">
+                <table class="table attendance-table" border="1" style="border-collapse: collapse;">
                     <thead>
                         <tr>
-                            <th *ngFor="let header of attendanceHeaders">{{ t(header) }}</th>
+                            <th rowspan="2">{{ t('Date') }}</th>
+                            <th rowspan="2">{{ t("Engineer's Salary") }}</th>
+                            <!-- Bajri group -->
+                            <th colspan="3" style="text-align:center; background:#fff8e1;">{{ t('Bajri') }}</th>
+                            <!-- Rait group -->
+                            <th colspan="3" style="text-align:center; background:#e8f5e9;">{{ t('Rait') }}</th>
+                            <!-- Bricks -->
+                            <th colspan="2" style="text-align:center; background:#fce4ec;">{{ t('Bricks') }}</th>
+                            <!-- Cement -->
+                            <th colspan="4" style="text-align:center; background:#e3f2fd;">{{ t('Cement') }}</th>
+                            <!-- Steel -->
+                            <th colspan="5" style="text-align:center; background:#f3e5f5;">{{ t('Steel') }}</th>
+                        </tr>
+                        <tr>
+                            <!-- Bajri sub -->
+                            <th style="background:#fffde7;">{{ t('Sainkray') }}</th>
+                            <th style="background:#fffde7;">{{ t('Trolley') }}</th>
+                            <th style="background:#fffde7;">{{ t('Payment') }}</th>
+                            <!-- Rait sub -->
+                            <th style="background:#f1f8e9;">{{ t('Sainkray') }}</th>
+                            <th style="background:#f1f8e9;">{{ t('Trolley') }}</th>
+                            <th style="background:#f1f8e9;">{{ t('Payment') }}</th>
+                            <!-- Bricks sub -->
+                            <th style="background:#fce4ec;">{{ t('Pieces') }}</th>
+                            <th style="background:#fce4ec;">{{ t('Payment') }}</th>
+                            <!-- Cement sub -->
+                            <th style="background:#e3f2fd;">{{ t('Bags') }}</th>
+                            <th style="background:#e3f2fd;">{{ t('Payment') }}</th>
+                            <th style="background:#e3f2fd;">{{ t('Cement -') }}</th>
+                            <th style="background:#e3f2fd;">{{ t('Cement +') }}</th>
+                            <!-- Steel sub -->
+                            <th style="background:#f3e5f5;">{{ t('Steel Size') }}</th>
+                            <th style="background:#f3e5f5;">{{ t('Tons') }}</th>
+                            <th style="background:#f3e5f5;">{{ t('Payment') }}</th>
+                            <th style="background:#f3e5f5;">{{ t('Steel +') }}</th>
+                            <th style="background:#f3e5f5;">{{ t('Steel -') }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let row of attendanceRows">
                             <td>{{ row.date | date:'mediumDate' }}</td>
                             <td>{{ row.engineerSalary }}</td>
-                            <td>{{ row.bajri }}</td>
+                            <!-- Bajri -->
+                            <td>{{ row.bajriSainkray }}</td>
+                            <td>{{ row.bajriTrolley }}</td>
                             <td>{{ row.bajriPayment }}</td>
-                            <td>{{ row.sand }}</td>
+                            <!-- Rait -->
+                            <td>{{ row.raitSainkray }}</td>
+                            <td>{{ row.raitTrolley }}</td>
                             <td>{{ row.sandPayment }}</td>
+                            <!-- Bricks -->
                             <td>{{ row.bricks }}</td>
                             <td>{{ row.bricksPayment }}</td>
+                            <!-- Cement -->
                             <td>{{ row.cement }}</td>
                             <td>{{ row.cementPayment }}</td>
                             <td>{{ row.cementMinus }}</td>
                             <td>{{ row.cementPlus }}</td>
+                            <!-- Steel -->
+                            <td>{{ row.steelSize }}</td>
                             <td>{{ row.steel }}</td>
                             <td>{{ row.steelPayment }}</td>
                             <td>{{ row.steelPlus }}</td>
@@ -223,25 +298,33 @@
                         <tr style="font-weight: bold; background: #eaeaea;">
                             <td><strong>{{ t('Total') }}</strong></td>
                             <td>{{ getColumnTotal('engineerSalary') }}</td>
-                            <td>{{ getColumnTotal('bajri') }}</td>
+                            <!-- Bajri -->
+                            <td>{{ getColumnTotal('bajriSainkray') }}</td>
+                            <td>{{ getColumnTotal('bajriTrolley') }}</td>
                             <td>{{ getColumnTotal('bajriPayment') }}</td>
-                            <td>{{ getColumnTotal('sand') }}</td>
+                            <!-- Rait -->
+                            <td>{{ getColumnTotal('raitSainkray') }}</td>
+                            <td>{{ getColumnTotal('raitTrolley') }}</td>
                             <td>{{ getColumnTotal('sandPayment') }}</td>
+                            <!-- Bricks -->
                             <td>{{ getColumnTotal('bricks') }}</td>
                             <td>{{ getColumnTotal('bricksPayment') }}</td>
+                            <!-- Cement -->
                             <td>{{ getColumnTotal('cement') }}</td>
                             <td>{{ getColumnTotal('cementPayment') }}</td>
                             <td>{{ getColumnTotal('cementMinus') }}</td>
                             <td>{{ getColumnTotal('cementPlus') }}</td>
+                            <!-- Steel -->
+                            <td>—</td>
                             <td>{{ getColumnTotal('steel') }}</td>
                             <td>{{ getColumnTotal('steelPayment') }}</td>
                             <td>{{ getColumnTotal('steelPlus') }}</td>
                             <td>{{ getColumnTotal('steelMinus') }}</td>
                         </tr>
                         <tr style="font-weight: bold; background: #d1e7dd; border-top: 2px solid #aecbbf;">
-                            <td colspan="16" class="text-end" style="text-align: right; padding-right: 20px;">
-                                <span style="font-size: 1.1em;">{{ t('Grand Total Expense') }}: {{
-                                    getAttendanceGrandTotal() | number }}</span>
+                            <td colspan="20" class="text-end" style="text-align: right; padding-right: 20px;">
+                                <span style="font-size: 1.1em;">{{ t('Grand Total Expense') }}: <span
+                                        class="pkr-badge">PKR</span> {{ getAttendanceGrandTotal() | number }}</span>
                             </td>
                         </tr>
                     </tfoot>
@@ -249,4 +332,5 @@
             </div>
         </div>
     </div>
+
 </div>
