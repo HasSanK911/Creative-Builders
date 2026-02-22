@@ -11,4 +11,15 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent {
   title = environment.CompanyName;
+
+  ngOnInit() {
+    // Fallback: Remove loader if it's still there after a short delay
+    // This handles cases where main.js might fail or run too early/late
+    setTimeout(() => {
+      const loader = document.querySelector('.loader-wrapper');
+      if (loader) {
+        loader.remove();
+      }
+    }, 1000);
+  }
 }

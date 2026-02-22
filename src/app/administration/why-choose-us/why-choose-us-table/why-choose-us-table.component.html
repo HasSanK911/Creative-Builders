@@ -1,0 +1,53 @@
+<div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
+    <div class="single-card-dashboard account-info box-dashboard-dashboard">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3 class="title title-top-primary"><i class="fa-solid fa-check-circle"></i> Why Choose Us</h3>
+            <div class="d-flex gap-2">
+                <a routerLink="/admin/add-why-choose-us" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+                    <span class="icon-reverse-wrapper"><span class="btn-text">Add Why Choose Us</span>
+                        <span class="btn-icon"><i class="fa-solid fa-plus"></i></span>
+                        <span class="btn-icon"><i class="fa-solid fa-plus"></i></span></span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="single-card-dashboard box-dashboard-dashboard">
+        <div *ngIf="message" class="alert alert-danger" style="margin-bottom:12px;">{{ message }}</div>
+        <div *ngIf="isLoading" style="text-align:center;padding:40px;">Loading...</div>
+
+        <div *ngIf="!isLoading && (!data || !data.features || data.features.length === 0)"
+            style="text-align:center;padding:40px;color:#999;">
+            <i class="fa-solid fa-check-circle" style="font-size:40px;display:block;margin-bottom:10px;"></i>
+            No features set yet. <a routerLink="/admin/add-why-choose-us">Set them up!</a>
+        </div>
+
+        <div class="invers-dashboard-table table-responsive mobile-table-750"
+            *ngIf="!isLoading && data && data.features && data.features.length > 0">
+            <table class="invers-table table table-borderless">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Feature Title</th>
+                        <th>Description</th>
+                        <th style="width: 150px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let f of data.features; let i = index">
+                        <th>{{ f.title }}</th>
+                        <td>{{ f.description }}</td>
+                        <td>
+                            <div class="d-flex gap-3 align-items-center">
+                                <a routerLink="/admin/add-why-choose-us" role="button" class="text-primary"
+                                    style="display: flex; align-items: center; gap: 4px;">
+                                    <i class="fa-regular fa-pen-to-square"></i>Edit</a>
+                                <a role="button" class="text-danger" (click)="deleteFeature(i)"
+                                    style="display: flex; align-items: center; gap: 4px;">
+                                    <i class="fa-regular fa-trash-can"></i>Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

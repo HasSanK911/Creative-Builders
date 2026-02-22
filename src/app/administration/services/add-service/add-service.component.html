@@ -6,12 +6,17 @@
     <div class="single-card-dashboard account-info box-dashboard-dashboard">
 
         <div class="edit-account-information">
-            <form action="#">
+            <div *ngIf="message" class="alert"
+                [ngClass]="message.includes('success') || message.includes('saved') ? 'alert-success' : 'alert-danger'"
+                style="margin-bottom:15px;">
+                {{ message }}
+            </div>
+            <form (ngSubmit)="saveService()">
                 <div class="input-wrapper">
                     <div class="single-input">
                         <label for="title">Service Title*</label>
                         <input type="text" id="title" name="title" placeholder="e.g., Building Construction" required
-                            autocomplete="off">
+                            autocomplete="off" [(ngModel)]="service.title">
                     </div>
                 </div>
 
@@ -19,14 +24,15 @@
                     <div class="single-input">
                         <label for="description">Service Description*</label>
                         <textarea id="description" name="description" rows="5" class="border"
-                            placeholder="Enter a detailed description of the service..." required></textarea>
+                            placeholder="Enter a detailed description of the service..." required
+                            [(ngModel)]="service.description"></textarea>
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-center mt--20">
-                    <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+                    <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm" [disabled]="isSaving">
                         <span class="icon-reverse-wrapper">
-                            <span class="btn-text">Save Service</span>
+                            <span class="btn-text">{{ isSaving ? 'Saving...' : 'Save Service' }}</span>
                             <span class="btn-icon"><i class="fa-solid fa-bookmark"></i></span>
                             <span class="btn-icon"><i class="fa-solid fa-bookmark"></i></span>
                         </span>

@@ -306,18 +306,24 @@ export class AddSiteInfoComponent implements OnInit {
     return total;
   }
 
-  // Receipt Logic
+  // Receipt Logic — uploads each file to Cloudinary and stores the returned URL
   onReceiptUpload(event: any) {
-    const files = event.target.files;
-    if (files) {
-      for (const file of files) {
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-          this.receipts.push(e.target.result);
-        };
-        reader.readAsDataURL(file);
-      }
-    }
+    const files: File[] = Array.from(event.target.files || []);
+    if (!files.length) return;
+
+    files.forEach(file => {
+      this.apiService.uploadImage(file, 'receipts').subscribe({
+        next: (res: any) => {
+          this.receipts.push(res.url);
+          this.toastr.success('Receipt uploaded!', 'Success');
+        },
+        error: (err: any) => {
+          console.error('Receipt upload failed', err);
+          this.toastr.error('Receipt upload failed.', 'Error');
+        }
+      });
+    });
+
     event.target.value = '';
   }
 

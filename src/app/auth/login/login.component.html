@@ -4,24 +4,36 @@
             <div class="col-lg-6">
                 <div class="login-registration-area-wrapper">
                     <h2 class="title text-center">Login</h2>
-                    <form action="#">
+                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                         <div class="single-input">
-                            <input type="text" id="name" placeholder="User Name Or Email" required=""
-                                autocomplete="off">
+                            <input type="text" formControlName="email" id="name" placeholder="User Name Or Email"
+                                required="" autocomplete="off"
+                                [class.is-invalid]="f['email'].touched && f['email'].invalid">
+                            <div *ngIf="f['email'].touched && f['email'].errors" class="text-danger mt-1">
+                                <small *ngIf="f['email'].errors['required']">Email is required</small>
+                                <small *ngIf="f['email'].errors['email']">Invalid email format</small>
+                            </div>
                         </div>
                         <div class="single-input">
-                            <input type="password" placeholder="Password*" required="" autocomplete="off">
+                            <input type="password" formControlName="password" placeholder="Password*" required=""
+                                autocomplete="off" [class.is-invalid]="f['password'].touched && f['password'].invalid">
+                            <div *ngIf="f['password'].touched && f['password'].errors" class="text-danger mt-1">
+                                <small *ngIf="f['password'].errors['required']">Password is required</small>
+                            </div>
                         </div>
-                        <button type="button" (click)="gotoAdmin()"
+
+                        <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+                            {{ errorMessage }}
+                        </div>
+
+                        <button type="submit" [disabled]="isLoading"
                             class="tmp-btn btn-primary hover-icon-reverse mw-100">
                             <span class="icon-reverse-wrapper">
-                                <span class="btn-text">Log In</span>
+                                <span class="btn-text">{{ isLoading ? 'Logging In...' : 'Log In' }}</span>
                                 <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
                                 <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
                             </span>
                         </button>
-
-
                     </form>
                 </div>
             </div>

@@ -1,0 +1,31 @@
+/* Styles moved to global styles.css to ensure consistency and avoid encapsulation issues */
+.title-top-primary {
+    font-size: 20px;
+    margin-bottom: 0;
+    font-weight: 600;
+}
+
+:host ::ng-deep .invers-table thead tr th {
+    background: #fdf0ed !important;
+    color: var(--color-heading) !important;
+    font-weight: 600 !important;
+    padding: 15px 20px !important;
+    text-transform: capitalize !important;
+}
+
+:host ::ng-deep .invers-table tbody tr td,
+:host ::ng-deep .invers-table tbody tr th {
+    padding: 15px 20px !important;
+    border-bottom: 1px solid var(--color-border) !important;
+    vertical-align: middle !important;
+}
+
+:host ::ng-deep .invers-table tbody tr th {
+    font-weight: 600;
+    color: var(--color-heading);
+}
+
+:host ::ng-deep .invers-table tbody tr:nth-child(2n) td,
+:host ::ng-deep .invers-table tbody tr:nth-child(2n) th {
+    background: rgba(207, 207, 207, 0.12);
+}

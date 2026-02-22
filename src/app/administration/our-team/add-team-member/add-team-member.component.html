@@ -6,7 +6,11 @@
     <div class="single-card-dashboard account-info box-dashboard-dashboard">
 
         <div class="edit-account-information">
-            <form action="#">
+            <div *ngIf="message" class="alert"
+                [ngClass]="message.includes('success') || message.includes('saved') ? 'alert-success' : 'alert-danger'"
+                style="margin-bottom:15px;">{{ message }}</div>
+
+            <form (ngSubmit)="saveMember()">
                 <!-- Photo Upload -->
                 <div class="edit-profile-picture-area mb--20">
                     <div class="upload-wrapper">
@@ -39,48 +43,34 @@
                     <div class="single-input">
                         <label for="name">Full Name*</label>
                         <input type="text" id="name" name="name" placeholder="Enter Full Name" required
-                            autocomplete="off">
+                            autocomplete="off" [(ngModel)]="member.name">
                     </div>
                     <div class="single-input">
                         <label for="position">Position*</label>
                         <input type="text" id="position" name="position" placeholder="e.g., Construction Engineer"
-                            required autocomplete="off">
+                            required autocomplete="off" [(ngModel)]="member.position">
                     </div>
                 </div>
 
                 <div class="input-wrapper">
                     <div class="single-input">
-                        <label for="email">Email Address*</label>
-                        <input type="email" id="email" name="email" placeholder="example@email.com" required
-                            autocomplete="off">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="example@email.com" autocomplete="off"
+                            [(ngModel)]="member.email">
                     </div>
                     <div class="single-input">
-                        <label for="phone">Phone Number*</label>
-                        <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567" required
-                            autocomplete="off">
-                    </div>
-                </div>
-
-                <div class="input-wrapper">
-                    <div class="single-input">
-                        <label>Select Site*</label>
-                        <div class="invers-modern-select">
-                            <div class="select">
-                                <div class="selectBtn" data-type="firstOption">Select Site</div>
-                                <div class="selectDropdown">
-                                    <div class="option" data-type="firstOption">Rizwan Heights</div>
-                                    <div class="option" data-type="secondOption">Ali's Home</div>
-                                    <div class="option" data-type="thirdOption">Lodhi's Arcade</div>
-                                </div>
-                            </div>
-                        </div>
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+92 300 1234567" autocomplete="off"
+                            [(ngModel)]="member.phone">
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-center mt--20">
-                    <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+                    <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm"
+                        [disabled]="isSaving || isUploading">
                         <span class="icon-reverse-wrapper">
-                            <span class="btn-text">Save Team Member</span>
+                            <span class="btn-text">{{ isUploading ? 'Uploading...' : isSaving ? 'Saving...' : 'Save Team
+                                Member' }}</span>
                             <span class="btn-icon"><i class="fa-solid fa-bookmark"></i></span>
                             <span class="btn-icon"><i class="fa-solid fa-bookmark"></i></span>
                         </span>

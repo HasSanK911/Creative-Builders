@@ -1,0 +1,128 @@
+<div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
+
+    <div class="single-card-dashboard account-info box-dashboard-dashboard">
+        <h3 class="title title-top-primary"><i class="fa-solid fa-check-circle"></i> Why Choose Us</h3>
+    </div>
+    <div class="single-card-dashboard account-info box-dashboard-dashboard">
+
+        <div class="edit-account-information">
+            <div *ngIf="isLoading" style="text-align:center;padding:20px;">Loading...</div>
+
+            <div *ngIf="message" class="alert"
+                [ngClass]="message.includes('saved') || message.includes('success') ? 'alert-success' : 'alert-danger'"
+                style="margin-bottom:15px;">
+                {{ message }}
+            </div>
+
+            <form (ngSubmit)="save()" *ngIf="!isLoading">
+                <!-- Main Section -->
+                <div class="section-divider mb--30">
+                    <h5 class="mb--10">Main Section</h5>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="sectionLabel">Section Label*</label>
+                        <input type="text" id="sectionLabel" name="sectionLabel" placeholder="e.g., WHY CHOOSE US"
+                            required autocomplete="off" [(ngModel)]="data.section_label">
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="mainHeading">Main Heading*</label>
+                        <input type="text" id="mainHeading" name="mainHeading"
+                            placeholder="e.g., Building Excellence With Innovation" required autocomplete="off"
+                            [(ngModel)]="data.heading">
+                    </div>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="mainDescription">Main Description*</label>
+                        <textarea id="mainDescription" name="mainDescription" rows="4" class="border"
+                            placeholder="Enter the main description about why customers should choose you..." required
+                            [(ngModel)]="data.description"></textarea>
+                    </div>
+                </div>
+
+                <!-- Main Image Upload -->
+                <div class="edit-profile-picture-area mb--20">
+                    <label class="d-block mb--10">Main Image*</label>
+                    <div class="upload-wrapper">
+                        <div class="image-preview"
+                            style="width: 100%; max-width: 500px; height: 350px; border: 2px dashed var(--color-border); border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--color-lightest); margin: 0 auto;">
+                            <img [src]="data.image_url || ''" alt="Preview" #previewImg
+                                [style.display]="data.image_url ? 'block' : 'none'"
+                                style="width: 100%; height: 100%; object-fit: cover;">
+                            <span #placeholderText [style.display]="data.image_url ? 'none' : 'flex'"
+                                style="color: var(--color-body); font-size: 14px; text-align: center; padding: 20px; flex-direction:column; align-items:center;">
+                                <i class="fa-solid fa-image"
+                                    style="font-size: 40px; display: block; margin-bottom: 10px;"></i>
+                                Upload Main Image
+                            </span>
+                        </div>
+                        <div class="upload-action d-flex justify-content-center mt--15">
+                            <a href="javascript:void(0)" class="tmp-btn btn-border hover-icon-reverse btn-sm"
+                                (click)="onUploadClick(fileInput)">
+                                <span class="icon-reverse-wrapper">
+                                    <span class="btn-text">Choose Main Image</span>
+                                    <span class="btn-icon"><i class="fa-light fa-cloud-arrow-up"></i></span>
+                                    <span class="btn-icon"><i class="fa-light fa-cloud-arrow-up"></i></span>
+                                </span>
+                            </a>
+                            <input type="file" #fileInput accept="image/*" style="display: none;"
+                                (change)="onFileSelected($event, previewImg, placeholderText)">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature Items -->
+                <div class="section-divider mb--30 mt--40 d-flex justify-content-between align-items-center">
+                    <h5 class="mb--0">Feature Items</h5>
+                    <button type="button" class="tmp-btn btn-primary btn-sm" (click)="addFeature()">
+                        <i class="fa-solid fa-plus"></i> Add Feature
+                    </button>
+                </div>
+
+                <div *ngFor="let feature of data.features; let i = index"
+                    class="feature-item-row mb--30 p--20 border rounded position-relative">
+                    <button type="button" class="btn-close position-absolute" style="top:10px; right:10px;"
+                        *ngIf="data.features.length > 1" (click)="removeFeature(i)"></button>
+
+                    <h6 class="mb--15 text-muted">Feature {{ i + 1 }}</h6>
+
+                    <div class="input-wrapper">
+                        <div class="single-input">
+                            <label [for]="'featureTitle' + i">Title*</label>
+                            <input type="text" [id]="'featureTitle' + i" [name]="'featureTitle' + i"
+                                placeholder="e.g., Quality Materials Guaranteed" required autocomplete="off"
+                                [(ngModel)]="feature.title">
+                        </div>
+                        <div class="single-input">
+                            <label [for]="'featureDesc' + i">Description*</label>
+                            <textarea [id]="'featureDesc' + i" [name]="'featureDesc' + i" rows="2" class="border"
+                                placeholder="Enter feature description..." required
+                                [(ngModel)]="feature.description"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mt--30">
+                    <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm"
+                        [disabled]="isSaving || isUploading">
+                        <span class="icon-reverse-wrapper">
+                            <span class="btn-text">{{ isUploading ? 'Uploading...' : isSaving ? 'Saving...' : 'Save All
+                                Changes' }}</span>
+                            <span class="btn-icon"><i class="fa-solid fa-bookmark"></i></span>
+                            <span class="btn-icon"><i class="fa-solid fa-bookmark"></i></span>
+                        </span>
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

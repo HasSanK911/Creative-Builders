@@ -1,102 +1,56 @@
 <div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
-
-    <div
-        class="single-card-dashboard account-info box-dashboard-dashboard d-flex align-items-center justify-content-between">
-        <h3 class="title title-top-primary"><i class="fa-solid fa-cogs"></i> Services</h3>
-        <div class="d-flex gap-3">
-            <a routerLink="../add-service-detail" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
-               <span class="icon-reverse-wrapper">
-                   <span class="btn-text">Add Service Details</span>
-                   <span class="btn-icon"><i class="fa-solid fa-add"></i></span>
-                   <span class="btn-icon"><i class="fa-solid fa-add"></i></span>
-               </span>
-           </a>
-           <a routerLink="../add-service" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
-               <span class="icon-reverse-wrapper">
-                   <span class="btn-text">Add Service</span>
-                   <span class="btn-icon"><i class="fa-solid fa-add"></i></span>
-                   <span class="btn-icon"><i class="fa-solid fa-add"></i></span>
-               </span>
-           </a>
+    <div class="single-card-dashboard account-info box-dashboard-dashboard">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3 class="title title-top-primary"><i class="fa-solid fa-cogs"></i> Services</h3>
+            <div class="d-flex gap-2">
+                <a routerLink="/admin/add-service-detail" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+                    <span class="icon-reverse-wrapper"><span class="btn-text">Add Service Details</span>
+                        <span class="btn-icon"><i class="fa-solid fa-plus"></i></span>
+                        <span class="btn-icon"><i class="fa-solid fa-plus"></i></span></span>
+                </a>
+                <a routerLink="/admin/add-service" class="tmp-btn btn-primary hover-icon-reverse btn-sm"
+                    style="background: var(--color-primary);">
+                    <span class="icon-reverse-wrapper"><span class="btn-text">Add Service</span>
+                        <span class="btn-icon"><i class="fa-solid fa-plus"></i></span>
+                        <span class="btn-icon"><i class="fa-solid fa-plus"></i></span></span>
+                </a>
+            </div>
         </div>
     </div>
-    <div class="single-card-dashboard account-info box-dashboard-dashboard">
+    <div class="single-card-dashboard box-dashboard-dashboard">
+        <div *ngIf="message" class="alert alert-danger" style="margin-bottom:12px;">{{ message }}</div>
+        <div *ngIf="isLoading" style="text-align:center;padding:40px;">Loading...</div>
+        <div *ngIf="!isLoading && services.length === 0" style="text-align:center;padding:40px;color:#999;">
+            <i class="fa-solid fa-cogs" style="font-size:40px;display:block;margin-bottom:10px;"></i>
+            No services yet. <a routerLink="/admin/add-service">Add one!</a>
+        </div>
 
-        <div class="invers-dashboard-table table-responsive mobile-table-750">
+        <div class="invers-dashboard-table table-responsive mobile-table-750" *ngIf="!isLoading && services.length > 0">
             <table class="invers-table table table-borderless">
                 <thead>
                     <tr>
-                        <th>Title</th>
+                        <th style="width: 30%;">Title</th>
                         <th>Description</th>
-                        <th>Actions</th>
+                        <th style="width: 150px;">Actions</th>
                     </tr>
                 </thead>
-
                 <tbody>
-                    <tr>
-                        <th>Building Construction</th>
-                        <td>For businesses looking to reduce operating costs and increase profits...</td>
+                    <tr *ngFor="let s of services">
+                        <th>{{ s.title }}</th>
+                        <td>{{ s.description }}</td>
                         <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>
-                                    Delete</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Renovation Services</th>
-                        <td>Transform your space with our professional renovation expertise...</td>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>
-                                    Delete</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Interior Design</th>
-                        <td>Create beautiful and functional spaces with our design solutions...</td>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>
-                                    Delete</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Painting Service</th>
-                        <td>Quality painting services for residential and commercial properties...</td>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>
-                                    Delete</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Plumbing Services</th>
-                        <td>Professional plumbing solutions for all your water system needs...</td>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>
-                                    Delete</a>
+                            <div class="d-flex gap-3 align-items-center">
+                                <a [routerLink]="['/admin/edit-service-detail', s.id]" role="button"
+                                    class="text-primary" style="display: flex; align-items: center; gap: 4px;">
+                                    <i class="fa-regular fa-pen-to-square"></i>Edit</a>
+                                <a role="button" class="text-danger" (click)="deleteService(s.id)"
+                                    style="display: flex; align-items: center; gap: 4px;">
+                                    <i class="fa-regular fa-trash-can"></i>Delete</a>
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-
     </div>
-
 </div>

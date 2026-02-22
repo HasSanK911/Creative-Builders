@@ -1,10 +1,18 @@
 <div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
 
     <div class="single-card-dashboard account-info box-dashboard-dashboard">
-        <h3 class="title title-top-primary"><i class="fa-solid fa-building"></i> Add About Company Details</h3>
+        <h3 class="title title-top-primary"><i class="fa-solid fa-building"></i> About Company</h3>
     </div>
 
-    <div class="single-card-dashboard account-info box-dashboard-dashboard">
+    <!-- Loading State -->
+    <div *ngIf="isLoading" style="text-align:center;padding:40px;">Loading...</div>
+
+    <!-- Alert Message -->
+    <div *ngIf="message" class="single-card-dashboard account-info box-dashboard-dashboard">
+        <div class="alert" [ngClass]="message.includes('saved') ? 'alert-success' : 'alert-danger'">{{ message }}</div>
+    </div>
+
+    <div class="single-card-dashboard account-info box-dashboard-dashboard" *ngIf="!isLoading">
         <!-- Company Image Upload (Using Profile Picture Area Style) -->
         <div class="edit-profile-picture-area mb--30">
             <label class="d-block mb--10">Company Image</label>
@@ -44,12 +52,12 @@
                     <div class="single-input">
                         <label for="sectionLabel">Section Label</label>
                         <input type="text" id="sectionLabel" name="sectionLabel" placeholder="e.g., ABOUT COMPANY"
-                            [(ngModel)]="companyData.sectionLabel">
+                            [(ngModel)]="companyData.section_label">
                     </div>
                     <div class="single-input">
                         <label for="mainHeading">Main Heading*</label>
                         <input type="text" id="mainHeading" name="mainHeading"
-                            placeholder="e.g., Powering The Business In Smart Way" [(ngModel)]="companyData.mainHeading"
+                            placeholder="e.g., Powering The Business In Smart Way" [(ngModel)]="companyData.heading"
                             required>
                     </div>
                 </div>
@@ -60,7 +68,7 @@
                         <label for="mainDescription">Main Description*</label>
                         <textarea id="mainDescription" name="mainDescription" rows="5" class="border"
                             placeholder="Enter main description about your company..."
-                            [(ngModel)]="companyData.mainDescription" required></textarea>
+                            [(ngModel)]="companyData.description" required></textarea>
                     </div>
                 </div>
 
@@ -100,7 +108,7 @@
                         <label for="foundationDescription">Foundation Description</label>
                         <textarea id="foundationDescription" name="foundationDescription" rows="5" class="border"
                             placeholder="Enter description about strong foundation..."
-                            [(ngModel)]="companyData.foundationDescription"></textarea>
+                            [(ngModel)]="companyData.foundation_description"></textarea>
                     </div>
                 </div>
 

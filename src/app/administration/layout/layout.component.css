@@ -1,17 +1,181 @@
+/* Clean up and minimal styling for section headers */
 .breadcrumb-user {
     height: 140px;
 }
 
+/* Updated Main Layout for Sticky Sidebar */
 .maindiv {
-    height: 90vh;
-    overflow-y: scroll;
-    scrollbar-width: none;
-    overflow-x: hidden;
+    /* Remove fixed height constraints to allow body scroll */
+    min-height: 80vh;
+    /* Ensure it takes up reasonable space */
+    height: auto;
+    overflow: visible;
 }
+
+/* Sidebar Wrapper - Sticky Implementation */
+.user-infor-left-sidebar-dashboard {
+    position: sticky;
+    top: 110px;
+    /* Adjust based on your header height */
+    height: calc(100vh - 120px);
+    /* Fill viewport height minus header/padding */
+    overflow-y: auto;
+    /* Allow internal scrolling if menu is tall */
+
+    /* Scrollbar styling for sidebar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary-200, #ffcfb9) transparent;
+}
+
+.user-infor-left-sidebar-dashboard::-webkit-scrollbar {
+    width: 6px;
+}
+
+.user-infor-left-sidebar-dashboard::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary-200, #ffcfb9);
+    border-radius: 3px;
+}
+
 
 @media print {
     .maindiv {
         height: auto !important;
         overflow: visible !important;
     }
+}
+
+/* Mobile Responsiveness */
+@media only screen and (max-width: 991px) {
+    .user-infor-left-sidebar-dashboard {
+        position: static;
+        /* Stack normally on mobile */
+        height: auto;
+        overflow-y: visible;
+        margin-bottom: 30px;
+        /* Spacing between menu and content */
+    }
+
+    .maindiv {
+        min-height: auto;
+    }
+}
+
+/* =========================================
+   Sidebar Professional Styling 
+   ========================================= */
+
+/* Section Headers */
+.section-title-item {
+    margin-top: 10px;
+    margin-bottom: 2px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.section-title-item:hover {
+    background-color: rgba(255, 94, 20, 0.08);
+    /* Minimal primary tint */
+}
+
+.section-title-item a {
+    color: var(--color-heading-1, #1F242E);
+    padding: 10px 12px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.section-title-item.active-section a {
+    color: var(--color-primary, #FF5E14);
+}
+
+.section-text {
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+}
+
+/* Icon Rotation */
+.section-icon {
+    font-size: 10px;
+    color: var(--color-body, #6E777D);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.rotate-icon {
+    transform: rotate(180deg);
+    color: var(--color-primary, #FF5E14);
+}
+
+/* Accordion Animation */
+.submenu-wrapper {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0.8;
+    /* Slight fade in effect */
+}
+
+.submenu-wrapper.expanded {
+    max-height: 500px;
+    /* Arbitrary large height */
+    opacity: 1;
+    transition: max-height 0.4s ease-in-out, opacity 0.3s ease;
+}
+
+/* Submenu Styling */
+.submenu-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 5px;
+    position: relative;
+    /* Clean vertical line guide */
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+    margin-left: 15px;
+}
+
+.submenu-list li {
+    margin-bottom: 0;
+}
+
+.menu-item-link {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-body, #6E777D);
+    border-radius: 0 4px 4px 0;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    position: relative;
+}
+
+.menu-item-link:hover {
+    color: var(--color-primary, #FF5E14);
+    background-color: rgba(255, 94, 20, 0.03);
+    padding-left: 18px;
+    /* Subtle slide right effect */
+}
+
+.menu-item-link.active {
+    color: var(--color-primary, #FF5E14);
+    font-weight: 600;
+    background-color: rgba(255, 94, 20, 0.08);
+    /* More visible active state */
+}
+
+.icon-wrapper {
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    margin-right: 8px;
+}
+
+.label-text {
+    flex: 1;
 }

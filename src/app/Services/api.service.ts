@@ -70,9 +70,53 @@ export class ApiService<T> {
   }
 
 
-  public delete(endpoint: string): Observable<void> {
+  public delete(endpoint: string, id?: number): Observable<void> {
+    const url = id !== undefined ? `${this.baseUrl}/${endpoint}/${id}` : `${this.baseUrl}/${endpoint}`;
     return this.http
-      .delete<void>(`${this.baseUrl}/${endpoint}`, { headers: this.getHeaders() })
+      .delete<void>(url, { headers: this.getHeaders() })
+      .pipe(catchError(this.handleError.bind(this)));
+  }
+
+
+  public getProfile(): Observable<any> {
+    return this.http
+      .get<any>(`${this.baseUrl}/profile`, { headers: this.getHeaders() })
+      .pipe(catchError(this.handleError.bind(this)));
+  }
+
+  public updateProfile(data: any): Observable<any> {
+    return this.http
+      .put<any>(`${this.baseUrl}/profile`, data, { headers: this.getHeaders() })
+      .pipe(catchError(this.handleError.bind(this)));
+  }
+
+  public getCompany(): Observable<any> {
+    return this.http
+      .get<any>(`${this.baseUrl}/company`, { headers: this.getHeaders() })
+      .pipe(catchError(this.handleError.bind(this)));
+  }
+
+  public updateCompany(data: any): Observable<any> {
+    return this.http
+      .put<any>(`${this.baseUrl}/company`, data, { headers: this.getHeaders() })
+      .pipe(catchError(this.handleError.bind(this)));
+  }
+
+  /**
+   * Upload a single image file to Cloudinary via the backend.
+   * @param file - The File object to upload
+   * @param folder - Optional Cloudinary folder name (e.g. 'gallery', 'team', 'banner')
+   * @returns Observable with { url: string, public_id: string }
+   */
+  public uploadImage(file: File, folder: string = 'creative-builders'): Observable<{ url: string; public_id: string }> {
+    const formData = new FormData();
+    formData.append('image', file);
+    return this.http
+      .post<{ url: string; public_id: string }>(
+        `${this.baseUrl}/upload?folder=${folder}`,
+        formData,
+        { headers: this.getUploadHeaders() }
+      )
       .pipe(catchError(this.handleError.bind(this)));
   }
 
@@ -85,7 +129,11 @@ export class ApiService<T> {
         this.authService.logout();
         errorMessage = 'Session expired. Please log in again.';
       } else {
-        errorMessage = `Server Error ${error.status}: ${error.message}`;
+        const serverMessage = error.error?.message || error.error?.error || error.message;
+        errorMessage = `Server Error ${error.status}: ${serverMessage}`;
+        if (error.error?.stack) {
+          console.error('Server Stack:', error.error.stack);
+        }
       }
     }
     return throwError(() => new Error(errorMessage));

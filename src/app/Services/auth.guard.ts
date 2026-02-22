@@ -5,11 +5,14 @@ import { AuthService } from '../Services/auth.service';
 export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  
+
   if (!authService.isAuthenticated()) {
-    router.navigate(['']);
+    router.navigate(['/login']);
     return false;
   }
+
+  // TODO: Re-enable menu/permission checks when backend returns permissions
+  /*
   const permittedRoutes = JSON.parse(localStorage.getItem('menu') || '[]');
   
   if (!permittedRoutes || permittedRoutes.length === 0) {
@@ -29,5 +32,6 @@ export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state) =
     router.navigate(['/']);
     return false;
   }
+  */
   return true;
 };

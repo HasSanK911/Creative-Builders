@@ -6,13 +6,18 @@
     <div class="single-card-dashboard account-info box-dashboard-dashboard">
 
         <div class="edit-account-information">
-            <form action="#">
+            <div *ngIf="message" class="alert"
+                [ngClass]="message.includes('success') || message.includes('saved') ? 'alert-success' : 'alert-danger'"
+                style="margin-bottom:15px;">
+                {{ message }}
+            </div>
+            <form (ngSubmit)="saveFaq()">
                 <div class="input-wrapper">
                     <div class="single-input">
                         <label for="question">Question*</label>
                         <input type="text" id="question" name="question"
                             placeholder="e.g., What is included in project site preparation?" required
-                            autocomplete="off">
+                            autocomplete="off" [(ngModel)]="faq.question">
                     </div>
                 </div>
 
@@ -20,14 +25,15 @@
                     <div class="single-input">
                         <label for="answer">Answer*</label>
                         <textarea id="answer" name="answer" rows="5" class="border"
-                            placeholder="Enter the detailed answer to this question..." required></textarea>
+                            placeholder="Enter the detailed answer to this question..." required
+                            [(ngModel)]="faq.answer"></textarea>
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-center mt--20">
-                    <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+                    <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm" [disabled]="isSaving">
                         <span class="icon-reverse-wrapper">
-                            <span class="btn-text">Save FAQ</span>
+                            <span class="btn-text">{{ isSaving ? 'Saving...' : 'Save FAQ' }}</span>
                             <span class="btn-icon"><i class="fa-solid fa-bookmark"></i></span>
                             <span class="btn-icon"><i class="fa-solid fa-bookmark"></i></span>
                         </span>

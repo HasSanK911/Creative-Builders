@@ -6,7 +6,12 @@
     <div class="single-card-dashboard account-info box-dashboard-dashboard">
 
         <div class="edit-account-information">
-            <form action="#">
+            <div *ngIf="message" class="alert"
+                [ngClass]="message.includes('success') || message.includes('saved') ? 'alert-success' : 'alert-danger'"
+                style="margin-bottom:15px;">
+                {{ message }}
+            </div>
+            <form (ngSubmit)="saveTestimonial()">
                 <!-- Client Image Upload -->
                 <div class="edit-profile-picture-area mb--20">
                     <label class="d-block mb--10">Client Image*</label>
@@ -40,7 +45,7 @@
                     <div class="single-input">
                         <label for="clientName">Client Name*</label>
                         <input type="text" id="clientName" name="clientName" placeholder="e.g., John Anderson" required
-                            autocomplete="off">
+                            autocomplete="off" [(ngModel)]="testimonial.client_name">
                     </div>
                 </div>
 
@@ -48,7 +53,8 @@
                     <div class="single-input">
                         <label for="designation">Designation*</label>
                         <input type="text" id="designation" name="designation"
-                            placeholder="e.g., Homeowner, Business Owner, Designer" required autocomplete="off">
+                            placeholder="e.g., Homeowner, Business Owner, Designer" required autocomplete="off"
+                            [(ngModel)]="testimonial.designation">
                     </div>
                 </div>
 
@@ -56,14 +62,15 @@
                     <div class="single-input">
                         <label for="feedback">Feedback/Testimonial*</label>
                         <textarea id="feedback" name="feedback" rows="5" class="border"
-                            placeholder="Enter the client's feedback or testimonial..." required></textarea>
+                            placeholder="Enter the client's feedback or testimonial..." required
+                            [(ngModel)]="testimonial.feedback"></textarea>
                     </div>
                 </div>
 
                 <div class="input-wrapper">
                     <div class="single-input">
                         <label for="rating">Rating (1-5)*</label>
-                        <select id="rating" name="rating" class="border" required>
+                        <select id="rating" name="rating" class="border" required [(ngModel)]="testimonial.rating">
                             <option value="">Select Rating</option>
                             <option value="5">⭐⭐⭐⭐⭐ (5 Stars)</option>
                             <option value="4">⭐⭐⭐⭐ (4 Stars)</option>
@@ -75,9 +82,11 @@
                 </div>
 
                 <div class="d-flex justify-content-center mt--20">
-                    <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+                    <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm"
+                        [disabled]="isSaving || isUploading">
                         <span class="icon-reverse-wrapper">
-                            <span class="btn-text">Save Testimonial</span>
+                            <span class="btn-text">{{ isUploading ? 'Uploading...' : isSaving ? 'Saving...' : 'Save
+                                Testimonial' }}</span>
                             <span class="btn-icon"><i class="fa-solid fa-bookmark"></i></span>
                             <span class="btn-icon"><i class="fa-solid fa-bookmark"></i></span>
                         </span>

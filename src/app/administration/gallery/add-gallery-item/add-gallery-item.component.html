@@ -6,7 +6,23 @@
     <div class="single-card-dashboard account-info box-dashboard-dashboard">
 
         <div class="edit-account-information">
-            <form action="#">
+            <div *ngIf="message" class="alert"
+                [ngClass]="message.includes('success') || message.includes('saved') ? 'alert-success' : 'alert-danger'"
+                style="margin-bottom:15px;">{{ message }}</div>
+
+            <form (ngSubmit)="saveGallery()">
+                <!-- Site Selection -->
+                <div class="row mb--20">
+                    <div class="col-lg-6">
+                        <label class="form-label" style="font-weight:600;">Assign to Site / Project</label>
+                        <select class="form-control" [(ngModel)]="selectedSiteId" name="siteId"
+                            style="padding:10px 15px;border-radius:8px;border:1px solid var(--color-border);background:var(--color-bg);">
+                            <option [ngValue]="null">— No Site —</option>
+                            <option *ngFor="let site of sites" [ngValue]="site.id">{{ site.name }}</option>
+                        </select>
+                    </div>
+                </div>
+
                 <!-- Multiple Image Upload -->
                 <div class="edit-profile-picture-area mb--20">
                     <div class="upload-wrapper">
@@ -35,26 +51,11 @@
                     </div>
                 </div>
 
-                <div class="input-wrapper">
-                    <div class="single-input">
-                        <label>Select Site*</label>
-                        <div class="invers-modern-select">
-                            <div class="select">
-                                <div class="selectBtn" data-type="firstOption">Select Site</div>
-                                <div class="selectDropdown">
-                                    <div class="option" data-type="firstOption">Rizwan Heights</div>
-                                    <div class="option" data-type="secondOption">Ali's Home</div>
-                                    <div class="option" data-type="thirdOption">Lodhi's Arcade</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="d-flex justify-content-center mt--20">
-                    <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+                    <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm" [disabled]="isSaving">
                         <span class="icon-reverse-wrapper">
-                            <span class="btn-text">Save Gallery Images</span>
+                            <span class="btn-text">{{ isSaving ? 'Uploading & Saving...' : 'Save Gallery Images'
+                                }}</span>
                             <span class="btn-icon"><i class="fa-solid fa-bookmark"></i></span>
                             <span class="btn-icon"><i class="fa-solid fa-bookmark"></i></span>
                         </span>

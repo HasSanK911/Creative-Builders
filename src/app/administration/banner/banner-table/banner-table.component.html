@@ -1,53 +1,54 @@
 <div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
-
-    <div
-        class="single-card-dashboard account-info box-dashboard-dashboard d-flex align-items-center justify-content-between">
-        <h3 class="title title-top-primary"><i class="fa-solid fa-image"></i> Banner List</h3>
-        <a routerLink="../add-banner" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
-            <span class="icon-reverse-wrapper">
-                <span class="btn-text">Add Banner</span>
-                <span class="btn-icon"><i class="fa-solid fa-add"></i></span>
-                <span class="btn-icon"><i class="fa-solid fa-add"></i></span>
-            </span>
-        </a>
-    </div>
-
     <div class="single-card-dashboard account-info box-dashboard-dashboard">
-
-        <table class="invers-table table table-borderless">
-            <thead>
-                <tr>
-                    <th>Tagline</th>
-                    <th>Main Heading</th>
-                    <th>Description</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr *ngFor="let banner of banners">
-                    <th>{{ banner.tagline }}</th>
-                    <td>{{ banner.heading }}</td>
-                    <td>{{ banner.description.length > 80 ? (banner.description | slice:0:80) + '...' :
-                        banner.description }}</td>
-                    <td>
-                        <div class="d-flex gap-3">
-                            <a href="javascript:void(0)"
-                                class="cursor-pointer d-flex gap-1 align-items-center text-primary"
-                                (click)="editBanner(banner.id)">
-                                <i class="fa-regular fa-pen-to-square"></i> Edit
-                            </a>
-                            <a href="javascript:void(0)"
-                                class="cursor-pointer d-flex gap-1 align-items-center text-danger"
-                                (click)="deleteBanner(banner.id)">
-                                <i class="fa-light fa-trash-can"></i> Delete
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
+        <div class="d-flex justify-content-between align-items-center">
+            <h3 class="title title-top-primary"><i class="fa-solid fa-image"></i> Banners</h3>
+            <a routerLink="/admin/add-banner" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+                <span class="icon-reverse-wrapper"><span class="btn-text">Add Banner</span>
+                    <span class="btn-icon"><i class="fa-solid fa-plus"></i></span>
+                    <span class="btn-icon"><i class="fa-solid fa-plus"></i></span></span>
+            </a>
+        </div>
     </div>
+    <div class="single-card-dashboard box-dashboard-dashboard">
+        <div *ngIf="message" class="alert alert-danger" style="margin-bottom:12px;">{{ message }}</div>
+        <div *ngIf="isLoading" style="text-align:center;padding:40px;">Loading...</div>
+        <div *ngIf="!isLoading && banners.length === 0" style="text-align:center;padding:40px;color:#999;">
+            <i class="fa-solid fa-image" style="font-size:40px;display:block;margin-bottom:10px;"></i>
+            No banners yet. <a routerLink="/admin/add-banner">Add one!</a>
+        </div>
 
+        <div class="invers-dashboard-table table-responsive mobile-table-750" *ngIf="!isLoading && banners.length > 0">
+            <table class="invers-table table table-borderless">
+                <thead>
+                    <tr>
+                        <th style="width: 150px;">Image</th>
+                        <th style="width: 20%;">Tagline</th>
+                        <th>Heading</th>
+                        <th style="width: 150px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let b of banners">
+                        <td>
+                            <img *ngIf="b.image_url" [src]="b.image_url" alt="Banner"
+                                style="width:100px;height:60px;object-fit:cover;border-radius:4px;">
+                            <i *ngIf="!b.image_url" class="fa-solid fa-image" style="font-size:30px;color:#ccc;"></i>
+                        </td>
+                        <td>{{ b.tagline }}</td>
+                        <th>{{ b.heading }}</th>
+                        <td>
+                            <div class="d-flex gap-3 align-items-center">
+                                <a [routerLink]="['/admin/edit-banner', b.id]" role="button" class="text-primary"
+                                    style="display: flex; align-items: center; gap: 4px;">
+                                    <i class="fa-regular fa-pen-to-square"></i>Edit</a>
+                                <a role="button" class="text-danger" (click)="deleteBanner(b.id)"
+                                    style="display: flex; align-items: center; gap: 4px;">
+                                    <i class="fa-regular fa-trash-can"></i>Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
