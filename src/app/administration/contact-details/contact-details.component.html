@@ -5,8 +5,22 @@
     </div>
 
     <div class="single-card-dashboard account-info box-dashboard-dashboard">
+        <div *ngIf="loading" class="mb--20" style="color: var(--color-body);">
+            <i class="fa-solid fa-spinner fa-spin mr--5"></i> Loading contact details...
+        </div>
+
+        <div *ngIf="error" class="alert alert-danger mb--20" role="alert"
+            style="color: #dc3545; background: rgba(220,53,69,.08); border-radius: 6px; padding: 10px 14px; white-space: pre-line;">
+            {{ error }}
+        </div>
+
+        <div *ngIf="success" class="alert alert-success mb--20" role="alert"
+            style="color: #198754; background: rgba(25,135,84,.08); border-radius: 6px; padding: 10px 14px;">
+            {{ success }}
+        </div>
+
         <div class="edit-account-information">
-            <form>
+            <form (ngSubmit)="saveContactDetails()">
                 <!-- Contact Information Section -->
                 <h3 class="title with-border-bottom mb--20">Contact Information</h3>
 
@@ -66,7 +80,8 @@
 
                 <!-- Action Buttons -->
                 <div class="d-flex gap-3 justify-content-end mt--40">
-                    <button type="button" class="tmp-btn btn-secondary hover-icon-reverse btn-sm" (click)="resetForm()">
+                    <button type="button" class="tmp-btn btn-secondary hover-icon-reverse btn-sm"
+                        [disabled]="saving || loading" (click)="resetForm()">
                         <span class="icon-reverse-wrapper">
                             <span class="btn-text">Reset Form</span>
                             <span class="btn-icon"><i class="fa-solid fa-rotate-left"></i></span>
@@ -74,9 +89,9 @@
                         </span>
                     </button>
                     <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm"
-                        (click)="saveContactDetails()">
+                        [disabled]="saving || loading">
                         <span class="icon-reverse-wrapper">
-                            <span class="btn-text">Save Contact Details</span>
+                            <span class="btn-text">{{ saving ? 'Saving...' : 'Save Contact Details' }}</span>
                             <span class="btn-icon"><i class="fa-solid fa-save"></i></span>
                             <span class="btn-icon"><i class="fa-solid fa-save"></i></span>
                         </span>

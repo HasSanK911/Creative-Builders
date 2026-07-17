@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, ActivatedRoute } from '@angular/router';
+import { ApiService } from '../../../Services/api.service';
+import { Material, MaterialPurchase, MaterialPurchaseReport, Site } from '../../../models/api.models';
 
 @Component({
   selector: 'app-view-materials-details',
@@ -15,108 +17,120 @@ export class ViewMaterialsDetailsComponent implements OnInit {
   materialName: string = '';
   materialUnit: string = '';
 
+  sites: Site[] = [];
+
+  /** Sent to the API. `null` is the "All Sites" option — the param is then omitted entirely. */
+  filterSiteId: number | null = null;
+  /** The selected site's name, kept only so the button label and the print header can show it. */
   filterSite: string = '';
   filterDateFrom: string = '';
   filterDateTo: string = '';
   isSiteDropdownOpen: boolean = false;
 
-  sites: string[] = ['Rizwan Heights', "Ali's Home", "Lodhi's Arcade"];
+  purchases: MaterialPurchase[] = [];
 
-  materialsMap: { [id: number]: { name: string; unit: string } } = {
-    1: { name: 'Cement', unit: 'Bags' },
-    2: { name: 'Steel', unit: 'Ton' },
-    3: { name: 'Bricks', unit: 'Pieces' },
-    4: { name: 'Sand', unit: 'Trolley' },
-    5: { name: 'Bajri', unit: 'Trolley' },
-    6: { name: 'Marble', unit: 'Sq Ft' },
-    7: { name: 'Tiles', unit: 'Box' },
-    8: { name: 'Paint', unit: 'Gallon' },
-    9: { name: 'Electric Wire', unit: 'Roll' },
-    10: { name: 'Electric Pipes', unit: 'Bundle' },
-    11: { name: 'Sanitary Pipes', unit: 'Bundle' },
-    12: { name: 'Aluminum', unit: 'Sq Ft' },
-    13: { name: 'Plaster', unit: 'Bags' },
-    14: { name: 'Steel Wire', unit: 'Kg' },
-    15: { name: 'Chips', unit: 'Trolley' },
-    16: { name: 'Fans', unit: 'Pieces' },
-    17: { name: 'Lights etc', unit: 'Set' },
-    18: { name: 'Door Lock', unit: 'Pieces' },
-    19: { name: 'Geaser', unit: 'Pieces' },
-    20: { name: 'Cameras', unit: 'Pieces' },
-  };
+  // Computed server-side over the filtered rows — displayed as received, never recomputed here.
+  totalQuantity: number = 0;
+  totalAmount: number = 0;
+  averageRate: number = 0;
 
-  allRecords: { date: string; site: string; quantity: number; rate: number; total: number }[] = [];
+  loading: boolean = false;
+  error: string = '';
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private api: ApiService<Material>,
+    private reportApi: ApiService<MaterialPurchaseReport>,
+    private siteApi: ApiService<Site>,
+    private route: ActivatedRoute
+  ) { }
 
-  ngOnInit() {
-    this.materialId = Number(this.route.snapshot.paramMap.get('id')) || 1;
-    const info = this.materialsMap[this.materialId];
-    this.materialName = info?.name || 'Unknown Material';
-    this.materialUnit = info?.unit || '';
-    this.generateSampleRecords();
-  }
-
-  generateSampleRecords() {
-    const suppliers = ['Lucky Cement', 'Amreli Steel', 'Local Kiln', 'River Sand Co.', 'Crush Point', 'Marble Hub',
-      'Master Tiles', 'Diamond Paints', 'Fast Cable', 'National Pipes'];
-    const rates = [1150, 250000, 18, 18000, 22000, 120, 1800, 4500, 6500, 3200];
-    const baseRate = rates[(this.materialId - 1) % rates.length];
-
-    this.allRecords = [];
-    for (let i = 0; i < 15; i++) {
-      const site = this.sites[i % this.sites.length];
-      const qty = Math.floor(Math.random() * 50) + 5;
-      const rate = baseRate + Math.floor(Math.random() * 200) - 100;
-      const month = String((i % 12) + 1).padStart(2, '0');
-      const day = String(Math.floor(Math.random() * 28) + 1).padStart(2, '0');
-      this.allRecords.push({
-        date: `2025-${month}-${day}`,
-        site,
-        quantity: qty,
-        rate,
-        total: qty * rate,
-      });
+  ngOnInit(): void {
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    if (!id) {
+      this.error = 'No material selected.';
+      return;
     }
-    this.allRecords.sort((a, b) => a.date.localeCompare(b.date));
+
+    this.materialId = id;
+    this.loadMaterial();
+    this.loadSites();
+    this.loadPurchases();
   }
 
-  get filteredRecords() {
-    return this.allRecords.filter(r => {
-      if (this.filterSite && r.site !== this.filterSite) return false;
-      if (this.filterDateFrom && r.date < this.filterDateFrom) return false;
-      if (this.filterDateTo && r.date > this.filterDateTo) return false;
-      return true;
+  private loadMaterial(): void {
+    this.api.getById(`materials/${this.materialId}`).subscribe({
+      next: material => {
+        this.materialName = material.name;
+        this.materialUnit = material.unit;
+      },
+      error: err => this.error = err.message
     });
   }
 
-  get totalQuantity(): number {
-    return this.filteredRecords.reduce((sum, r) => sum + r.quantity, 0);
+  private loadSites(): void {
+    this.siteApi.getAll('sites').subscribe({
+      next: sites => this.sites = sites,
+      error: err => this.error = err.message
+    });
   }
 
-  get totalAmount(): number {
-    return this.filteredRecords.reduce((sum, r) => sum + r.total, 0);
+  private loadPurchases(): void {
+    this.loading = true;
+    this.error = '';
+
+    this.reportApi.getById(this.purchasesEndpoint()).subscribe({
+      next: report => {
+        this.purchases = report.purchases ?? [];
+        this.totalQuantity = report.totalQuantity;
+        this.totalAmount = report.totalAmount;
+        this.averageRate = report.averageRate;
+        this.loading = false;
+      },
+      error: err => {
+        this.error = err.message;
+        this.purchases = [];
+        this.totalQuantity = 0;
+        this.totalAmount = 0;
+        this.averageRate = 0;
+        this.loading = false;
+      }
+    });
   }
 
-  get averageRate(): number {
-    const records = this.filteredRecords;
-    if (records.length === 0) return 0;
-    return Math.round(records.reduce((sum, r) => sum + r.rate, 0) / records.length);
+  /** Only the filters that are actually set are sent; all three params are optional. */
+  private purchasesEndpoint(): string {
+    const params = new URLSearchParams();
+    if (this.filterSiteId !== null) {
+      params.set('siteId', String(this.filterSiteId));
+    }
+    if (this.filterDateFrom) {
+      params.set('dateFrom', this.filterDateFrom);
+    }
+    if (this.filterDateTo) {
+      params.set('dateTo', this.filterDateTo);
+    }
+
+    const query = params.toString();
+    return `materials/${this.materialId}/purchases${query ? `?${query}` : ''}`;
   }
 
   applyFilters() {
-    // Filters are applied reactively via the getter
+    this.loadPurchases();
   }
 
-  selectSiteFilter(site: string) {
-    this.filterSite = site;
+  /** `null` is the "All Sites" option. */
+  selectSiteFilter(site: Site | null) {
+    this.filterSiteId = site?.id ?? null;
+    this.filterSite = site?.name ?? '';
     this.isSiteDropdownOpen = false;
   }
 
   clearFilters() {
+    this.filterSiteId = null;
     this.filterSite = '';
     this.filterDateFrom = '';
     this.filterDateTo = '';
+    this.loadPurchases();
   }
 
   downloadReport() {

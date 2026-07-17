@@ -1,9 +1,21 @@
-<header class="header-one header-seven inner header--sticky header-sticky-smooth">
+<!--
+  Deliberately without the theme's `header--sticky header-sticky-smooth` classes.
+  `main.js` (loaded globally) watches the scroll position and flips `.header--sticky` to
+  `position: fixed` — which takes the header's ~97px out of the document flow, shrinking the
+  page. On an admin screen with a short scroll range that clamps the scroll straight back
+  under the threshold, the class comes off, the page grows again, and it oscillates: the page
+  jams a few pixels down and the bottom of the content can never be reached.
+-->
+<header class="header-one header-seven inner">
     <div class="header-main header-main-2">
         <div class="row">
             <div class="col-lg-12">
                 <div class="header-mid-one-wrapper wrapper-two">
                     <div class="left d-flex align-items-center">
+                        <button type="button" class="admin-menu-toggle" (click)="menuToggle.emit()"
+                            aria-label="Open menu" aria-controls="admin-sidebar">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
                         <div class="logo-area shape-none">
                             <a (click)="gotoHome()">
                                 <img src="assets/logo.png" alt="logo" width="100%" class="main-logo">

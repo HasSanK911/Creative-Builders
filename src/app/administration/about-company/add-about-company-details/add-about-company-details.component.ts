@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ApiService } from '../../../Services/api.service';
+import { AboutCompany } from '../../../models/api.models';
 
 @Component({
   selector: 'app-add-about-company-details',
@@ -9,49 +11,110 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './add-about-company-details.component.html',
   styleUrls: ['./add-about-company-details.component.css']
 })
-export class AddAboutCompanyDetailsComponent {
-  selectedImage: string | ArrayBuffer | null = null;
+export class AddAboutCompanyDetailsComponent implements OnInit {
+  private readonly endpoint = 'about-company';
 
-  companyData = {
-    sectionLabel: '',
-    mainHeading: '',
-    mainDescription: '',
-    feature1: '',
-    feature2: '',
-    feature3: '',
-    foundationDescription: '',
-    image: null as File | null
-  };
+  /** The stored absolute URL, or a data URL while a freshly picked file waits to be uploaded. */
+  selectedImage: string | null = null;
+  private imageFile: File | null = null;
 
-  onImageSelected(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      this.companyData.image = file;
+  companyData: AboutCompany = this.blank();
 
-      // Create preview
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.selectedImage = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
+  loading = false;
+  saving = false;
+  error: string | null = null;
+  success: string | null = null;
+
+  constructor(private api: ApiService<AboutCompany>) { }
+
+  ngOnInit(): void {
+    this.load();
   }
 
-  saveCompanyDetails() {
-    console.log('Saving company details:', this.companyData);
-
-    // Validation
-    if (!this.companyData.mainHeading || !this.companyData.mainDescription) {
-      alert('Please fill in all required fields');
+  onImageSelected(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (!file) {
       return;
     }
 
-    alert('Company details saved successfully! (This is a placeholder)');
-    this.resetForm();
+    this.imageFile = file;
+
+    const reader = new FileReader();
+    reader.onload = () => (this.selectedImage = reader.result as string);
+    reader.readAsDataURL(file);
   }
 
-  resetForm() {
-    this.companyData = {
+  saveCompanyDetails(): void {
+    this.error = null;
+    this.success = null;
+
+    if (!this.companyData.mainHeading || !this.companyData.mainDescription) {
+      this.error = 'Main Heading and Main Description are required.';
+      return;
+    }
+
+    this.saving = true;
+
+    // A newly picked file has to be stored first — the row carries the returned path, not the file.
+    if (this.imageFile) {
+      this.api.upload(this.imageFile).subscribe({
+        next: uploaded => this.put(uploaded.path),
+        error: err => this.fail(err),
+      });
+    } else {
+      this.put(this.companyData.image);
+    }
+  }
+
+  /** Discards unsaved edits by re-reading the stored row. */
+  resetForm(): void {
+    this.imageFile = null;
+    this.error = null;
+    this.success = null;
+    this.load();
+  }
+
+  private load(): void {
+    this.loading = true;
+    this.error = null;
+
+    this.api.getById(this.endpoint).subscribe({
+      next: row => {
+        this.apply(row);
+        this.loading = false;
+      },
+      error: err => {
+        this.error = err.message;
+        this.loading = false;
+      },
+    });
+  }
+
+  private put(image: string | null): void {
+    this.api.update(this.endpoint, { ...this.companyData, image }).subscribe({
+      next: row => {
+        this.apply(row);
+        this.saving = false;
+        this.success = 'Company details saved successfully.';
+      },
+      error: err => this.fail(err),
+    });
+  }
+
+  private apply(row: AboutCompany): void {
+    this.companyData = { ...this.blank(), ...row };
+    this.selectedImage = this.companyData.image;
+    this.imageFile = null;
+  }
+
+  private fail(err: Error): void {
+    this.error = err.message;
+    this.saving = false;
+  }
+
+  private blank(): AboutCompany {
+    return {
+      image: null,
       sectionLabel: '',
       mainHeading: '',
       mainDescription: '',
@@ -59,8 +122,6 @@ export class AddAboutCompanyDetailsComponent {
       feature2: '',
       feature3: '',
       foundationDescription: '',
-      image: null
     };
-    this.selectedImage = null;
   }
 }

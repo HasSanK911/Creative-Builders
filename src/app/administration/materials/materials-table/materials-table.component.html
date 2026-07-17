@@ -19,7 +19,7 @@
             <div class="d-flex align-items-center gap-2"
                 style="border: 1px solid #dee2e6; border-radius: 8px; padding: 8px 16px; max-width: 400px;">
                 <i class="fa-solid fa-magnifying-glass" style="color: #999;"></i>
-                <input type="text" [(ngModel)]="searchQuery" placeholder="Search materials..."
+                <input type="text" name="searchQuery" [(ngModel)]="searchQuery" placeholder="Search materials..."
                     style="border: none; outline: none; width: 100%; font-size: 14px;">
             </div>
         </div>
@@ -51,7 +51,20 @@
                             </div>
                         </td>
                     </tr>
-                    <tr *ngIf="filteredMaterials.length === 0">
+                    <tr *ngIf="loading">
+                        <td colspan="7" class="text-center py-4" style="color: #999;">
+                            <i class="fa-solid fa-spinner fa-spin" style="font-size: 24px;"></i>
+                            <p class="mt-2 mb-0">Loading materials...</p>
+                        </td>
+                    </tr>
+                    <tr *ngIf="error && !loading">
+                        <td colspan="7" class="text-center py-4" style="color: #dc3545;">
+                            <i class="fa-solid fa-triangle-exclamation" style="font-size: 24px;"></i>
+                            <!-- A 422 arrives as newline-joined messages. -->
+                            <p class="mt-2 mb-0" style="white-space: pre-line;">{{ error }}</p>
+                        </td>
+                    </tr>
+                    <tr *ngIf="!loading && !error && filteredMaterials.length === 0">
                         <td colspan="7" class="text-center py-4" style="color: #999;">
                             <i class="fa-solid fa-search" style="font-size: 24px;"></i>
                             <p class="mt-2 mb-0">No materials found matching "{{ searchQuery }}"</p>

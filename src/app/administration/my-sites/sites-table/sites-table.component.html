@@ -56,6 +56,12 @@
                 </thead>
 
                 <tbody>
+                    <tr *ngIf="loading">
+                        <td colspan="8" class="text-center">Loading sites...</td>
+                    </tr>
+                    <tr *ngIf="error && !loading">
+                        <td colspan="8" class="text-center text-danger" style="white-space: pre-line;">{{ error }}</td>
+                    </tr>
                     <tr *ngFor="let site of filteredSites">
                         <th>{{ site.name }}</th>
                         <th>{{ site.type }}</th>
@@ -67,14 +73,14 @@
                                 }}</span></td>
                         <td>
                             <div class="d-flex gap-3">
-                                <a href="javascript:void(0)" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i>Edit</a>
-                                <a href="javascript:void(0)" role="button" class="text-danger"><i
-                                        class="fa-regular fa-trash-can"></i>Delete</a>
+                                <a [routerLink]="['../add-site']" [queryParams]="{ id: site.id }" role="button"
+                                    class="text-primary"><i class="fa-regular fa-pen-to-square"></i>Edit</a>
+                                <a href="javascript:void(0)" role="button" class="text-danger"
+                                    (click)="deleteSite(site)"><i class="fa-regular fa-trash-can"></i>Delete</a>
                             </div>
                         </td>
                     </tr>
-                    <tr *ngIf="filteredSites.length === 0">
+                    <tr *ngIf="!loading && !error && filteredSites.length === 0">
                         <td colspan="8" class="text-center">No sites found matching criteria.</td>
                     </tr>
                 </tbody>

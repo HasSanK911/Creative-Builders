@@ -1,0 +1,83 @@
+<div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
+
+    <div
+        class="single-card-dashboard account-info box-dashboard-dashboard d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <h3 class="title title-top-primary mb-0"><i class="fa-solid fa-inbox"></i> Contact Queries
+            <span *ngIf="unreadCount() > 0" class="status-badge new ml--5">{{ unreadCount() }} new</span>
+        </h3>
+        <div class="check-box">
+            <input type="checkbox" id="unread-only" [(ngModel)]="unreadOnly" [ngModelOptions]="{ standalone: true }">
+            <label for="unread-only">Show unread only</label>
+        </div>
+    </div>
+
+    <div class="single-card-dashboard account-info box-dashboard-dashboard">
+
+        <table class="invers-table table table-borderless">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>Interested In</th>
+                    <th>Message</th>
+                    <th>Received</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngIf="loading">
+                    <td colspan="7" class="text-center">Loading queries...</td>
+                </tr>
+                <tr *ngIf="error">
+                    <td colspan="7" class="text-center text-danger" style="white-space: pre-line;">{{ error }}</td>
+                </tr>
+                <tr *ngIf="!loading && !error && visibleQueries().length === 0">
+                    <td colspan="7" class="text-center">
+                        {{ unreadOnly ? 'No unread queries.' : 'No one has used the contact form yet.' }}
+                    </td>
+                </tr>
+                <tr *ngFor="let query of visibleQueries()" [class.unread-row]="!query.isRead">
+                    <th>{{ query.name }}</th>
+                    <td>
+                        <a [href]="'mailto:' + query.email">{{ query.email }}</a>
+                        <div *ngIf="query.phone" class="text-muted">{{ query.phone }}</div>
+                    </td>
+                    <td>
+                        <span class="topic-badge" *ngFor="let topic of query.helpTopics">{{ topic }}</span>
+                        <span *ngIf="!query.helpTopics.length" class="text-muted">—</span>
+                    </td>
+                    <td>{{ query.message.length > 80 ? (query.message | slice:0:80) + '...' : query.message }}</td>
+                    <td>{{ query.submittedAt | date:'dd MMM yyyy, h:mm a' }}</td>
+                    <td>
+                        <span class="status-badge" [class.new]="!query.isRead" [class.read]="query.isRead">
+                            {{ query.isRead ? 'Read' : 'New' }}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="d-flex gap-3">
+                            <a [routerLink]="['../view-contact-query', query.id]"
+                                class="cursor-pointer d-flex gap-1 align-items-center text-primary">
+                                <i class="fa-regular fa-eye"></i> View
+                            </a>
+                            <a href="javascript:void(0)" class="cursor-pointer d-flex gap-1 align-items-center"
+                                (click)="toggleRead(query)">
+                                <i class="fa-regular" [class.fa-envelope-open]="!query.isRead"
+                                    [class.fa-envelope]="query.isRead"></i>
+                                {{ query.isRead ? 'Mark Unread' : 'Mark Read' }}
+                            </a>
+                            <a href="javascript:void(0)"
+                                class="cursor-pointer d-flex gap-1 align-items-center text-danger"
+                                (click)="deleteQuery(query.id!)">
+                                <i class="fa-light fa-trash-can"></i> Delete
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

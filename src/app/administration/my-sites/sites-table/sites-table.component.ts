@@ -1,17 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-interface Site {
-  name: string;
-  type: string;
-  location: string;
-  budget: number;
-  advance: number;
-  remaining: number;
-  status: 'Completed' | 'Pending' | 'Dispute';
-}
+import { ApiService } from '../../../Services/api.service';
+import { Site } from '../../../models/api.models';
 
 @Component({
   selector: 'app-sites-table',
@@ -20,40 +12,47 @@ interface Site {
   templateUrl: './sites-table.component.html',
   styleUrl: './sites-table.component.css'
 })
-export class SitesTableComponent {
+export class SitesTableComponent implements OnInit {
   searchText: string = '';
   filterStatus: string = 'All';
   isDropdownOpen: boolean = false;
 
-  sites: Site[] = [
-    {
-      name: 'Rizwan Heights',
-      type: 'Building',
-      location: 'B Block , Citi Housing',
-      budget: 5000000,
-      advance: 1500000,
-      remaining: 3500000,
-      status: 'Completed'
-    },
-    {
-      name: "Ali's Home",
-      type: 'Home',
-      location: 'D Block , Citi Housing',
-      budget: 3200000,
-      advance: 800000,
-      remaining: 2400000,
-      status: 'Pending'
-    },
-    {
-      name: "Lodhi's Arcade",
-      type: 'Building',
-      location: 'E Block , Citi Housing',
-      budget: 8500000,
-      advance: 2000000,
-      remaining: 6500000,
-      status: 'Dispute'
+  sites: Site[] = [];
+  loading = false;
+  error = '';
+
+  constructor(private api: ApiService<Site>) { }
+
+  ngOnInit(): void {
+    this.loadSites();
+  }
+
+  loadSites(): void {
+    this.loading = true;
+    this.error = '';
+
+    this.api.getAll('sites').subscribe({
+      next: rows => {
+        this.sites = rows;
+        this.loading = false;
+      },
+      error: err => {
+        this.error = err.message;
+        this.loading = false;
+      }
+    });
+  }
+
+  deleteSite(site: Site): void {
+    if (!confirm(`Delete "${site.name}"? Its payments will be removed too.`)) {
+      return;
     }
-  ];
+
+    this.api.delete(`sites/${site.id}`).subscribe({
+      next: () => this.loadSites(),
+      error: err => this.error = err.message
+    });
+  }
 
   get filteredSites(): Site[] {
     return this.sites.filter(site => {

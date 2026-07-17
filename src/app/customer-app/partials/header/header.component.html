@@ -22,7 +22,7 @@
                                 <i class="fal fa-phone"></i>
                             </div>
                             <div class="info">
-                                <span><a href="tel:+92324588007">+92 324 588007</a></span>
+                                <span><a [href]="telHref(contact?.phone ?? '+92 324 588007')">{{ contact?.phone || '+92 324 588007' }}</a></span>
                             </div>
                         </div>
                         <!-- single map area -->
@@ -32,22 +32,22 @@
                                 <i class="fal fa-map-marker-alt"></i>
                             </div>
                             <div class="info">
-                                <span>Rizwan Heights , Citi Housing Society , Jhelum</span>
+                                <span>{{ contact?.address || 'Rizwan Heights , Citi Housing Society , Jhelum' }}</span>
                             </div>
                         </div>
                         <!-- single map area -->
                     </div>
                     <!-- right area strat -->
                     <div class="right">
-                        <ul class="social-wrapper-1 hover-bg-white">
-                            <li class="single"><a target="_blank" href="https://www.facebook.com/"><i
+                        <ul class="social-wrapper-1 hover-bg-white" *ngIf="contact as c">
+                            <li class="single" *ngIf="c.facebook"><a target="_blank" [href]="c.facebook"><i
                                         class="fab fa-facebook-f"></i></a></li>
-                            <li class="single"><a target="_blank" href="https://x.com/"><i
+                            <li class="single" *ngIf="c.twitter"><a target="_blank" [href]="c.twitter"><i
                                         class="fab fa-twitter"></i></a></li>
-                            <li class="single"><a target="_blank" href="https://www.instagram.com/"><i
+                            <li class="single" *ngIf="c.instagram"><a target="_blank" [href]="c.instagram"><i
                                         class="fab fa-instagram"></i></a></li>
-                            <li class="single"><a target="_blank" href="https://dribbble.com/"><i
-                                        class="fal fa-globe"></i></a></li>
+                            <li class="single" *ngIf="c.linkedin"><a target="_blank" [href]="c.linkedin"><i
+                                        class="fab fa-linkedin-in"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -156,114 +156,24 @@
             <div class="trending">
                 <h5 class="title">Popular Services</h5>
                 <div class="tmp-grid-layout lg-col-3 md-col-2">
-                    <div class="feature-post-item style-small d-flex align-items-center hover-image-rotate item-grid ">
-                        <a href="service-details.html" class="img-style">
-                            <img src="assets/images/blog/feature-item-small-1.webp" decoding="async" loading="lazy"
-                                width="123" height="92" alt="feature">
+                    <div class="feature-post-item style-small d-flex align-items-center hover-image-rotate item-grid "
+                        *ngFor="let service of services; let i = index">
+                        <a (click)="gotoServices()" class="img-style">
+                            <img [appSrc]="service.icon"
+                                [fallback]="'assets/images/blog/feature-item-small-' + ((i % 6) + 1) + '.webp'"
+                                decoding="async" loading="lazy" width="123" height="92" [alt]="service.title">
                         </a>
                         <div class="content">
                             <ul
                                 class="meta-feature text-caption-2 fw-7 text_secodary-color d-flex align-items-center mb_8 text-uppercase">
                                 <li>Service</li>
-                                <li><a href="#" class="text-uppercase">Construction</a></li>
+                                <li *ngIf="service.tag"><a (click)="gotoServices()" class="text-uppercase">{{ service.tag }}</a></li>
                             </ul>
                             <h6 class="title">
-                                <a href="service-details.html" class="link">Residential Building Construction & Site
-                                    Setup</a>
+                                <a (click)="gotoServices()" class="link">{{ service.title }}</a>
                             </h6>
                         </div>
                     </div>
-
-                    <div class="feature-post-item style-small d-flex align-items-center hover-image-rotate item-grid ">
-                        <a href="service-details.html" class="img-style">
-                            <img src="assets/images/blog/feature-item-small-2.webp" decoding="async" loading="lazy"
-                                width="123" height="92" alt="feature">
-                        </a>
-                        <div class="content">
-                            <ul
-                                class="meta-feature text-caption-2 fw-7 text_secodary-color d-flex align-items-center mb_8 text-uppercase">
-                                <li>Service</li>
-                                <li><a href="#" class="text-uppercase">Renovation</a></li>
-                            </ul>
-                            <h6 class="title">
-                                <a href="service-details.html" class="link">Home Renovation, Remodeling & Repair
-                                    Work</a>
-                            </h6>
-                        </div>
-                    </div>
-
-                    <div class="feature-post-item style-small d-flex align-items-center hover-image-rotate item-grid ">
-                        <a href="service-details.html" class="img-style">
-                            <img src="assets/images/blog/feature-item-small-3.webp" decoding="async" loading="lazy"
-                                width="123" height="92" alt="feature">
-                        </a>
-                        <div class="content">
-                            <ul
-                                class="meta-feature text-caption-2 fw-7 text_secodary-color d-flex align-items-center mb_8 text-uppercase">
-                                <li>Service</li>
-                                <li><a href="#" class="text-uppercase">Interior</a></li>
-                            </ul>
-                            <h6 class="title">
-                                <a href="service-details.html" class="link">Interior Decoration, False Ceiling & Design
-                                    Work</a>
-                            </h6>
-                        </div>
-                    </div>
-
-                    <div class="feature-post-item style-small d-flex align-items-center hover-image-rotate item-grid ">
-                        <a href="service-details.html" class="img-style">
-                            <img src="assets/images/blog/feature-item-small-4.webp" decoding="async" loading="lazy"
-                                width="123" height="92" alt="feature">
-                        </a>
-                        <div class="content">
-                            <ul
-                                class="meta-feature text-caption-2 fw-7 text_secodary-color d-flex align-items-center mb_8 text-uppercase">
-                                <li>Service</li>
-                                <li><a href="#" class="text-uppercase">Architecture</a></li>
-                            </ul>
-                            <h6 class="title">
-                                <a href="service-details.html" class="link">Architectural Planning & 3D Building
-                                    Modeling</a>
-                            </h6>
-                        </div>
-                    </div>
-
-                    <div class="feature-post-item style-small d-flex align-items-center hover-image-rotate item-grid ">
-                        <a href="service-details.html" class="img-style">
-                            <img src="assets/images/blog/feature-item-small-5.webp" decoding="async" loading="lazy"
-                                width="123" height="92" alt="feature">
-                        </a>
-                        <div class="content">
-                            <ul
-                                class="meta-feature text-caption-2 fw-7 text_secodary-color d-flex align-items-center mb_8 text-uppercase">
-                                <li>Service</li>
-                                <li><a href="#" class="text-uppercase">Project</a></li>
-                            </ul>
-                            <h6 class="title">
-                                <a href="service-details.html" class="link">Full Construction Project Management
-                                    Service</a>
-                            </h6>
-                        </div>
-                    </div>
-
-                    <div class="feature-post-item style-small d-flex align-items-center hover-image-rotate item-grid ">
-                        <a href="service-details.html" class="img-style">
-                            <img src="assets/images/blog/feature-item-small-6.webp" decoding="async" loading="lazy"
-                                width="123" height="92" alt="feature">
-                        </a>
-                        <div class="content">
-                            <ul
-                                class="meta-feature text-caption-2 fw-7 text_secodary-color d-flex align-items-center mb_8 text-uppercase">
-                                <li>Service</li>
-                                <li><a href="#" class="text-uppercase">Repair</a></li>
-                            </ul>
-                            <h6 class="title">
-                                <a href="service-details.html" class="link">Structural Repair & Building Maintenance
-                                    Service</a>
-                            </h6>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -309,14 +219,13 @@
                 </ul>
             </nav>
         
-            <div class="social-share-wrapper-1 mt--40">
+            <div class="social-share-wrapper-1 mt--40" *ngIf="contact as c">
                 <span class="short-title">Find With Us</span>
                 <ul class="social-stylle-one justify-content-start mt--10">
-                    <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
-                    <li><a href="#"><i class="fa-brands fa-tiktok"></i></a></li>
+                    <li *ngIf="c.facebook"><a target="_blank" [href]="c.facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                    <li *ngIf="c.twitter"><a target="_blank" [href]="c.twitter"><i class="fa-brands fa-twitter"></i></a></li>
+                    <li *ngIf="c.instagram"><a target="_blank" [href]="c.instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                    <li *ngIf="c.linkedin"><a target="_blank" [href]="c.linkedin"><i class="fa-brands fa-linkedin-in"></i></a></li>
                 </ul>
             </div>
         

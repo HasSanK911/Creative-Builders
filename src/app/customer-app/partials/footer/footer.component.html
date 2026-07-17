@@ -31,13 +31,13 @@
                                     </a>
                                 </div>
                                 <p class="desc">
-                                    We are providing high-quality construction for about ten years
+                                    {{ about?.foundationDescription || 'We are providing high-quality construction for about ten years' }}
                                 </p>
-                                <ul class="social-wrapper-1 hover-bg-white ml_-10">
-                                    <li class="single"><a target="_blank" href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li class="single"><a target="_blank" href="https://x.com/"><i class="fab fa-twitter"></i></a></li>
-                                    <li class="single"><a target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a></li>
-                                    <li class="single"><a target="_blank" href="https://dribbble.com/"><i class="fal fa-globe"></i></a></li>
+                                <ul class="social-wrapper-1 hover-bg-white ml_-10" *ngIf="contact as c">
+                                    <li class="single" *ngIf="c.facebook"><a target="_blank" [href]="c.facebook"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li class="single" *ngIf="c.twitter"><a target="_blank" [href]="c.twitter"><i class="fab fa-twitter"></i></a></li>
+                                    <li class="single" *ngIf="c.instagram"><a target="_blank" [href]="c.instagram"><i class="fab fa-instagram"></i></a></li>
+                                    <li class="single" *ngIf="c.linkedin"><a target="_blank" [href]="c.linkedin"><i class="fab fa-linkedin-in"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -72,17 +72,23 @@
                                         <p class="text">Call US Directly?</p>
                                         <div class="phone">
                                             <p>Phone:</p>
-                                            <a href="tel:+92324588007" class="number hover-moving-primary">
-                                                +92 324 588007
+                                            <a [href]="telHref(contact?.phone ?? '+92 324 588007')" class="number hover-moving-primary">
+                                                {{ contact?.phone || '+92 324 588007' }}
                                             </a>
                                         </div>
                                     </div>
                                     <div class="single d-block">
                                         <p class="text">Email Us:</p>
                                         <div class="phone">
-                                            <a href="mailto:creativebuilders@gmail.com" class="number hover-moving-primary">
-                                                creativebuilders&#64;gmail.com
+                                            <a [href]="'mailto:' + (contact?.email || 'creativebuilders@gmail.com')" class="number hover-moving-primary">
+                                                {{ contact?.email || 'creativebuilders@gmail.com' }}
                                             </a>
+                                        </div>
+                                    </div>
+                                    <div class="single d-block" *ngIf="contact?.address as address">
+                                        <p class="text">Address:</p>
+                                        <div class="phone">
+                                            <span class="number">{{ address }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -112,7 +118,7 @@
                     <div class="col-md-12 col-sm-12">
                         <div class="wrapper text-start text-md-center text-lg-center">
                             <p>© Copyright
-                                <span id="year"></span>
+                                <span id="year">{{ year }}</span>
                                 by <a class="hover-moving-primary" target="_blank" href="#">Quantum Stack Softwares Inc</a>
                             </p>
                         </div>

@@ -1,0 +1,80 @@
+<div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
+
+    <div
+        class="single-card-dashboard account-info box-dashboard-dashboard d-flex align-items-center justify-content-between">
+        <h3 class="title title-top-primary"><i class="fa-solid fa-envelope-open-text"></i> Contact Query</h3>
+        <a routerLink="../../contact-queries-list" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+            <span class="icon-reverse-wrapper">
+                <span class="btn-text">Back to Queries</span>
+                <span class="btn-icon"><i class="fa-solid fa-arrow-left"></i></span>
+                <span class="btn-icon"><i class="fa-solid fa-arrow-left"></i></span>
+            </span>
+        </a>
+    </div>
+
+    <div class="single-card-dashboard account-info box-dashboard-dashboard">
+
+        <div *ngIf="loading">Loading query...</div>
+
+        <div *ngIf="error" class="alert alert-danger mb--20" role="alert"
+            style="color: #dc3545; background: rgba(220,53,69,.08); border-radius: 6px; padding: 10px 14px; white-space: pre-line;">
+            {{ error }}
+        </div>
+
+        <ng-container *ngIf="query as q">
+            <div class="row">
+                <div class="col-md-4 query-field">
+                    <div class="field-label">Name</div>
+                    <div class="field-value">{{ q.name }}</div>
+                </div>
+                <div class="col-md-4 query-field">
+                    <div class="field-label">Email</div>
+                    <div class="field-value"><a [href]="'mailto:' + q.email">{{ q.email }}</a></div>
+                </div>
+                <div class="col-md-4 query-field">
+                    <div class="field-label">Phone</div>
+                    <div class="field-value">
+                        <a *ngIf="q.phone" [href]="telHref()">{{ q.phone }}</a>
+                        <span *ngIf="!q.phone">Not provided</span>
+                    </div>
+                </div>
+                <div class="col-md-4 query-field">
+                    <div class="field-label">Received</div>
+                    <div class="field-value">{{ q.submittedAt | date:'dd MMM yyyy, h:mm a' }}</div>
+                </div>
+                <div class="col-md-8 query-field">
+                    <div class="field-label">Interested In</div>
+                    <div class="field-value">
+                        <span class="topic-badge" *ngFor="let topic of q.helpTopics">{{ topic }}</span>
+                        <span *ngIf="!q.helpTopics.length">Not specified</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="query-field">
+                <div class="field-label">Message</div>
+                <div class="query-message">{{ q.message }}</div>
+            </div>
+
+            <div class="d-flex gap-3 mt--20">
+                <a [href]="replyHref()" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+                    <span class="icon-reverse-wrapper">
+                        <span class="btn-text">Reply by Email</span>
+                        <span class="btn-icon"><i class="fa-solid fa-reply"></i></span>
+                        <span class="btn-icon"><i class="fa-solid fa-reply"></i></span>
+                    </span>
+                </a>
+                <a href="javascript:void(0)" class="cursor-pointer d-flex gap-1 align-items-center"
+                    (click)="markRead(!q.isRead)">
+                    <i class="fa-regular fa-envelope"></i> Mark as {{ q.isRead ? 'Unread' : 'Read' }}
+                </a>
+                <a href="javascript:void(0)" class="cursor-pointer d-flex gap-1 align-items-center text-danger"
+                    (click)="deleteQuery()">
+                    <i class="fa-light fa-trash-can"></i> Delete
+                </a>
+            </div>
+        </ng-container>
+
+    </div>
+
+</div>

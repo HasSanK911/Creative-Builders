@@ -25,6 +25,15 @@
             </thead>
 
             <tbody>
+                <tr *ngIf="loading">
+                    <td colspan="4" class="text-center">Loading banners...</td>
+                </tr>
+                <tr *ngIf="error">
+                    <td colspan="4" class="text-center text-danger" style="white-space: pre-line;">{{ error }}</td>
+                </tr>
+                <tr *ngIf="!loading && !error && banners.length === 0">
+                    <td colspan="4" class="text-center">No banners found.</td>
+                </tr>
                 <tr *ngFor="let banner of banners">
                     <th>{{ banner.tagline }}</th>
                     <td>{{ banner.heading }}</td>
@@ -32,14 +41,13 @@
                         banner.description }}</td>
                     <td>
                         <div class="d-flex gap-3">
-                            <a href="javascript:void(0)"
-                                class="cursor-pointer d-flex gap-1 align-items-center text-primary"
-                                (click)="editBanner(banner.id)">
+                            <a [routerLink]="['../add-banner']" [queryParams]="{ id: banner.id }"
+                                class="cursor-pointer d-flex gap-1 align-items-center text-primary">
                                 <i class="fa-regular fa-pen-to-square"></i> Edit
                             </a>
                             <a href="javascript:void(0)"
                                 class="cursor-pointer d-flex gap-1 align-items-center text-danger"
-                                (click)="deleteBanner(banner.id)">
+                                (click)="deleteBanner(banner.id!)">
                                 <i class="fa-light fa-trash-can"></i> Delete
                             </a>
                         </div>

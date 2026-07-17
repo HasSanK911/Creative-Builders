@@ -1,5 +1,7 @@
 @media screen and (max-width: 768px) {
-    header.header-seven .header-mid-one-wrapper .header-right .single-component a.tmp-btn, header.header-six .header-top {
+
+    header.header-seven .header-mid-one-wrapper .header-right .single-component a.tmp-btn,
+    header.header-six .header-top {
         display: block;
     }
 }
@@ -8,11 +10,47 @@
     .main-logo {
         width: 50px !important;
     }
-    
+
 }
+
 header.header-seven .header-mid-one-wrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 30px;
+}
+
+/* Opens the off-canvas sidebar. Only exists below the lg breakpoint, where the
+   sidebar leaves the page flow and becomes a drawer. */
+.admin-menu-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    margin-right: 12px;
+    padding: 0;
+    font-size: 18px;
+    color: var(--color-heading, #1a1a1a);
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, .12);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease;
+}
+
+.admin-menu-toggle:hover {
+    color: #fff;
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+@media screen and (max-width: 991.98px) {
+    .admin-menu-toggle {
+        display: inline-flex;
+    }
+
+    header.header-seven .header-mid-one-wrapper {
+        padding: 0 15px;
+    }
 }

@@ -50,7 +50,7 @@
                     <div class="get-in-touch-wrapper">
                         <div class="icons"><i class="fa-regular fa-headphones"></i></div>
                         <h3 class="title">Contact Mobile Number</h3>
-                        <p><a class="hover-moving-primary" href="tel:+92324588007">+92 324 7588007</a></p>
+                        <p><a class="hover-moving-primary" [href]="telHref(contact?.phone ?? '+92 324 7588007')">{{ contact?.phone || '+92 324 7588007' }}</a></p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6" data-sal="slide-right" data-sal-duration="800" data-sal-delay="500">
@@ -58,14 +58,14 @@
                         <div class="icons"><i class="fa-solid fa-envelope"></i></div>
                         <h3 class="title">Our Email Address</h3>
                         <p><a class="hover-moving-primary"
-                                href="mailto:creativebuilders@gmail.com">creativebuilders&#64;gmail.com</a></p>
+                                [href]="'mailto:' + (contact?.email || 'creativebuilders@gmail.com')">{{ contact?.email || 'creativebuilders@gmail.com' }}</a></p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6" data-sal="slide-right" data-sal-duration="800" data-sal-delay="700">
                     <div class="get-in-touch-wrapper">
                         <div class="icons"><i class="fa-regular fa-location-dot"></i></div>
                         <h3 class="title">Head Office Location</h3>
-                        <p>Rizwan Heights , Citi Housing Society , Jhelum</p>
+                        <p>{{ contact?.address || 'Rizwan Heights , Citi Housing Society , Jhelum' }}</p>
                     </div>
                 </div>
 
@@ -94,16 +94,9 @@
                                 step.</p>
                             <div class="social-share-wrapper-1 style-footer">
                                 <ul class="social-stylle-one justify-content-start">
-                                    <li><a target="_blank" href="https://www.facebook.com/"><i
-                                                class="fa-brands fa-facebook-f"></i></a></li>
-                                    <li><a target="_blank" href="https://x.com/"><i
-                                                class="fa-brands fa-twitter"></i></a></li>
-                                    <li><a target="_blank" href="https://www.instagram.com/"><i
-                                                class="fa-brands fa-instagram"></i></a></li>
-                                    <li><a target="_blank" href="https://www.linkedin.com/"><i
-                                                class="fa-brands fa-linkedin-in"></i></a></li>
-                                    <li><a target="_blank" href="https://www.tiktok.com/"><i
-                                                class="fa-brands fa-tiktok"></i></a></li>
+                                    <li *ngFor="let social of socials()">
+                                        <a target="_blank" [href]="social.url"><i [class]="social.icon"></i></a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -111,58 +104,65 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="contact-form">
-                        <form class="contact-form-style-default tmp-dynamic-form"
-                            action="https://html.inversweb.com/Creative Builders/mail.php" id="contact-form">
+                        <form class="contact-form-style-default" id="contact-form" #contactForm="ngForm"
+                            (ngSubmit)="sendQuery(contactForm)" novalidate>
                             <div class="top">
                                 <h4 class="title">Contact Form</h4>
+
+                                <div *ngIf="sent" class="mb--20" role="status"
+                                    style="color: #198754; background: rgba(25,135,84,.08); border-radius: 6px; padding: 10px 14px;">
+                                    <i class="fa-solid fa-circle-check"></i> Thank you — your message has been sent.
+                                    We'll get back to you shortly.
+                                </div>
+
+                                <div *ngIf="sendError" class="mb--20" role="alert"
+                                    style="color: #dc3545; background: rgba(220,53,69,.08); border-radius: 6px; padding: 10px 14px; white-space: pre-line;">
+                                    {{ sendError }}
+                                </div>
+
                                 <div class="double-input-wrapper">
 
                                     <div class="single-input">
                                         <label for="contact-name"><i class="fa-regular fa-user"></i> Your Name*</label>
                                         <input name="contact-name" type="text" id="contact-name"
-                                            placeholder="Enter your name" required="">
+                                            placeholder="Enter your name" required [(ngModel)]="query.name">
                                     </div>
 
                                     <div class="single-input">
                                         <label for="contact-phone"><i class="fa-solid fa-phone"></i> Your
-                                            Number*</label>
+                                            Number</label>
                                         <input type="text" name="contact-phone" id="contact-phone"
-                                            placeholder="Enter your number" autocomplete="off">
+                                            placeholder="Enter your number" autocomplete="off"
+                                            [(ngModel)]="query.phone">
                                     </div>
 
                                 </div>
 
-                                <label for="contact-email"><i class="fa-regular fa-envelope"></i> Your Email</label>
+                                <label for="contact-email"><i class="fa-regular fa-envelope"></i> Your Email*</label>
                                 <input type="email" id="contact-email" name="contact-email"
-                                    placeholder="Enter your email" required="">
+                                    placeholder="Enter your email" required email [(ngModel)]="query.email">
 
                                 <label for="contact-message"><i class="fa-regular fa-message"></i>Message*</label>
                                 <textarea name="contact-message" id="contact-message" rows="5"
-                                    placeholder="Write your message" required="" spellcheck="false"
-                                    aria-label="To enrich screen reader interactions, please activate Accessibility in Grammarly extension settings"></textarea>
+                                    placeholder="Write your message" required spellcheck="false"
+                                    [(ngModel)]="query.message"></textarea>
                             </div>
 
                             <div class="help-section">
                                 <p>How Can We Help?</p>
                                 <div class="check-box-flex-wrapper">
-                                    <div class="check-box">
-                                        <input type="checkbox" id="individual">
-                                        <label for="individual">Individual</label>
-                                    </div>
-                                    <div class="check-box">
-                                        <input type="checkbox" id="residentials">
-                                        <label for="residentials">Residential</label>
-                                    </div>
-                                    <div class="check-box">
-                                        <input type="checkbox" id="commercial">
-                                        <label for="commercial">Commercial</label>
+                                    <div class="check-box" *ngFor="let topic of helpTopics">
+                                        <input type="checkbox" [id]="topic" [name]="topic"
+                                            [(ngModel)]="selectedTopics[topic]">
+                                        <label [for]="topic">{{ topic }}</label>
                                     </div>
                                 </div>
                             </div>
 
-                            <button class="tmp-btn btn-primary hover-icon-reverse w-100" type="submit" id="submit">
+                            <button class="tmp-btn btn-primary hover-icon-reverse w-100" type="submit" id="submit"
+                                [disabled]="sending">
                                 <span class="icon-reverse-wrapper">
-                                    <span class="btn-text">Send Your Message</span>
+                                    <span class="btn-text">{{ sending ? 'Sending...' : 'Send Your Message' }}</span>
                                     <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
                                     <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
                                 </span>
@@ -195,22 +195,15 @@
                         <div class="social-bottom-area">
                             <div class="phone">
                                 <h4 class="mb--20">Support Center</h4>
-                                <a class="hover-moving-primary" href="tel:+92324588007">+92 324 588007</a>
+                                <a class="hover-moving-primary" [href]="telHref(contact?.phone ?? '+92 324 588007')">{{ contact?.phone || '+92 324 588007' }}</a>
                             </div>
                             <div class="social-icon-wrapper">
                                 <h4>Follow Us</h4>
                                 <div class="social-share-wrapper-1 style-footer">
                                     <ul class="social-stylle-one justify-content-start mt--10">
-                                        <li><a target="_blank" href="https://www.facebook.com/"><i
-                                                    class="fa-brands fa-facebook-f"></i></a></li>
-                                        <li><a target="_blank" href="https://x.com/"><i
-                                                    class="fa-brands fa-twitter"></i></a></li>
-                                        <li><a target="_blank" href="https://www.instagram.com/"><i
-                                                    class="fa-brands fa-instagram"></i></a></li>
-                                        <li><a target="_blank" href="https://www.linkedin.com/"><i
-                                                    class="fa-brands fa-linkedin-in"></i></a></li>
-                                        <li><a target="_blank" href="https://www.tiktok.com/"><i
-                                                    class="fa-brands fa-tiktok"></i></a></li>
+                                        <li *ngFor="let social of socials()">
+                                            <a target="_blank" [href]="social.url"><i [class]="social.icon"></i></a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

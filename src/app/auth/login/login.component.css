@@ -1,0 +1,19 @@
+.back-to-site {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #6c757d;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s ease, gap 0.2s ease;
+}
+
+.back-to-site:hover {
+    color: #fb5518; /* theme primary (orange) on hover */
+    gap: 12px;
+}
+
+.back-to-site i {
+    font-size: 0.9em;
+}

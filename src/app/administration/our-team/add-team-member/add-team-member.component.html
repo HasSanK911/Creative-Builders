@@ -1,20 +1,23 @@
 <div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
 
     <div class="single-card-dashboard account-info box-dashboard-dashboard">
-        <h3 class="title title-top-primary"><i class="fa-regular fa-user-plus"></i> Add Team Member</h3>
+        <h3 class="title title-top-primary"><i class="fa-regular fa-user-plus"></i> {{ title }}</h3>
     </div>
     <div class="single-card-dashboard account-info box-dashboard-dashboard">
 
         <div class="edit-account-information">
-            <form action="#">
+            <p *ngIf="loading" class="text-center">Loading team member...</p>
+            <p *ngIf="error" class="text-danger" style="white-space: pre-line;">{{ error }}</p>
+
+            <form action="#" (ngSubmit)="save()">
                 <!-- Photo Upload -->
                 <div class="edit-profile-picture-area mb--20">
                     <div class="upload-wrapper">
                         <div class="image-preview" id="imagePreview"
                             style="width: 150px; height: 150px; border: 2px dashed var(--color-border); border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--color-lightest); margin: 0 auto;">
-                            <img src="" alt="Preview" id="previewImage"
-                                style="width: 100%; height: 100%; object-fit: cover; display: none;">
-                            <span id="placeholderText"
+                            <img *ngIf="preview" [src]="preview" alt="Preview" id="previewImage"
+                                style="width: 100%; height: 100%; object-fit: cover;">
+                            <span *ngIf="!preview" id="placeholderText"
                                 style="color: var(--color-body); font-size: 14px; text-align: center; padding: 20px;">
                                 <i class="fa-solid fa-user"
                                     style="font-size: 40px; display: block; margin-bottom: 10px;"></i>
@@ -23,14 +26,15 @@
                         </div>
                         <div class="upload-action d-flex justify-content-center mt--15">
                             <a href="javascript:void(0)" class="tmp-btn btn-border hover-icon-reverse btn-sm"
-                                id="uploadBtn">
+                                id="uploadBtn" (click)="fileInput.click()">
                                 <span class="icon-reverse-wrapper">
                                     <span class="btn-text">Choose Photo</span>
                                     <span class="btn-icon"><i class="fa-light fa-cloud-arrow-up"></i></span>
                                     <span class="btn-icon"><i class="fa-light fa-cloud-arrow-up"></i></span>
                                 </span>
                             </a>
-                            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+                            <input type="file" id="fileInput" #fileInput accept="image/*"
+                                (change)="onFileSelected($event)" style="display: none;">
                         </div>
                     </div>
                 </div>
@@ -38,26 +42,26 @@
                 <div class="input-wrapper">
                     <div class="single-input">
                         <label for="name">Full Name*</label>
-                        <input type="text" id="name" name="name" placeholder="Enter Full Name" required
-                            autocomplete="off">
+                        <input type="text" id="name" name="name" [(ngModel)]="name" placeholder="Enter Full Name"
+                            required autocomplete="off">
                     </div>
                     <div class="single-input">
                         <label for="position">Position*</label>
-                        <input type="text" id="position" name="position" placeholder="e.g., Construction Engineer"
-                            required autocomplete="off">
+                        <input type="text" id="position" name="position" [(ngModel)]="position"
+                            placeholder="e.g., Construction Engineer" required autocomplete="off">
                     </div>
                 </div>
 
                 <div class="input-wrapper">
                     <div class="single-input">
                         <label for="email">Email Address*</label>
-                        <input type="email" id="email" name="email" placeholder="example@email.com" required
-                            autocomplete="off">
+                        <input type="email" id="email" name="email" [(ngModel)]="email" placeholder="example@email.com"
+                            required autocomplete="off">
                     </div>
                     <div class="single-input">
                         <label for="phone">Phone Number*</label>
-                        <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567" required
-                            autocomplete="off">
+                        <input type="tel" id="phone" name="phone" [(ngModel)]="phone" placeholder="+1 (555) 123-4567"
+                            required autocomplete="off">
                     </div>
                 </div>
 
@@ -66,11 +70,11 @@
                         <label>Select Site*</label>
                         <div class="invers-modern-select">
                             <div class="select">
-                                <div class="selectBtn" data-type="firstOption">Select Site</div>
-                                <div class="selectDropdown">
-                                    <div class="option" data-type="firstOption">Rizwan Heights</div>
-                                    <div class="option" data-type="secondOption">Ali's Home</div>
-                                    <div class="option" data-type="thirdOption">Lodhi's Arcade</div>
+                                <div class="selectBtn" [class.toggle]="isSiteDropdownOpen"
+                                    (click)="isSiteDropdownOpen = !isSiteDropdownOpen">{{ selectedSiteName || 'Select Site' }}</div>
+                                <div class="selectDropdown" [class.toggle]="isSiteDropdownOpen"
+                                    *ngIf="isSiteDropdownOpen" style="display: block;">
+                                    <div class="option" *ngFor="let site of sites" (click)="selectSite(site)">{{ site.name }}</div>
                                 </div>
                             </div>
                         </div>
@@ -78,9 +82,9 @@
                 </div>
 
                 <div class="d-flex justify-content-center mt--20">
-                    <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+                    <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm" [disabled]="saving">
                         <span class="icon-reverse-wrapper">
-                            <span class="btn-text">Save Team Member</span>
+                            <span class="btn-text">{{ saveLabel }}</span>
                             <span class="btn-icon"><i class="fa-solid fa-bookmark"></i></span>
                             <span class="btn-icon"><i class="fa-solid fa-bookmark"></i></span>
                         </span>

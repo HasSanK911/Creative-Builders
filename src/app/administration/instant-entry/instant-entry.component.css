@@ -1,0 +1,33 @@
+/* The theme sets `overflow: hidden` on .selectDropdown, which would stop the
+   51-item list from scrolling. Match its specificity to override it. */
+.invers-modern-select .select .selectDropdown.item-dropdown {
+    max-height: 260px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /* Don't hand the scroll off to the page once the list bottoms out. */
+    overscroll-behavior: contain;
+}
+
+.item-search {
+    width: 100%;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 6px 10px;
+    margin-bottom: 8px;
+}
+
+.item-section-tag {
+    color: #6c757d;
+    font-size: 12px;
+    text-transform: capitalize;
+}
+
+.total-field {
+    background: #f8f9fa;
+    font-weight: 600;
+}
+
+.entries-total-row {
+    font-weight: bold;
+    background: #f8f9fa;
+}

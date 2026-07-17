@@ -33,62 +33,25 @@
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <th>Building Construction</th>
-                        <td>For businesses looking to reduce operating costs and increase profits...</td>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>
-                                    Delete</a>
-                            </div>
-                        </td>
+                    <tr *ngIf="loading">
+                        <td colspan="3" class="text-center">Loading services...</td>
                     </tr>
-                    <tr>
-                        <th>Renovation Services</th>
-                        <td>Transform your space with our professional renovation expertise...</td>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>
-                                    Delete</a>
-                            </div>
-                        </td>
+                    <tr *ngIf="error">
+                        <td colspan="3" class="text-center text-danger" style="white-space: pre-line;">{{ error }}</td>
                     </tr>
-                    <tr>
-                        <th>Interior Design</th>
-                        <td>Create beautiful and functional spaces with our design solutions...</td>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>
-                                    Delete</a>
-                            </div>
-                        </td>
+                    <tr *ngIf="!loading && !error && services.length === 0">
+                        <td colspan="3" class="text-center">No services found.</td>
                     </tr>
-                    <tr>
-                        <th>Painting Service</th>
-                        <td>Quality painting services for residential and commercial properties...</td>
+                    <tr *ngFor="let service of services">
+                        <th>{{ service.title }}</th>
+                        <td>{{ service.description.length > 80 ? (service.description | slice:0:80) + '...' :
+                            service.description }}</td>
                         <td>
                             <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>
-                                    Delete</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Plumbing Services</th>
-                        <td>Professional plumbing solutions for all your water system needs...</td>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>
+                                <a [routerLink]="['../add-service']" [queryParams]="{ id: service.id }" role="button"
+                                    class="text-primary"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
+                                <a href="javascript:void(0)" role="button" class="text-danger"
+                                    (click)="deleteService(service.id!)"><i class="fa-regular fa-trash-can"></i>
                                     Delete</a>
                             </div>
                         </td>

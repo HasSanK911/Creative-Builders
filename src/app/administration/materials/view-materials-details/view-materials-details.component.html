@@ -53,8 +53,9 @@
                                 'All
                                 Sites' }}</div>
                             <div class="selectDropdown" [class.toggle]="isSiteDropdownOpen">
-                                <div class="option" (click)="selectSiteFilter('')">All Sites</div>
-                                <div class="option" *ngFor="let site of sites" (click)="selectSiteFilter(site)">{{ site
+                                <div class="option" (click)="selectSiteFilter(null)">All Sites</div>
+                                <div class="option" *ngFor="let site of sites" (click)="selectSiteFilter(site)">{{
+                                    site.name
                                     }}
                                 </div>
                             </div>
@@ -66,8 +67,8 @@
                 <div class="d-flex flex-column gap-2">
                     <label style="white-space: nowrap;">Date From</label>
                     <div class="custom-input">
-                        <input type="date" #pickerFrom (click)="pickerFrom.showPicker()" [(ngModel)]="filterDateFrom"
-                            style="width: 100%;">
+                        <input type="date" #pickerFrom (click)="pickerFrom.showPicker()" name="filterDateFrom"
+                            [(ngModel)]="filterDateFrom" style="width: 100%;">
                     </div>
                 </div>
             </div>
@@ -75,8 +76,8 @@
                 <div class="d-flex flex-column gap-2">
                     <label style="white-space: nowrap;">Date To</label>
                     <div class="custom-input">
-                        <input type="date" #pickerTo (click)="pickerTo.showPicker()" [(ngModel)]="filterDateTo"
-                            style="width: 100%;">
+                        <input type="date" #pickerTo (click)="pickerTo.showPicker()" name="filterDateTo"
+                            [(ngModel)]="filterDateTo" style="width: 100%;">
                     </div>
                 </div>
             </div>
@@ -114,7 +115,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let record of filteredRecords; let i = index">
+                    <tr *ngFor="let record of purchases; let i = index">
                         <td>{{ i + 1 }}</td>
                         <td>{{ record.date }}</td>
                         <td>{{ record.site }}</td>
@@ -122,14 +123,27 @@
                         <td>{{ record.rate | number }}</td>
                         <td>{{ record.total | number }}</td>
                     </tr>
-                    <tr *ngIf="filteredRecords.length === 0">
+                    <tr *ngIf="loading">
+                        <td colspan="8" class="text-center py-4" style="color: #999;">
+                            <i class="fa-solid fa-spinner fa-spin" style="font-size: 24px;"></i>
+                            <p class="mt-2 mb-0">Loading purchase records...</p>
+                        </td>
+                    </tr>
+                    <tr *ngIf="error && !loading">
+                        <td colspan="8" class="text-center py-4" style="color: #dc3545;">
+                            <i class="fa-solid fa-triangle-exclamation" style="font-size: 24px;"></i>
+                            <!-- A 422 arrives as newline-joined messages. -->
+                            <p class="mt-2 mb-0" style="white-space: pre-line;">{{ error }}</p>
+                        </td>
+                    </tr>
+                    <tr *ngIf="!loading && !error && purchases.length === 0">
                         <td colspan="8" class="text-center py-4" style="color: #999;">
                             <i class="fa-solid fa-filter-circle-xmark" style="font-size: 24px;"></i>
                             <p class="mt-2 mb-0">No records match the selected filters</p>
                         </td>
                     </tr>
                     <!-- Total Row -->
-                    <tr *ngIf="filteredRecords.length > 0"
+                    <tr *ngIf="purchases.length > 0"
                         style="font-weight: bold; background: #f8f9fa; border-top: 2px solid #dee2e6;">
                         <td colspan="4"><strong>Total</strong></td>
                         <td><strong>{{ averageRate | number }} (avg)</strong></td>
@@ -171,7 +185,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let record of filteredRecords; let i = index">
+                <tr *ngFor="let record of purchases; let i = index">
                     <td>{{ i + 1 }}</td>
                     <td>{{ record.date }}</td>
                     <td>{{ record.site }}</td>

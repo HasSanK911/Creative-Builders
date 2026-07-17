@@ -25,7 +25,10 @@ import { AddTestimonialsComponent } from './testimonials/add-testimonials/add-te
 import { TestimonialsTableComponent } from './testimonials/testimonials-table/testimonials-table.component';
 import { AddWhyChooseUsComponent } from './why-choose-us/add-why-choose-us/add-why-choose-us.component';
 import { ContactDetailsComponent } from './contact-details/contact-details.component';
+import { ContactQueriesTableComponent } from './contact-queries/contact-queries-table/contact-queries-table.component';
+import { ViewContactQueryComponent } from './contact-queries/view-contact-query/view-contact-query.component';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
+import { InstantEntryComponent } from './instant-entry/instant-entry.component';
 
 const routes: Routes = [
   {
@@ -48,12 +51,17 @@ const routes: Routes = [
       { path: 'add-service', component: AddServiceComponent },
       { path: 'service-list', component: ServicesTableComponent },
       { path: 'site-info-table', component: SiteInfoTableComponent },
-      { path: 'view-site-info', component: ViewSiteInfoComponent },
+      // The table's View link used to point here with no id, and the component was an
+      // empty stub. Both are fixed; the sheet is addressed by id now.
+      { path: 'view-site-info/:id', component: ViewSiteInfoComponent },
       { path: 'add-site-info', component: AddSiteInfoComponent },
+      { path: 'instant-entry', component: InstantEntryComponent },
       { path: 'add-testimonials', component: AddTestimonialsComponent },
       { path: 'testimonials-list', component: TestimonialsTableComponent },
       { path: 'why-choose-us', component: AddWhyChooseUsComponent },
       { path: 'contact-details', component: ContactDetailsComponent },
+      { path: 'contact-queries-list', component: ContactQueriesTableComponent },
+      { path: 'view-contact-query/:id', component: ViewContactQueryComponent },
       { path: 'profile-settings', component: ProfileSettingsComponent },
       { path: 'add-service-detail', component: AddServicesDetailComponent }
 

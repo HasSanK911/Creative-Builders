@@ -1,1 +1,187 @@
-<p>view-site-info works!</p>
+<div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
+
+    <div
+        class="single-card-dashboard account-info box-dashboard-dashboard d-flex align-items-center justify-content-between no-print">
+        <h3 class="title title-top-primary"><i class="fa-regular fa-building"></i>Site Information</h3>
+        <div class="d-flex flex-wrap gap-3">
+            <a routerLink="../../site-info-table" class="tmp-btn btn-secondary hover-icon-reverse btn-sm">
+                <span class="icon-reverse-wrapper">
+                    <span class="btn-text">Back</span>
+                    <span class="btn-icon"><i class="fa-solid fa-arrow-left"></i></span>
+                    <span class="btn-icon"><i class="fa-solid fa-arrow-left"></i></span>
+                </span>
+            </a>
+            <button class="tmp-btn btn-secondary hover-icon-reverse btn-sm" (click)="downloadPDF()">
+                <span class="icon-reverse-wrapper">
+                    <span class="btn-text">Download PDF</span>
+                    <span class="btn-icon"><i class="fa-solid fa-file-pdf"></i></span>
+                    <span class="btn-icon"><i class="fa-solid fa-file-pdf"></i></span>
+                </span>
+            </button>
+            <!-- This route carries an :id segment, so ../.. lands back on the layout's children. -->
+            <a [routerLink]="['../../add-site-info']" [queryParams]="{ id: siteInfoId }"
+                class="tmp-btn btn-primary hover-icon-reverse btn-sm">
+                <span class="icon-reverse-wrapper">
+                    <span class="btn-text">Edit</span>
+                    <span class="btn-icon"><i class="fa-regular fa-pen-to-square"></i></span>
+                    <span class="btn-icon"><i class="fa-regular fa-pen-to-square"></i></span>
+                </span>
+            </a>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="alert alert-danger no-print" *ngIf="error" style="white-space: pre-line;">{{ error }}</div>
+        <div class="alert alert-info no-print" *ngIf="loading">Loading site information...</div>
+
+        <ng-container *ngIf="siteInfo as sheet">
+
+            <div class="print-only">
+                <h4>{{ sheet.siteName }} — Site Information</h4>
+            </div>
+
+            <!-- Header Fields -->
+            <div class="row mb-4">
+                <div class="col-md-4 mb-3">
+                    <div style="font-size: 14px; color: #999;">Site Name</div>
+                    <div style="font-weight: 600; color: #333;">{{ sheet.siteName || '—' }}</div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div style="font-size: 14px; color: #999;">Date Started</div>
+                    <div style="font-weight: 600; color: #333;">{{ formatDate(sheet.dateStarted) || '—' }}</div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div style="font-size: 14px; color: #999;">Date Ended</div>
+                    <div style="font-weight: 600; color: #333;">{{ formatDate(sheet.dateEnded) || '—' }}</div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div style="font-size: 14px; color: #999;">Block No.</div>
+                    <div style="font-weight: 600; color: #333;">{{ sheet.blockNo || '—' }}</div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div style="font-size: 14px; color: #999;">Street No.</div>
+                    <div style="font-weight: 600; color: #333;">{{ sheet.streetNo || '—' }}</div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div style="font-size: 14px; color: #999;">House/Plaza No.</div>
+                    <div style="font-weight: 600; color: #333;">{{ sheet.houseNo || '—' }}</div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div style="font-size: 14px; color: #999;">Mukadam</div>
+                    <div style="font-weight: 600; color: #333;">{{ sheet.mukadam || '—' }}</div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div style="font-size: 14px; color: #999;">Owner Name</div>
+                    <div style="font-weight: 600; color: #333;">{{ sheet.ownerName || '—' }}</div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div style="font-size: 14px; color: #999;">Status</div>
+                    <div><span class="invers-badge-minimal" [ngClass]="getStatusClass(sheet.status)">{{ sheet.status
+                            }}</span></div>
+                </div>
+            </div>
+
+            <div class="table-responsive mt-4">
+                <!-- Item Sheet -->
+                <h5 class="mb-3">Item Sheet</h5>
+                <table class="table print-table" border="1" style="border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Item</th>
+                            <th>Rate</th>
+                            <th>Qty</th>
+                            <th>Total</th>
+                            <th colspan="2">Item</th>
+                            <th>Rate</th>
+                            <th>Qty</th>
+                            <th>Total</th>
+                            <th colspan="2">Item</th>
+                            <th>Rate</th>
+                            <th>Qty</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let leftItem of itemsData.left; let i = index">
+                            <!-- Left Column -->
+                            <td colspan="2">{{ leftItem.name }}</td>
+                            <td>{{ leftItem.rate | number }}</td>
+                            <td>{{ leftItem.quantity | number }}</td>
+                            <td>{{ leftItem.total | number }}</td>
+
+                            <!-- Middle Column -->
+                            <td colspan="2">{{ itemsData.middle[i].name }}</td>
+                            <td>{{ itemsData.middle[i].rate | number }}</td>
+                            <td>{{ itemsData.middle[i].quantity | number }}</td>
+                            <td>{{ itemsData.middle[i].total | number }}</td>
+
+                            <!-- Right Column -->
+                            <td colspan="2">{{ itemsData.right[i].name }}</td>
+                            <td>{{ itemsData.right[i].rate | number }}</td>
+                            <td>{{ itemsData.right[i].quantity | number }}</td>
+                            <td>{{ itemsData.right[i].total | number }}</td>
+                        </tr>
+                        <!-- Total Row -->
+                        <tr style="font-weight: bold; background: #f8f9fa;">
+                            <td colspan="2">Total</td>
+                            <td></td>
+                            <td></td>
+                            <td>{{ getSectionTotal('left') | number }}</td>
+                            <td colspan="2">Total</td>
+                            <td></td>
+                            <td></td>
+                            <td>{{ getSectionTotal('middle') | number }}</td>
+                            <td colspan="2">Total</td>
+                            <td></td>
+                            <td></td>
+                            <td>{{ getSectionTotal('right') | number }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Keeps the attendance sheet on its own printed page. -->
+                <div class="print-page-break"></div>
+
+                <!-- Attendance Sheet -->
+                <h5 class="mb-3 mt-4">Attendance Sheet</h5>
+                <table class="table print-table" border="1" style="border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th *ngFor="let header of attendanceHeaders">{{ header }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of attendanceRows">
+                            <td>{{ formatDate(row.date) }}</td>
+                            <td *ngFor="let col of attendanceColumns">{{ cell(row, col) | number }}</td>
+                        </tr>
+                        <tr *ngIf="!attendanceRows.length">
+                            <td [attr.colspan]="attendanceHeaders.length" class="text-center">No attendance recorded for
+                                this sheet.</td>
+                        </tr>
+                        <!-- Total Row -->
+                        <tr *ngIf="attendanceRows.length" style="font-weight: bold; background: #f8f9fa;">
+                            <td><strong>Total</strong></td>
+                            <td *ngFor="let col of attendanceColumns">{{ getColumnTotal(col) | number }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Receipts -->
+            <div *ngIf="sheet.receipts?.length" class="mt-4 p-3 no-print"
+                style="border: 1px solid #dee2e6; border-radius: 8px;">
+                <h5>Uploaded Receipts</h5>
+                <div class="d-flex flex-wrap gap-3 mt-3">
+                    <a *ngFor="let receipt of sheet.receipts; let i = index" [href]="receipt.url" target="_blank"
+                        rel="noopener"
+                        style="display: inline-block; border: 1px solid #dee2e6; border-radius: 8px; overflow: hidden;">
+                        <img [src]="receipt.url" alt="Receipt {{ i + 1 }}"
+                            style="width: 200px; height: 150px; object-fit: cover; display: block;">
+                    </a>
+                </div>
+            </div>
+
+        </ng-container>
+    </div>
+</div>

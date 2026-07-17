@@ -1,7 +1,8 @@
 <div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
 
     <div class="single-card-dashboard account-info box-dashboard-dashboard">
-        <h3 class="title title-top-primary"><i class="fa-solid fa-image"></i> Add New Banner</h3>
+        <h3 class="title title-top-primary"><i class="fa-solid fa-image"></i> {{ bannerId ? 'Edit Banner' : 'Add New
+            Banner' }}</h3>
     </div>
 
     <div class="single-card-dashboard account-info box-dashboard-dashboard">
@@ -38,18 +39,25 @@
         </div>
 
         <div class="edit-account-information">
-            <form>
+            <div *ngIf="loading" class="mb--20">Loading banner...</div>
+
+            <div *ngIf="error" class="alert alert-danger py-2 mb--20" role="alert"
+                style="color: #dc3545; background: rgba(220,53,69,.08); border-radius: 6px; padding: 10px 14px; white-space: pre-line;">
+                {{ error }}
+            </div>
+
+            <form (ngSubmit)="saveBanner()">
                 <!-- Tagline & Heading -->
                 <div class="input-wrapper">
                     <div class="single-input">
                         <label for="tagline">Tagline</label>
                         <input type="text" id="tagline" name="tagline"
-                            placeholder="e.g., Building Opportunities Creating Value" [(ngModel)]="bannerData.tagline">
+                            placeholder="e.g., Building Opportunities Creating Value" [(ngModel)]="banner.tagline">
                     </div>
                     <div class="single-input">
                         <label for="heading">Main Heading*</label>
                         <input type="text" id="heading" name="heading"
-                            placeholder="e.g., Your Trusted Partner in Construction" [(ngModel)]="bannerData.heading"
+                            placeholder="e.g., Your Trusted Partner in Construction" [(ngModel)]="banner.heading"
                             required>
                     </div>
                 </div>
@@ -59,7 +67,16 @@
                     <div class="single-input">
                         <label for="description">Description*</label>
                         <textarea id="description" name="description" rows="5" placeholder="Enter banner description..."
-                          class="border"  [(ngModel)]="bannerData.description" required></textarea>
+                          class="border"  [(ngModel)]="banner.description" required></textarea>
+                    </div>
+                </div>
+
+                <!-- Button Text -->
+                <div class="input-wrapper">
+                    <div class="single-input">
+                        <label for="buttonText">Button Text</label>
+                        <input type="text" id="buttonText" name="buttonText" placeholder="e.g., Get Started"
+                            [(ngModel)]="banner.buttonText">
                     </div>
                 </div>
 
@@ -72,9 +89,10 @@
                             <span class="btn-icon"><i class="fa-solid fa-rotate-left"></i></span>
                         </span>
                     </button>
-                    <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm" (click)="saveBanner()">
+                    <button type="submit" class="tmp-btn btn-primary hover-icon-reverse btn-sm" [disabled]="saving">
                         <span class="icon-reverse-wrapper">
-                            <span class="btn-text">Save Banner</span>
+                            <span class="btn-text">{{ saving ? 'Saving...' : (bannerId ? 'Update Banner' : 'Save Banner')
+                                }}</span>
                             <span class="btn-icon"><i class="fa-solid fa-save"></i></span>
                             <span class="btn-icon"><i class="fa-solid fa-save"></i></span>
                         </span>

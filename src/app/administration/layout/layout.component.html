@@ -1,13 +1,17 @@
-<app-header></app-header>
+<app-header (menuToggle)="toggleSidebar()"></app-header>
 
 <!-- user dashboard area start -->
 <div class="pb-4">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-3 col-xl-2">
-                <div class="user-infor-left-sidebar-dashboard">
-                    <div class="author-profile">
-                        <h3 class="name">Mr. Chaudhry Waqas</h3>
+            <div class="col-lg-3 col-xl-2 admin-sidebar-col" [class.open]="sidebarOpen" id="admin-sidebar">
+                <div class="user-infor-left-sidebar-dashboard admin-sidebar">
+                    <div class="author-profile d-flex align-items-center justify-content-between">
+                        <h3 class="name mb-0">{{ adminName }}</h3>
+                        <button type="button" class="admin-sidebar-close" (click)="closeSidebar()"
+                            aria-label="Close menu">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
                     </div>
                     <div class="dashboard-menu-area">
                         <nav class="dashboard-mainmenu">
@@ -20,6 +24,8 @@
                                             class="fa-regular fa-user-pen"></i> My Sites</a></li>
                                 <li><a routerLink="site-info-table" routerLinkActive="active"><i
                                             class="fa-regular fa-bag-shopping"></i> Sites Info</a></li>
+                                <li><a routerLink="instant-entry" routerLinkActive="active"><i
+                                            class="fa-solid fa-bolt"></i> Instant Entry</a></li>
                                 <li><a routerLink="materials-list" routerLinkActive="active"><i
                                             class="fa-regular fa-address-card"></i> Materials</a></li>
                                 <li><a routerLink="gallery-item-list" routerLinkActive="active"><i
@@ -40,6 +46,8 @@
                                             class="fa-solid fa-building"></i> About Company</a></li>
                                 <li><a routerLink="contact-details" routerLinkActive="active"><i
                                             class="fa-solid fa-envelope"></i> Contact Us</a></li>
+                                <li><a routerLink="contact-queries-list" routerLinkActive="active"><i
+                                            class="fa-solid fa-inbox"></i> Contact Queries</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -54,6 +62,9 @@
     </div>
 </div>
 <!-- user dashboard area end -->
+
+<!-- Dims the page behind the drawer; tapping it closes the menu. -->
+<div class="admin-backdrop" [class.show]="sidebarOpen" (click)="closeSidebar()"></div>
 
 <div class="mouse-cursor cursor-outer"></div>
 <div class="mouse-cursor cursor-inner"></div>

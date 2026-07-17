@@ -1,6 +1,11 @@
-import { Component, HostListener, Renderer2 } from '@angular/core';
+import { Component, HostListener, OnDestroy, Renderer2 } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
-import { RouterOutlet, RouterLink, RouterLinkActive } from "@angular/router";
+import { NavigationEnd, Router, RouterOutlet, RouterLink, RouterLinkActive } from "@angular/router";
+import { Subscription, filter } from 'rxjs';
+import { AuthService } from '../../Services/auth.service';
+
+/** Below this width the sidebar is an off-canvas drawer rather than a column. Matches Bootstrap's `lg`. */
+const DRAWER_BREAKPOINT = 992;
 
 @Component({
   selector: 'app-layout',
@@ -9,9 +14,22 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from "@angular/router";
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.css'
 })
-export class LayoutComponent {
+export class LayoutComponent implements OnDestroy {
 
-  constructor(private renderer: Renderer2) { }
+  /** The signed-in admin, cached at login. The sidebar used to hardcode this name. */
+  adminName = this.authService.getUser()?.name ?? 'Admin';
+
+  /** Drawer state. Only meaningful below `DRAWER_BREAKPOINT` — above it the sidebar is always visible. */
+  sidebarOpen = false;
+
+  private readonly navigation: Subscription;
+
+  constructor(private renderer: Renderer2, private authService: AuthService, private router: Router) {
+    // Tapping a menu item should take you there *and* get the drawer out of the way.
+    this.navigation = this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => this.closeSidebar());
+  }
 
   ngAfterViewInit() {
     this.initCursorAnimation();
@@ -21,6 +39,50 @@ export class LayoutComponent {
 
   }
 
+  ngOnDestroy() {
+    this.navigation.unsubscribe();
+    this.lockBodyScroll(false);
+  }
+
+  toggleSidebar() {
+    this.setSidebar(!this.sidebarOpen);
+  }
+
+  closeSidebar() {
+    this.setSidebar(false);
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape() {
+    this.closeSidebar();
+  }
+
+  /**
+   * Growing past the breakpoint puts the sidebar back in the page flow, so any open drawer
+   * state is stale — and its scroll lock would strand the user on a page they cannot scroll.
+   */
+  @HostListener('window:resize')
+  onResize() {
+    if (this.sidebarOpen && window.innerWidth >= DRAWER_BREAKPOINT) {
+      this.closeSidebar();
+    }
+  }
+
+  private setSidebar(open: boolean) {
+    this.sidebarOpen = open;
+    this.lockBodyScroll(open);
+  }
+
+  /**
+   * Stops the page behind the drawer from scrolling under your finger. The theme scrolls the
+   * html element (it already holds `body` at `overflow: hidden`), so both must be held.
+   */
+  private lockBodyScroll(locked: boolean) {
+    const action = locked ? 'addClass' : 'removeClass';
+
+    this.renderer[action](document.documentElement, 'admin-sidebar-open');
+    this.renderer[action](document.body, 'admin-sidebar-open');
+  }
 
   initCursorAnimation() {
     const cursorOuter = document.querySelector('.cursor-outer') as HTMLElement;

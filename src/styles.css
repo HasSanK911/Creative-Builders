@@ -68,6 +68,31 @@
 .print-only {
     display: none;
 }
+
+/* Set while the admin sidebar is open as a drawer, so the page behind it cannot scroll
+   under your finger. Lives here because these elements are outside any component.
+   The theme already pins `body` to `overflow: hidden` and scrolls the *html* element,
+   so locking the body alone would do nothing — both have to be held. */
+html.admin-sidebar-open,
+body.admin-sidebar-open {
+    overflow: hidden;
+}
+
+@media screen and (max-width: 991.98px) {
+
+    .dash-board-content-area-wrappper .box-dashboard-dashboard {
+        padding: 20px 15px;
+    }
+
+    /* A wide table now scrolls inside its own card rather than stretching the page,
+       which is what left the admin scrolling sideways on phones and tablets. */
+    .dash-board-content-area-wrappper table.invers-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
 .tmp-btn.btn-primary {
     background: var(--color-primary);
     color: #fff;

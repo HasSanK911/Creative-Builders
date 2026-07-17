@@ -2,16 +2,111 @@
     height: 140px;
 }
 
+/*
+ * The page scrolls as one document.
+ *
+ * `.maindiv` used to be a `height: 90vh; overflow-y: scroll` box. Because the header sits
+ * above it, that 90vh always overflowed the viewport, so the body scrolled *as well as* the
+ * pane — and since the pane could not grow, scrolling the body just revealed a tall empty
+ * band underneath it. One scroller, no dead space.
+ *
+ * The sidebar is deliberately left in the normal flow at its natural height: giving it
+ * `max-height` + `overflow-y: auto` (to keep it in view as a sticky rail) makes Chromium
+ * compute the *document's* scrollable area ~96px short, so the bottom of taller screens
+ * — add-site, add-gallery-item — simply could not be scrolled to. A menu that scrolls with
+ * the page is worth far more than one that follows it.
+ */
 .maindiv {
-    height: 90vh;
-    overflow-y: scroll;
-    scrollbar-width: none;
-    overflow-x: hidden;
+    width: 100%;
+}
+
+/* --- Below lg: the sidebar leaves the flow and becomes an off-canvas drawer ------------ */
+
+.admin-backdrop {
+    display: none;
+}
+
+@media screen and (max-width: 991.98px) {
+    .admin-sidebar-col {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 1002;
+        width: 280px;
+        max-width: 85vw;
+        padding: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        background: var(--color-white, #fff);
+        transform: translateX(-100%);
+        transition: transform .3s ease;
+    }
+
+    .admin-sidebar-col.open {
+        transform: translateX(0);
+        box-shadow: 0 0 30px rgba(0, 0, 0, .25);
+    }
+
+    /* Fill the drawer rather than floating as a card inside it. */
+    .admin-sidebar-col .admin-sidebar {
+        min-height: 100%;
+        margin-top: 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .admin-sidebar .author-profile .name {
+        margin-top: 0;
+        font-size: 20px;
+    }
+
+    .admin-backdrop {
+        display: block;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1001;
+        background: rgba(0, 0, 0, .5);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .3s ease, visibility .3s ease;
+    }
+
+    .admin-backdrop.show {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* Only the drawer needs dismissing — on desktop the sidebar is simply part of the page. */
+.admin-sidebar-close {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    font-size: 18px;
+    color: var(--color-heading, #1a1a1a);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 991.98px) {
+    .admin-sidebar-close {
+        display: inline-flex;
+    }
 }
 
 @media print {
-    .maindiv {
-        height: auto !important;
-        overflow: visible !important;
+
+    /* The drawer must never be dragged into a printout, whatever the paper width. */
+    .admin-sidebar-col,
+    .admin-backdrop {
+        display: none !important;
     }
 }

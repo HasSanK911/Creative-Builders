@@ -28,100 +28,35 @@
                 </thead>
 
                 <tbody>
-                    <tr>
+                    <tr *ngFor="let member of members">
                         <td>
-                            <img src="assets/images/team/01.webp" alt="James Johnson"
+                            <img *ngIf="member.photo" [src]="member.photo" [alt]="member.name"
                                 style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%;">
                         </td>
-                        <th>James Johnson</th>
-                        <td>Construction Engineer</td>
-                        <td>CreativeBuilders&#64;exm.com</td>
-                        <td>+1 (555) 123-4567</td>
-                        <th>Rizwan Heights</th>
+                        <th>{{ member.name }}</th>
+                        <td>{{ member.position }}</td>
+                        <td>{{ member.email }}</td>
+                        <td>{{ member.phone }}</td>
+                        <th>{{ member.siteName }}</th>
                         <td>
                             <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>
+                                <a [routerLink]="['../add-team-member']" [queryParams]="{ id: member.id }"
+                                    role="button" class="text-primary"><i class="fa-regular fa-pen-to-square"></i>
+                                    Edit</a>
+                                <a href="javascript:void(0)" (click)="remove(member)" role="button"
+                                    class="text-danger"><i class="fa-regular fa-trash-can"></i>
                                     Delete</a>
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <img src="assets/images/team/02.webp" alt="Sarah Williams"
-                                style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%;">
-                        </td>
-                        <th>Sarah Williams</th>
-                        <td>Project Manager</td>
-                        <td>sarah.w&#64;exm.com</td>
-                        <td>+1 (555) 234-5678</td>
-                        <th>Ali's Home</th>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>
-                                    Delete</a>
-                            </div>
-                        </td>
+                    <tr *ngIf="loading">
+                        <td colspan="7" class="text-center">Loading team members...</td>
                     </tr>
-                    <tr>
-                        <td>
-                            <img src="assets/images/team/03.webp" alt="Michael Chen"
-                                style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%;">
-                        </td>
-                        <th>Michael Chen</th>
-                        <td>Site Supervisor</td>
-                        <td>m.chen&#64;exm.com</td>
-                        <td>+1 (555) 345-6789</td>
-                        <th>Lodhi's Arcade</th>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>
-                                    Delete</a>
-                            </div>
-                        </td>
+                    <tr *ngIf="error && !loading">
+                        <td colspan="7" class="text-center text-danger" style="white-space: pre-line;">{{ error }}</td>
                     </tr>
-                    <tr>
-                        <td>
-                            <img src="assets/images/team/04.webp" alt="Emily Davis"
-                                style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%;">
-                        </td>
-                        <th>Emily Davis</th>
-                        <td>Architect</td>
-                        <td>emily.d&#64;exm.com</td>
-                        <td>+1 (555) 456-7890</td>
-                        <th>Rizwan Heights</th>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>
-                                    Delete</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <img src="assets/images/team/05.webp" alt="Robert Martinez"
-                                style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%;">
-                        </td>
-                        <th>Robert Martinez</th>
-                        <td>Safety Officer</td>
-                        <td>rob.m&#64;exm.com</td>
-                        <td>+1 (555) 567-8901</td>
-                        <th>Ali's Home</th>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>
-                                    Delete</a>
-                            </div>
-                        </td>
+                    <tr *ngIf="!loading && !error && members.length === 0">
+                        <td colspan="7" class="text-center">No team members found.</td>
                     </tr>
                 </tbody>
             </table>

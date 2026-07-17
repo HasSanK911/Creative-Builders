@@ -23,76 +23,27 @@
             </thead>
 
             <tbody>
-                <tr>
-                    <th>What is included in project site preparation?</th>
-                    <td>Site preparation includes land clearing, grading, soil testing, utility planning, and setting up
-                        the initial project layout...</td>
-                    <td>
-                        <div class="d-flex gap-3">
-                            <a href="javascript:void(0)" class="cursor-pointer d-flex gap-1 align-items-center text-primary">
-                                <i class="fa-regular fa-pen-to-square"></i> Edit
-                            </a>
-                            <a href="javascript:void(0)" class="cursor-pointer d-flex gap-1 align-items-center text-danger">
-                                <i class="fa-light fa-trash-can"></i> Delete
-                            </a>
-                        </div>
-                    </td>
+                <tr *ngIf="loading">
+                    <td colspan="3" class="text-center">Loading FAQs...</td>
                 </tr>
-                <tr>
-                    <th>How long does it take to complete a construction project?</th>
-                    <td>Project timelines vary based on size, complexity, and site conditions. A typical residential
-                        project takes 3-6 months...</td>
-                    <td>
-                        <div class="d-flex gap-3">
-                            <a href="javascript:void(0)" class="cursor-pointer d-flex gap-1 align-items-center text-primary">
-                                <i class="fa-regular fa-pen-to-square"></i> Edit
-                            </a>
-                            <a href="javascript:void(0)" class="cursor-pointer d-flex gap-1 align-items-center text-danger">
-                                <i class="fa-light fa-trash-can"></i> Delete
-                            </a>
-                        </div>
-                    </td>
+                <tr *ngIf="error">
+                    <td colspan="3" class="text-center text-danger" style="white-space: pre-line;">{{ error }}</td>
                 </tr>
-                <tr>
-                    <th>Do I need permits for my construction project?</th>
-                    <td>Yes, most construction projects require permits. We handle all permit applications and ensure
-                        compliance with local regulations...</td>
-                    <td>
-                        <div class="d-flex gap-3">
-                            <a href="javascript:void(0)" class="cursor-pointer d-flex gap-1 align-items-center text-primary">
-                                <i class="fa-regular fa-pen-to-square"></i> Edit
-                            </a>
-                            <a href="javascript:void(0)" class="cursor-pointer d-flex gap-1 align-items-center text-danger">
-                                <i class="fa-light fa-trash-can"></i> Delete
-                            </a>
-                        </div>
-                    </td>
+                <tr *ngIf="!loading && !error && faqs.length === 0">
+                    <td colspan="3" class="text-center">No FAQs found.</td>
                 </tr>
-                <tr>
-                    <th>Is maintenance required after construction?</th>
-                    <td>Yes, regular maintenance ensures longevity. We provide maintenance schedules and support for all
-                        completed projects...</td>
+                <tr *ngFor="let faq of faqs">
+                    <th>{{ faq.question }}</th>
+                    <td>{{ faq.answer.length > 100 ? (faq.answer | slice:0:100) + '...' : faq.answer }}</td>
                     <td>
                         <div class="d-flex gap-3">
-                            <a href="javascript:void(0)" class="cursor-pointer d-flex gap-1 align-items-center text-primary">
+                            <a [routerLink]="['../add-faq']" [queryParams]="{ id: faq.id }"
+                                class="cursor-pointer d-flex gap-1 align-items-center text-primary">
                                 <i class="fa-regular fa-pen-to-square"></i> Edit
                             </a>
-                            <a href="javascript:void(0)" class="cursor-pointer d-flex gap-1 align-items-center text-danger">
-                                <i class="fa-light fa-trash-can"></i> Delete
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <th>What materials do you use for construction projects?</th>
-                    <td>We use certified, durable materials that meet industry safety standards. Material selection is
-                        tailored to project requirements...</td>
-                    <td>
-                        <div class="d-flex gap-3">
-                            <a href="javascript:void(0)" class="cursor-pointer d-flex gap-1 align-items-center text-primary">
-                                <i class="fa-regular fa-pen-to-square"></i> Edit
-                            </a>
-                            <a href="javascript:void(0)" class="cursor-pointer d-flex gap-1 align-items-center text-danger">
+                            <a href="javascript:void(0)"
+                                class="cursor-pointer d-flex gap-1 align-items-center text-danger"
+                                (click)="deleteFaq(faq.id!)">
                                 <i class="fa-light fa-trash-can"></i> Delete
                             </a>
                         </div>

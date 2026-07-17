@@ -1,48 +1,139 @@
-import { Component, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { ApiService } from '../../../Services/api.service';
+import { Testimonial } from '../../../models/api.models';
 
 @Component({
   selector: 'app-add-testimonials',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './add-testimonials.component.html',
   styleUrl: './add-testimonials.component.css'
 })
-export class AddTestimonialsComponent implements AfterViewInit {
+export class AddTestimonialsComponent implements OnInit, OnDestroy {
 
-  constructor(private el: ElementRef) { }
+  id: number | null = null;
 
-  ngAfterViewInit(): void {
-    this.initClientImageUpload();
+  clientName: string = '';
+  designation: string = '';
+  feedback: string = '';
+  /** The select emits "1".."5"; coerced to a number on save. */
+  rating: string = '';
+
+  file: File | null = null;
+  /** Object URL of a freshly picked file, or the absolute URL the API handed out. */
+  preview: string | null = null;
+  private objectUrl: string | null = null;
+
+  loading: boolean = false;
+  saving: boolean = false;
+  error: string = '';
+
+  constructor(
+    private api: ApiService<Testimonial>,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
+
+  get title(): string {
+    return this.id ? 'Edit Testimonial' : 'Add Testimonial';
   }
 
-  private initClientImageUpload(): void {
-    const uploadBtn = this.el.nativeElement.querySelector('#clientUploadBtn');
-    const fileInput = this.el.nativeElement.querySelector('#clientFileInput');
-    const previewImage = this.el.nativeElement.querySelector('#clientPreviewImage');
-    const placeholderText = this.el.nativeElement.querySelector('#clientPlaceholderText');
+  get saveLabel(): string {
+    if (this.saving) {
+      return 'Saving...';
+    }
+    return this.id ? 'Update Testimonial' : 'Save Testimonial';
+  }
 
-    if (uploadBtn && fileInput) {
-      uploadBtn.addEventListener('click', (e: Event) => {
-        e.preventDefault();
-        fileInput.click();
-      });
+  ngOnInit(): void {
+    const id = this.route.snapshot.queryParamMap.get('id');
+    if (!id) {
+      return;
+    }
 
-      fileInput.addEventListener('change', () => {
-        const file = fileInput.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = (e: any) => {
-            if (previewImage) {
-              previewImage.src = e.target.result;
-              previewImage.style.display = 'block';
-            }
-            if (placeholderText) {
-              placeholderText.style.display = 'none';
-            }
-          };
-          reader.readAsDataURL(file);
-        }
-      });
+    this.id = Number(id);
+    this.loading = true;
+    this.api.getById(`testimonials/${this.id}`).subscribe({
+      next: testimonial => {
+        this.clientName = testimonial.clientName;
+        this.designation = testimonial.designation;
+        this.feedback = testimonial.feedback;
+        this.rating = testimonial.rating ? String(testimonial.rating) : '';
+        this.preview = testimonial.clientImage;
+        this.loading = false;
+      },
+      error: err => {
+        this.error = err.message;
+        this.loading = false;
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.revokeObjectUrl();
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    this.revokeObjectUrl();
+    this.file = file;
+    this.objectUrl = URL.createObjectURL(file);
+    this.preview = this.objectUrl;
+
+    // Let the same file be picked again after another choice.
+    input.value = '';
+  }
+
+  save(): void {
+    if (this.saving) {
+      return;
+    }
+
+    this.saving = true;
+    this.error = '';
+
+    // An unchanged image round-trips as the URL the API handed out.
+    const image$: Observable<string | null> = this.file
+      ? this.api.upload(this.file).pipe(map(uploaded => uploaded.path))
+      : of(this.preview);
+
+    image$.pipe(
+      switchMap(clientImage => {
+        const payload = {
+          clientImage,
+          clientName: this.clientName,
+          designation: this.designation,
+          feedback: this.feedback,
+          rating: this.rating ? Number(this.rating) : null
+        };
+
+        return this.id
+          ? this.api.update(`testimonials/${this.id}`, payload)
+          : this.api.create('testimonials', payload);
+      })
+    ).subscribe({
+      next: () => this.router.navigate(['../testimonials-list'], { relativeTo: this.route }),
+      error: err => {
+        this.error = err.message;
+        this.saving = false;
+      }
+    });
+  }
+
+  private revokeObjectUrl(): void {
+    if (this.objectUrl) {
+      URL.revokeObjectURL(this.objectUrl);
+      this.objectUrl = null;
     }
   }
 }

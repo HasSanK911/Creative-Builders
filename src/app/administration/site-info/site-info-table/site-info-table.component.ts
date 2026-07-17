@@ -1,15 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-interface SiteInfo {
-  name: string;
-  blockNo: string;
-  streetNo: string;
-  houseNo: string;
-  status: 'Completed' | 'Pending' | 'Dispute';
-}
+import { ApiService } from '../../../Services/api.service';
+import { SiteInfo } from '../../../models/api.models';
 
 @Component({
   selector: 'app-site-info-table',
@@ -18,20 +12,44 @@ interface SiteInfo {
   templateUrl: './site-info-table.component.html',
   styleUrl: './site-info-table.component.css'
 })
-export class SiteInfoTableComponent {
+export class SiteInfoTableComponent implements OnInit {
   searchText: string = '';
   filterStatus: string = 'All';
   isDropdownOpen: boolean = false;
 
-  siteInfos: SiteInfo[] = [
-    { name: 'Rizwan Heights', blockNo: 'A', streetNo: '1', houseNo: '1', status: 'Completed' },
-    { name: "Ali's Home", blockNo: 'B', streetNo: '2', houseNo: '2', status: 'Pending' },
-    { name: "Lodhi's Arcade", blockNo: 'C', streetNo: '3', houseNo: '3', status: 'Dispute' }
-  ];
+  // The list endpoint returns header rows only — items/attendance/receipts are not loaded here.
+  siteInfos: SiteInfo[] = [];
+
+  loading = false;
+  error: string | null = null;
+
+  constructor(private api: ApiService<SiteInfo>) { }
+
+  ngOnInit() {
+    this.loadSiteInfos();
+  }
+
+  loadSiteInfos() {
+    this.loading = true;
+    this.error = null;
+
+    this.api.getAll('site-infos').subscribe({
+      next: siteInfos => {
+        this.siteInfos = siteInfos;
+        this.loading = false;
+      },
+      error: err => {
+        this.error = err.message;
+        this.loading = false;
+      }
+    });
+  }
 
   get filteredSiteInfos(): SiteInfo[] {
+    const query = this.searchText.trim().toLowerCase();
+
     return this.siteInfos.filter(site => {
-      const matchesSearch = site.name.toLowerCase().includes(this.searchText.toLowerCase());
+      const matchesSearch = !query || (site.siteName ?? '').toLowerCase().includes(query);
       const matchesFilter = this.filterStatus === 'All' || site.status === this.filterStatus;
 
       return matchesSearch && matchesFilter;
@@ -49,6 +67,17 @@ export class SiteInfoTableComponent {
   selectStatus(status: string) {
     this.filterStatus = status;
     this.isDropdownOpen = false;
+  }
+
+  deleteSiteInfo(site: SiteInfo) {
+    if (!confirm(`Delete the site information sheet for "${site.siteName}"? This also removes its items, attendance and receipts.`)) {
+      return;
+    }
+
+    this.api.delete(`site-infos/${site.id}`).subscribe({
+      next: () => this.loadSiteInfos(),
+      error: err => this.error = err.message
+    });
   }
 
   getStatusClass(status: string): string {

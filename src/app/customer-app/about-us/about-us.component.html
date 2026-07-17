@@ -34,7 +34,8 @@
                 <div class="col-lg-6 order-change">
                     <div class="about-bento-style-images bento-left-style">
                         <div class="thumbnail image-1">
-                            <img data-parallax='{"x": 0, "y": -20}' src="assets/images/about/bento/01.webp" alt="">
+                            <img data-parallax='{"x": 0, "y": -20}' [appSrc]="about?.image"
+                                fallback="assets/images/about/bento/01.webp" alt="">
                         </div>
                         <div class="thumbnail image-2">
                             <img data-parallax='{"x": 0, "y": 60}' src="assets/images/about/bento/02.webp" alt="">
@@ -48,30 +49,18 @@
                     <div class="left-side-content">
                         <div class="section-title-area-4" data-sal="slide-up" data-sal-duration="800"
                             data-sal-delay="200">
-                            <p class="sub-title cg">ABOUT COMPANY</p>
-                            <h2 class="section-title tmp-title-split mb--25">Powering The Business In Smart Way</h2>
+                            <p class="sub-title cg">{{ about?.sectionLabel || 'ABOUT COMPANY' }}</p>
+                            <h2 class="section-title tmp-title-split mb--25">{{ about?.mainHeading || 'Powering The Business In Smart Way' }}</h2>
                         </div>
-                        <p class="desc mb--30" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">Our
-                            service doesn’t stop at installation. We provide comprehensive maintenance and support
-                            packages to ensure your system continues to perform at its best.</p>
+                        <p class="desc mb--30" data-sal="slide-up" data-sal-duration="800" data-sal-delay="300">{{
+                            about?.mainDescription || 'Our service doesn’t stop at installation. We provide comprehensive
+                            maintenance and support packages to ensure your system continues to perform at its best.' }}</p>
                         <ul class="about-feature-list" data-sal="slide-up" data-sal-duration="800" data-sal-delay="400">
-                            <li class="single">
+                            <li class="single" *ngFor="let feature of aboutFeatures()">
                                 <div class="icon">
                                     <i class="far fa-check"></i>
                                 </div>
-                                <span>Expert in Sustainable & Renewable Building Practices</span>
-                            </li>
-                            <li class="single">
-                                <div class="icon">
-                                    <i class="far fa-check"></i>
-                                </div>
-                                <span>Professional Construction & Site Management</span>
-                            </li>
-                            <li class="single">
-                                <div class="icon">
-                                    <i class="far fa-check"></i>
-                                </div>
-                                <span>Coordinator of Residential Construction Projects</span>
+                                <span>{{ feature }}</span>
                             </li>
                         </ul>
 
@@ -83,7 +72,9 @@
                             <div class="content">
                                 <h3 class="title">Strong Foundation</h3>
                                 <p class="disc">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro tenetur qui laborum.
+                                    {{ about?.foundationDescription || 'We build on solid ground — careful planning,
+                                    certified materials and a team that stays with the project from the first survey to
+                                    the final handover.' }}
                                 </p>
                             </div>
                         </div>
@@ -97,9 +88,9 @@
                                     <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
                                 </span>
                             </a>
-                            <a href="tel:+92324588007" class="text-btn" data-sal="slide-up"
+                            <a [href]="telHref(contact?.phone ?? '+92 324 588007')" class="text-btn" data-sal="slide-up"
                                 data-sal-duration="800" data-sal-delay="600"><i class="fa-regular fa-phone"></i> <span
-                                    class="hover-moving-primary">+92 324 588007</span></a>
+                                    class="hover-moving-primary">{{ contact?.phone || '+92 324 588007' }}</span></a>
                         </div>
                     </div>
                 </div>
@@ -119,10 +110,10 @@
     <div class="section-inner mt--60 mt_sm--40">
         <div class="swiper tmpWorkingSlider">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
+                <div class="swiper-slide" *ngFor="let item of gallery; let i = index">
                     <div class="working-process-wrapper7 cp-none">
                         <div class="image-area">
-                            <img src="assets/images/working-process/21.webp" alt="">
+                            <img [appSrc]="item.image" [fallback]="workFallback(i)" [alt]="item.title || 'project'">
                             <a href="#" class="tmp-icon-overlay-link-btn btn-bg-dark btn-xl">
                                 <span class="tmp-btn-overlay">
                                     <i class="tmp-icon fa-solid fa-arrow-right"></i>
@@ -131,133 +122,8 @@
                             </a>
                         </div>
                         <div class="content">
-                            <p>Residential Building</p>
-                            <h3 class="title"><a href="#">Modern House</a></h3>
-                            <a href="#" class="tmp-btn btn-border hover-icon-reverse btn-sm">
-                                <span class="icon-reverse-wrapper">
-                                    <span class="btn-text">View Details</span>
-                                    <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
-                                    <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="working-process-wrapper7 cp-none">
-                        <div class="image-area">
-                            <img src="assets/images/working-process/22.webp" alt="">
-                            <a href="#" class="tmp-icon-overlay-link-btn btn-bg-dark btn-xl">
-                                <span class="tmp-btn-overlay">
-                                    <i class="tmp-icon fa-solid fa-arrow-right"></i>
-                                    <i class="tmp-icon-bottom fa-solid fa-arrow-right"></i>
-                                </span>
-                            </a>
-                        </div>
-                        <div class="content">
-                            <p>Commercial Construction</p>
-                            <h3 class="title"><a href="#">Office Block</a></h3>
-                            <a href="#" class="tmp-btn btn-border hover-icon-reverse btn-sm">
-                                <span class="icon-reverse-wrapper">
-                                    <span class="btn-text">View Details</span>
-                                    <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
-                                    <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="working-process-wrapper7 cp-none">
-                        <div class="image-area">
-                            <img src="assets/images/working-process/23.webp" alt="">
-                            <a href="#" class="tmp-icon-overlay-link-btn btn-bg-dark btn-xl">
-                                <span class="tmp-btn-overlay">
-                                    <i class="tmp-icon fa-solid fa-arrow-right"></i>
-                                    <i class="tmp-icon-bottom fa-solid fa-arrow-right"></i>
-                                </span>
-                            </a>
-                        </div>
-                        <div class="content">
-                            <p>Industrial Project</p>
-                            <h3 class="title"><a href="#">Factory Build</a></h3>
-                            <a href="#" class="tmp-btn btn-border hover-icon-reverse btn-sm">
-                                <span class="icon-reverse-wrapper">
-                                    <span class="btn-text">View Details</span>
-                                    <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
-                                    <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="working-process-wrapper7 cp-none">
-                        <div class="image-area">
-                            <img src="assets/images/working-process/21.webp" alt="">
-                            <a href="#" class="tmp-icon-overlay-link-btn btn-bg-dark btn-xl">
-                                <span class="tmp-btn-overlay">
-                                    <i class="tmp-icon fa-solid fa-arrow-right"></i>
-                                    <i class="tmp-icon-bottom fa-solid fa-arrow-right"></i>
-                                </span>
-                            </a>
-                        </div>
-                        <div class="content">
-                            <p>Road & Bridge Work</p>
-                            <h3 class="title"><a href="#">City Bridge</a></h3>
-                            <a href="#" class="tmp-btn btn-border hover-icon-reverse btn-sm">
-                                <span class="icon-reverse-wrapper">
-                                    <span class="btn-text">View Details</span>
-                                    <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
-                                    <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="working-process-wrapper7 cp-none">
-                        <div class="image-area">
-                            <img src="assets/images/working-process/22.webp" alt="">
-                            <a href="#" class="tmp-icon-overlay-link-btn btn-bg-dark btn-xl">
-                                <span class="tmp-btn-overlay">
-                                    <i class="tmp-icon fa-solid fa-arrow-right"></i>
-                                    <i class="tmp-icon-bottom fa-solid fa-arrow-right"></i>
-                                </span>
-                            </a>
-                        </div>
-                        <div class="content">
-                            <p>Renovation Project</p>
-                            <h3 class="title"><a href="#">Home Remodel</a></h3>
-                            <a href="#" class="tmp-btn btn-border hover-icon-reverse btn-sm">
-                                <span class="icon-reverse-wrapper">
-                                    <span class="btn-text">View Details</span>
-                                    <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
-                                    <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="swiper-slide">
-                    <div class="working-process-wrapper7 cp-none">
-                        <div class="image-area">
-                            <img src="assets/images/working-process/23.webp" alt="">
-                            <a href="#" class="tmp-icon-overlay-link-btn btn-bg-dark btn-xl">
-                                <span class="tmp-btn-overlay">
-                                    <i class="tmp-icon fa-solid fa-arrow-right"></i>
-                                    <i class="tmp-icon-bottom fa-solid fa-arrow-right"></i>
-                                </span>
-                            </a>
-                        </div>
-                        <div class="content">
-                            <p>Architecture Design</p>
-                            <h3 class="title"><a href="#">Urban Design</a></h3>
+                            <p>{{ item.siteName || 'Project' }}</p>
+                            <h3 class="title"><a href="#">{{ item.title || item.siteName || 'Project' }}</a></h3>
                             <a href="#" class="tmp-btn btn-border hover-icon-reverse btn-sm">
                                 <span class="icon-reverse-wrapper">
                                     <span class="btn-text">View Details</span>

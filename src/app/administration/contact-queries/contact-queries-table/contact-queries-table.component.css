@@ -1,0 +1,31 @@
+.unread-row {
+    font-weight: 600;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-badge.new {
+    color: #dc3545;
+    background: rgba(220, 53, 69, .1);
+}
+
+.status-badge.read {
+    color: #198754;
+    background: rgba(25, 135, 84, .1);
+}
+
+.topic-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    margin-right: 4px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #555;
+    background: rgba(0, 0, 0, .05);
+}

@@ -8,7 +8,7 @@
                         <div class="meta">
                             <a (click)="gotoHome()" class="prev">Home</a>
                             <span><i class="fa-regular fa-chevron-right"></i></span>
-                            <a href="#" class="next">Login</a>
+                            <a href="javascript:void(0)" class="next">Login</a>
                         </div>
                     </div>
                     <!-- bread crumb inner wrapper end -->
@@ -25,20 +25,36 @@
                         <p class="h4 text-dark text-center mb-0">Login into your account</p>
                         <span class="mb-4 text-center w-100">Please enter your email and password to login into your account</span>
                     </div>
-                    <form action="#">
+                    <form (ngSubmit)="login()">
                         <div class="single-input">
-                            <label for="name">Email</label>
-                            <input type="text" id="name" placeholder="Email" required=""
-                                autocomplete="off">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="Email" required
+                                autocomplete="username" [(ngModel)]="email">
                         </div>
                         <div class="single-input">
                             <label for="password">Password</label>
-                            <input type="password" id="password" placeholder="Password*" required="" autocomplete="off">
+                            <input type="password" id="password" name="password" placeholder="Password*" required
+                                autocomplete="current-password" [(ngModel)]="password">
                         </div>
-                        <button type="button" (click)="gotoAdmin()"
+
+                        <!-- The theme styles form inputs as full-width 50px-tall text fields and takes
+                             them out of flow with position:absolute, which would collapse the checkbox
+                             into a sliver underneath its own label. Pin it back into the flex row. -->
+                        <div class="d-flex align-items-center gap-2 mb--20">
+                            <input type="checkbox" id="rememberMe" name="rememberMe" [(ngModel)]="rememberMe"
+                                style="position: static; width: 16px; height: 16px; min-height: 0; flex: 0 0 auto; margin: 0; padding: 0; cursor: pointer;">
+                            <label for="rememberMe" class="mb-0" style="cursor: pointer;">Remember me</label>
+                        </div>
+
+                        <div *ngIf="error" class="alert alert-danger py-2 mb--20" role="alert"
+                            style="color: #dc3545; background: rgba(220,53,69,.08); border-radius: 6px; padding: 10px 14px; white-space: pre-line;">
+                            {{ error }}
+                        </div>
+
+                        <button type="submit" [disabled]="loading"
                             class="tmp-btn btn-primary hover-icon-reverse mw-100">
                             <span class="icon-reverse-wrapper">
-                                <span class="btn-text">Log In</span>
+                                <span class="btn-text">{{ loading ? 'Logging in...' : 'Log In' }}</span>
                                 <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
                                 <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
                             </span>
@@ -46,6 +62,15 @@
 
 
                     </form>
+
+                    <!-- Secondary action: leave the admin login and return to the public site.
+                         Styled as a muted back link so it never competes with the orange Log In button. -->
+                    <div class="text-center mt-3">
+                        <a (click)="gotoHome()" href="javascript:void(0)" class="back-to-site">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            <span>Back to main website</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,181 +1,179 @@
-import { Component, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+import { ApiService } from '../../../Services/api.service';
+import { GalleryItem, Site } from '../../../models/api.models';
 
 @Component({
   selector: 'app-add-gallery-item',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './add-gallery-item.component.html',
   styleUrl: './add-gallery-item.component.css'
 })
-export class AddGalleryItemComponent implements AfterViewInit {
+export class AddGalleryItemComponent implements OnInit, OnDestroy {
 
-  private selectedFiles: File[] = [];
+  id: number | null = null;
 
-  constructor(private el: ElementRef) { }
+  title: string = '';
+  siteId: number | null = null;
 
-  ngAfterViewInit(): void {
-    this.initImageUpload();
-    this.initCustomSelects();
+  sites: Site[] = [];
+  isSiteDropdownOpen: boolean = false;
+
+  /** One entry per freshly picked file. Object URLs are synchronous, so the order matches. */
+  previews: { file: File; url: string }[] = [];
+  /** The image already on the record; shown until a replacement is picked. */
+  existingImage: string | null = null;
+  hoveredPreview: number | null = null;
+
+  loading: boolean = false;
+  saving: boolean = false;
+  error: string = '';
+
+  constructor(
+    private api: ApiService<GalleryItem>,
+    private siteApi: ApiService<Site>,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
+
+  get heading(): string {
+    return this.id ? 'Edit Gallery Image' : 'Add Gallery Images';
   }
 
-  private initImageUpload(): void {
-    const uploadBtn = this.el.nativeElement.querySelector('#uploadBtn');
-    const fileInput = this.el.nativeElement.querySelector('#fileInput');
-    const imagePreviewGrid = this.el.nativeElement.querySelector('#imagePreviewGrid');
-    const placeholderText = this.el.nativeElement.querySelector('#placeholderText');
+  get uploadLabel(): string {
+    return this.previews.length
+      ? `Upload Images (${this.previews.length} selected)`
+      : 'Upload Images';
+  }
 
-    if (uploadBtn && fileInput) {
-      uploadBtn.addEventListener('click', (e: Event) => {
-        e.preventDefault();
-        fileInput.click();
-      });
-
-      fileInput.addEventListener('change', () => {
-        const files = Array.from(fileInput.files || []) as File[];
-        if (files.length > 0) {
-          // Add new files to the selectedFiles array (avoid duplicates by name and size)
-          files.forEach(file => {
-            const isDuplicate = this.selectedFiles.some(
-              existing => existing.name === file.name && existing.size === file.size
-            );
-            if (!isDuplicate) {
-              this.selectedFiles.push(file);
-            }
-          });
-
-          // Hide placeholder text
-          if (placeholderText) {
-            placeholderText.style.display = 'none';
-          }
-
-          // Clear all previews and re-render from selectedFiles
-          if (imagePreviewGrid) {
-            const existingPreviews = imagePreviewGrid.querySelectorAll('.image-preview-item');
-            existingPreviews.forEach((preview: Element) => preview.remove());
-          }
-
-          // Create preview for each selected file
-          this.selectedFiles.forEach((file: File, index: number) => {
-            if (file.type.startsWith('image/')) {
-              const reader = new FileReader();
-              reader.onload = (e: any) => {
-                const previewItem = document.createElement('div');
-                previewItem.className = 'image-preview-item';
-                previewItem.style.cssText = `
-                  position: relative;
-                  border-radius: 8px;
-                  overflow: hidden;
-                  aspect-ratio: 1/1;
-                  border: 2px solid var(--color-border);
-                `;
-
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.alt = `${file.name}`;
-                img.title = file.name;
-                img.style.cssText = `
-                  width: 100%;
-                  height: 100%;
-                  object-fit: cover;
-                `;
-
-                const removeBtn = document.createElement('button');
-                removeBtn.type = 'button';
-                removeBtn.innerHTML = '<i class="fa-solid fa-times"></i>';
-                removeBtn.style.cssText = `
-                  position: absolute;
-                  top: 5px;
-                  right: 5px;
-                  background: rgba(220, 53, 69, 0.9);
-                  color: white;
-                  border: none;
-                  border-radius: 50%;
-                  width: 25px;
-                  height: 25px;
-                  cursor: pointer;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  font-size: 12px;
-                  transition: transform 0.2s;
-                `;
-                removeBtn.addEventListener('mouseenter', () => {
-                  removeBtn.style.transform = 'scale(1.1)';
-                });
-                removeBtn.addEventListener('mouseleave', () => {
-                  removeBtn.style.transform = 'scale(1)';
-                });
-                removeBtn.addEventListener('click', () => {
-                  // Remove from selectedFiles array
-                  this.selectedFiles.splice(index, 1);
-                  previewItem.remove();
-
-                  // Show placeholder if no images left
-                  const remainingPreviews = imagePreviewGrid?.querySelectorAll('.image-preview-item');
-                  if (remainingPreviews && remainingPreviews.length === 0 && placeholderText) {
-                    placeholderText.style.display = 'block';
-                  }
-
-                  // Update the button text
-                  this.updateUploadButtonText();
-                });
-
-                previewItem.appendChild(img);
-                previewItem.appendChild(removeBtn);
-                imagePreviewGrid?.appendChild(previewItem);
-              };
-              reader.readAsDataURL(file);
-            }
-          });
-
-          // Update button text to show count
-          this.updateUploadButtonText();
-
-          // Clear the file input so the same file can be selected again if removed
-          fileInput.value = '';
-        }
-      });
+  get saveLabel(): string {
+    if (this.saving) {
+      return 'Saving...';
     }
+    return this.id ? 'Update Gallery Image' : 'Save Gallery Images';
   }
 
-  private updateUploadButtonText(): void {
-    const uploadBtn = this.el.nativeElement.querySelector('#uploadBtn .btn-text');
-    if (uploadBtn) {
-      const count = this.selectedFiles.length;
-      if (count === 0) {
-        uploadBtn.textContent = 'Upload Images';
-      } else {
-        uploadBtn.textContent = `Upload Images (${count} selected)`;
+  /** Resolved from the loaded sites, so it survives the site list arriving after the record. */
+  get selectedSiteName(): string {
+    return this.sites.find(site => site.id === this.siteId)?.name ?? '';
+  }
+
+  ngOnInit(): void {
+    this.siteApi.getAll('sites').subscribe({
+      next: sites => this.sites = sites,
+      error: err => this.error = err.message
+    });
+
+    const id = this.route.snapshot.queryParamMap.get('id');
+    if (!id) {
+      return;
+    }
+
+    this.id = Number(id);
+    this.loading = true;
+    this.api.getById(`gallery/${this.id}`).subscribe({
+      next: item => {
+        this.title = item.title ?? '';
+        this.siteId = item.siteId;
+        this.existingImage = item.image;
+        this.loading = false;
+      },
+      error: err => {
+        this.error = err.message;
+        this.loading = false;
       }
-    }
+    });
   }
 
-  private initCustomSelects(): void {
-    let zIndex = 1;
+  ngOnDestroy(): void {
+    this.clearPreviews();
+  }
 
-    const selectBtns = this.el.nativeElement.querySelectorAll('.selectBtn');
-    selectBtns.forEach((btn: HTMLElement) => {
-      btn.addEventListener('click', () => {
-        const dropdown = btn.nextElementSibling as HTMLElement;
-        if (dropdown) {
-          dropdown.classList.toggle('toggle');
-          dropdown.style.zIndex = String(zIndex++);
-        }
-      });
+  selectSite(site: Site): void {
+    this.siteId = site.id ?? null;
+    this.isSiteDropdownOpen = false;
+  }
+
+  onFilesSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const files = Array.from(input.files ?? []);
+    if (!files.length) {
+      return;
+    }
+
+    // Editing swaps the one image; adding stacks a batch up for a single submit.
+    if (this.id) {
+      this.clearPreviews();
+    }
+
+    files.forEach(file => {
+      const duplicate = this.previews.some(
+        preview => preview.file.name === file.name && preview.file.size === file.size
+      );
+      if (!duplicate) {
+        this.previews.push({ file, url: URL.createObjectURL(file) });
+      }
     });
 
-    const options = this.el.nativeElement.querySelectorAll('.option');
-    options.forEach((option: HTMLElement) => {
-      option.addEventListener('click', () => {
-        const dropdown = option.parentElement as HTMLElement;
-        dropdown.classList.remove('toggle');
+    // Let a removed file be picked again.
+    input.value = '';
+  }
 
-        const selectBtn = option.closest('.select')?.children[0] as HTMLElement;
-        if (selectBtn) {
-          selectBtn.setAttribute('data-type', option.getAttribute('data-type') || '');
-          selectBtn.innerText = option.innerText;
-        }
-      });
+  removeImage(index: number): void {
+    URL.revokeObjectURL(this.previews[index].url);
+    this.previews.splice(index, 1);
+    this.hoveredPreview = null;
+  }
+
+  save(): void {
+    if (this.saving) {
+      return;
+    }
+
+    if (!this.previews.length && !this.existingImage) {
+      this.error = 'Please choose at least one image.';
+      return;
+    }
+
+    this.saving = true;
+    this.error = '';
+
+    const paths$: Observable<string[]> = this.previews.length
+      ? this.api.uploadMany(this.previews.map(preview => preview.file)).pipe(
+        map(uploaded => uploaded.map(file => file.path))
+      )
+      : of([]);
+
+    paths$.pipe(
+      switchMap(paths => {
+        const title = this.title.trim() || null;
+
+        // An unchanged image round-trips as the URL the API handed out.
+        return this.id
+          ? this.api.update(`gallery/${this.id}`, {
+            image: paths.length ? paths[0] : this.existingImage,
+            title,
+            siteId: this.siteId
+          })
+          : this.api.create('gallery', { images: paths, title, siteId: this.siteId });
+      })
+    ).subscribe({
+      next: () => this.router.navigate(['../gallery-item-list'], { relativeTo: this.route }),
+      error: err => {
+        this.error = err.message;
+        this.saving = false;
+      }
     });
+  }
+
+  private clearPreviews(): void {
+    this.previews.forEach(preview => URL.revokeObjectURL(preview.url));
+    this.previews = [];
+    this.hoveredPreview = null;
   }
 }

@@ -1,13 +1,13 @@
 <div class="container-fluid">
     <div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
-    
+
         <!-- Welcome Card -->
         <div class="single-card-dashboard account-info box-dashboard-dashboard">
             <h3 class="title title-top-primary"><i class="fa-regular fa-gauge-high"></i> Dashboard Overview</h3>
-            <p style="color: var(--color-body); margin-top: 5px;">Welcome back, Mr. Chaudhry Waqas! Here's a quick summary
+            <p style="color: var(--color-body); margin-top: 5px;">Welcome back, {{ userName }}! Here's a quick summary
                 of your website content.</p>
         </div>
-    
+
         <!-- Payment Statistics -->
         <div class="row mt--10">
             <div class="col-lg-4 col-md-6">
@@ -20,7 +20,7 @@
                         </div>
                         <div>
                             <p style="color: var(--color-body); margin-bottom: 2px; font-size: 14px;">Total Earning</p>
-                            <h2 style="font-size: 28px; font-weight: 700; color: #28a745;">PKR 2,450,000</h2>
+                            <h2 style="font-size: 28px; font-weight: 700; color: #28a745;">PKR {{ (stats?.totalEarning ?? 0) | number }}</h2>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                         </div>
                         <div>
                             <p style="color: var(--color-body); margin-bottom: 2px; font-size: 14px;">Total Spent</p>
-                            <h2 style="font-size: 28px; font-weight: 700; color: #dc3545;">PKR 1,820,000</h2>
+                            <h2 style="font-size: 28px; font-weight: 700; color: #dc3545;">PKR {{ (stats?.totalSpent ?? 0) | number }}</h2>
                         </div>
                     </div>
                 </div>
@@ -51,13 +51,21 @@
                         <div>
                             <p style="color: var(--color-body); margin-bottom: 2px; font-size: 14px;">Total Projects Amount
                             </p>
-                            <h2 style="font-size: 28px; font-weight: 700; color: var(--color-primary);">PKR 4,500,000</h2>
+                            <h2 style="font-size: 28px; font-weight: 700; color: var(--color-primary);">PKR {{ (stats?.totalProjectsAmount ?? 0) | number }}</h2>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    
+
+        <div class="row mt--10" *ngIf="error">
+            <div class="col-12">
+                <div class="single-card-dashboard account-info box-dashboard-dashboard">
+                    <p class="text-danger" style="margin: 0; white-space: pre-line;">{{ error }}</p>
+                </div>
+            </div>
+        </div>
+
         <!-- Stats Cards Row 1 -->
         <div class="row mt--10">
             <div class="col-lg-3 col-md-6">
@@ -66,7 +74,8 @@
                     <div style="font-size: 32px; color: var(--color-primary); margin-bottom: 10px;">
                         <i class="fa-solid fa-building"></i>
                     </div>
-                    <h2 style="font-size: 36px; font-weight: 700; color: var(--color-heading);">03</h2>
+                    <!-- '2.0-0' keeps the theme's zero-padded look ("03") for counts under ten. -->
+                    <h2 style="font-size: 36px; font-weight: 700; color: var(--color-heading);">{{ (stats?.totalSites ?? 0) | number : '2.0-0' }}</h2>
                     <p style="color: var(--color-body); margin-top: 5px;">Total Sites</p>
                 </div>
             </div>
@@ -76,7 +85,7 @@
                     <div style="font-size: 32px; color: var(--color-primary); margin-bottom: 10px;">
                         <i class="fa-solid fa-cogs"></i>
                     </div>
-                    <h2 style="font-size: 36px; font-weight: 700; color: var(--color-heading);">06</h2>
+                    <h2 style="font-size: 36px; font-weight: 700; color: var(--color-heading);">{{ (stats?.totalServices ?? 0) | number : '2.0-0' }}</h2>
                     <p style="color: var(--color-body); margin-top: 5px;">Services</p>
                 </div>
             </div>
@@ -86,7 +95,7 @@
                     <div style="font-size: 32px; color: var(--color-primary); margin-bottom: 10px;">
                         <i class="fa-solid fa-users"></i>
                     </div>
-                    <h2 style="font-size: 36px; font-weight: 700; color: var(--color-heading);">08</h2>
+                    <h2 style="font-size: 36px; font-weight: 700; color: var(--color-heading);">{{ (stats?.totalTeamMembers ?? 0) | number : '2.0-0' }}</h2>
                     <p style="color: var(--color-body); margin-top: 5px;">Team Members</p>
                 </div>
             </div>
@@ -96,12 +105,12 @@
                     <div style="font-size: 32px; color: var(--color-primary); margin-bottom: 10px;">
                         <i class="fa-solid fa-boxes-stacked"></i>
                     </div>
-                    <h2 style="font-size: 36px; font-weight: 700; color: var(--color-heading);">15</h2>
+                    <h2 style="font-size: 36px; font-weight: 700; color: var(--color-heading);">{{ (stats?.totalMaterials ?? 0) | number : '2.0-0' }}</h2>
                     <p style="color: var(--color-body); margin-top: 5px;">Materials</p>
                 </div>
             </div>
         </div>
-        
+
         <!-- Recent Sites Table -->
         <div class="single-card-dashboard account-info box-dashboard-dashboard mt--20">
             <div class="d-flex align-items-center justify-content-between">
@@ -120,29 +129,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th>Rizwan Heights</th>
-                            <th>Building</th>
-                            <th>B Block, Citi Housing</th>
-                            <td><span class="invers-badge-minimal success">Completed</span></td>
+                        <tr *ngIf="loading">
+                            <td colspan="4" class="text-center">Loading dashboard...</td>
                         </tr>
-                        <tr>
-                            <th>Ali's Home</th>
-                            <th>Home</th>
-                            <th>D Block, Citi Housing</th>
-                            <td><span class="invers-badge-minimal color-warning">Pending</span></td>
+                        <tr *ngIf="error && !loading">
+                            <td colspan="4" class="text-center text-danger">Could not load recent sites.</td>
                         </tr>
-                        <tr>
-                            <th>Lodhi's Arcade</th>
-                            <th>Building</th>
-                            <th>E Block, Citi Housing</th>
-                            <td><span class="invers-badge-minimal color-danger">Dispute</span></td>
+                        <tr *ngFor="let site of stats?.recentSites">
+                            <th>{{ site.name }}</th>
+                            <th>{{ site.type }}</th>
+                            <th>{{ site.location }}</th>
+                            <td><span class="invers-badge-minimal" [ngClass]="getStatusClass(site.status)">{{ site.status }}</span></td>
+                        </tr>
+                        <tr *ngIf="!loading && !error && stats?.recentSites?.length === 0">
+                            <td colspan="4" class="text-center">No sites yet.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-    
+
     </div>
 
 </div>

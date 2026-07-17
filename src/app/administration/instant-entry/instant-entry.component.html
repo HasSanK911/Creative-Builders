@@ -1,0 +1,137 @@
+<div class="dash-board-content-area-wrappper mt--30 mt_sm--0 mt_md--0">
+
+    <div
+        class="single-card-dashboard account-info box-dashboard-dashboard d-flex align-items-center justify-content-between">
+        <h3 class="title title-top-primary"><i class="fa-solid fa-bolt me-3"></i>Instant Entry</h3>
+        <button type="button" class="tmp-btn btn-primary hover-icon-reverse btn-sm" (click)="saveEntries()"
+            [disabled]="saving">
+            <span class="icon-reverse-wrapper">
+                <span class="btn-text">{{ saving ? 'Saving...' : 'Save Entries' }}</span>
+                <span class="btn-icon"><i class="fa-solid fa-save"></i></span>
+                <span class="btn-icon"><i class="fa-solid fa-save"></i></span>
+            </span>
+        </button>
+    </div>
+
+    <div class="edit-account-information">
+
+        <div class="alert alert-danger" *ngIf="error" style="white-space: pre-line;">{{ error }}</div>
+        <div class="alert alert-success" *ngIf="success">{{ success }}</div>
+
+        <form action="#" (submit)="$event.preventDefault()">
+
+            <div class="input-wrapper">
+                <div class="single-input">
+                    <label>Site Name*</label>
+                    <div class="invers-modern-select">
+                        <div class="select">
+                            <div class="selectBtn" (click)="isSiteDropdownOpen = !isSiteDropdownOpen">
+                                {{ selectedSite?.name || 'Select Site' }}
+                            </div>
+                            <div class="selectDropdown" [class.toggle]="isSiteDropdownOpen">
+                                <div class="option" *ngFor="let site of sites" (click)="selectSite(site)">
+                                    {{ site.name }}
+                                </div>
+                                <div class="option" *ngIf="!sites.length">
+                                    {{ loading ? 'Loading sites...' : 'No sites found' }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="single-input">
+                    <label>Item Name*</label>
+                    <div class="invers-modern-select">
+                        <div class="select">
+                            <div class="selectBtn" (click)="isItemDropdownOpen = !isItemDropdownOpen">
+                                {{ selectedItem?.name || 'Select Item' }}
+                            </div>
+                            <div class="selectDropdown item-dropdown" [class.toggle]="isItemDropdownOpen">
+                                <input type="text" class="item-search" placeholder="Search item..."
+                                    [(ngModel)]="itemSearch" [ngModelOptions]="{standalone: true}"
+                                    (click)="$event.stopPropagation()">
+                                <div class="option" *ngFor="let item of filteredItems" (click)="selectItem(item)">
+                                    {{ item.name }}
+                                    <span class="item-section-tag">({{ item.section }})</span>
+                                </div>
+                                <div class="option" *ngIf="!filteredItems.length">No item found</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-wrapper">
+                <div class="single-input">
+                    <label for="rate">Rate*</label>
+                    <input type="number" id="rate" name="rate" placeholder="Enter Rate" [(ngModel)]="rate">
+                </div>
+                <div class="single-input">
+                    <label for="quantity">Quantity*</label>
+                    <input type="number" id="quantity" name="quantity" placeholder="Enter Quantity"
+                        [(ngModel)]="quantity">
+                </div>
+            </div>
+
+            <div class="input-wrapper">
+                <div class="single-input">
+                    <label>Total</label>
+                    <input type="text" class="total-field" [value]="total || 0" readonly>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end mb-3">
+                <button type="button" class="tmp-btn btn-info hover-icon-reverse btn-sm" (click)="addEntry()">
+                    <span class="icon-reverse-wrapper">
+                        <span class="btn-text">Add Entry</span>
+                        <span class="btn-icon"><i class="fa-solid fa-plus"></i></span>
+                        <span class="btn-icon"><i class="fa-solid fa-plus"></i></span>
+                    </span>
+                </button>
+            </div>
+
+            <!-- Added Entries -->
+            <h4 class="title mt-4">Added Entries</h4>
+            <div class="invers-dashboard-table table-responsive mobile-table-750 mt-3">
+                <table class="invers-table table table-borderless">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Site Name</th>
+                            <th>Item Name</th>
+                            <th>Rate</th>
+                            <th>Qty</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let entry of entries; let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ entry.siteName }}</td>
+                            <td>{{ entry.item }}</td>
+                            <td>{{ entry.rate | number }}</td>
+                            <td>{{ entry.quantity | number }}</td>
+                            <td>{{ entry.total | number }}</td>
+                            <td>
+                                <a role="button" class="text-danger" (click)="removeEntry(i)">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr *ngIf="!entries.length">
+                            <td colspan="7" class="text-center">No entries added yet.</td>
+                        </tr>
+                        <tr *ngIf="entries.length" class="entries-total-row">
+                            <td colspan="5">Grand Total</td>
+                            <td>{{ getEntriesTotal() | number }}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+
+</div>

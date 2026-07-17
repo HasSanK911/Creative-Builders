@@ -25,85 +25,31 @@
                 </thead>
 
                 <tbody>
-                    <tr>
+                    <tr *ngFor="let item of items">
                         <td>
-                            <img src="assets/images/gallery/01.webp" alt="Foundation Work"
+                            <img *ngIf="item.image" [src]="item.image" [alt]="item.title || 'Gallery image'"
                                 style="width: 80px; height: 60px; object-fit: cover; border-radius: 4px;">
                         </td>
-                        <th>Foundation Work</th>
-                        <th>Rizwan Heights</th>
+                        <th>{{ item.title }}</th>
+                        <th>{{ item.siteName }}</th>
                         <td>
                             <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>
+                                <a [routerLink]="['../add-gallery-item']" [queryParams]="{ id: item.id }" role="button"
+                                    class="text-primary"><i class="fa-regular fa-pen-to-square"></i> Edit</a>
+                                <a href="javascript:void(0)" (click)="remove(item)" role="button"
+                                    class="text-danger"><i class="fa-regular fa-trash-can"></i>
                                     Delete</a>
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <img src="assets/images/gallery/02.webp" alt="Steel Structure"
-                                style="width: 80px; height: 60px; object-fit: cover; border-radius: 4px;">
-                        </td>
-                        <th>Steel Structure</th>
-                        <th>Rizwan Heights</th>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>
-                                    Delete</a>
-                            </div>
-                        </td>
+                    <tr *ngIf="loading">
+                        <td colspan="4" class="text-center">Loading gallery...</td>
                     </tr>
-                    <tr>
-                        <td>
-                            <img src="assets/images/gallery/03.webp" alt="Interior Design"
-                                style="width: 80px; height: 60px; object-fit: cover; border-radius: 4px;">
-                        </td>
-                        <th>Interior Design</th>
-                        <th>Ali's Home</th>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>
-                                    Delete</a>
-                            </div>
-                        </td>
+                    <tr *ngIf="error && !loading">
+                        <td colspan="4" class="text-center text-danger" style="white-space: pre-line;">{{ error }}</td>
                     </tr>
-                    <tr>
-                        <td>
-                            <img src="assets/images/gallery/04.webp" alt="Exterior Finishing"
-                                style="width: 80px; height: 60px; object-fit: cover; border-radius: 4px;">
-                        </td>
-                        <th>Exterior Finishing</th>
-                        <th>Lodhi's Arcade</th>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>
-                                    Delete</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <img src="assets/images/gallery/05.webp" alt="Plumbing Work"
-                                style="width: 80px; height: 60px; object-fit: cover; border-radius: 4px;">
-                        </td>
-                        <th>Plumbing Work</th>
-                        <th>Ali's Home</th>
-                        <td>
-                            <div class="d-flex gap-3">
-                                <a href="#" role="button" class="text-primary"><i
-                                        class="fa-regular fa-pen-to-square"></i> Edit</a>
-                                <a href="#" role="button" class="text-danger"><i class="fa-regular fa-trash-can"></i>
-                                    Delete</a>
-                            </div>
-                        </td>
+                    <tr *ngIf="!loading && !error && items.length === 0">
+                        <td colspan="4" class="text-center">No gallery images found.</td>
                     </tr>
                 </tbody>
             </table>
