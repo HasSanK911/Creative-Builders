@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   environmentName: 'development',
-  apiUrl: 'http://127.0.0.1:8000/api',
+  apiUrl: 'https://creative-builders-backend-s6tfwira.on-forge.com/api',
   CompanyName: 'Creative Builders',
 };
 
